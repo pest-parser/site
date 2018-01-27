@@ -1,8 +1,13 @@
 body {
   margin: 0;
-  /* background-color: #192233; */
   background: repeating-linear-gradient(-45deg, #202c42, #202c42 0.5pt, #192233 0, #192233 20pt);
   font-size: calc(12px + 1vw * 0.35);
+}
+
+@media all and (min-width: 801px) {
+  body {
+    font-size: 14.7833px;
+  }
 }
 
 .container-main {
