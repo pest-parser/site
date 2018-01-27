@@ -9,41 +9,48 @@
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Space+Mono:700" rel="stylesheet">
     <script type="text/javascript">
+      var START_SEED = 5;
+      var seed = START_SEED;
+
+      function random() {
+          var x = Math.sin(seed++) * 10000;
+          return x - Math.floor(x);
+      }
+
+      function randomN(n) {
+        return Math.floor(random() * n);
+      }
+
+      function randomChoice(alphabet) {
+        return alphabet.charAt(randomN(alphabet.length));
+      }
+
+      function fillElement(elem, alphabet, density) {
+        var rect = elem.getBoundingClientRect();
+        var GLYPHS = rect.width * density;
+
+        while (elem.firstChild) {
+          elem.removeChild(elem.firstChild);
+        }
+
+        for (var i = 0; i < GLYPHS; i++) {
+          var p = document.createElement("P");
+          var t = document.createTextNode(randomChoice(alphabet));
+
+          p.appendChild(t);
+          p.className = "glyph-background";
+          p.style.color = "rgba(255, 255, 255, " + random() * 0.2 + ")";
+          p.style.top = (random() * rect.height * 1.3 - rect.height * 0.15) + "px";
+          p.style.left = (random() * rect.width * 1.1 - rect.width * 0.1) + "px";
+          p.style.fontSize = randomN(20) + "pt";
+          p.style.transform = "rotate(" + randomN(360) + "deg)";
+
+          elem.appendChild(p);
+        }
+      }
+
       window.addEventListener("DOMContentLoaded", function() {
-        var seed = 5;
-
-        function random() {
-            var x = Math.sin(seed++) * 10000;
-            return x - Math.floor(x);
-        }
-
-        function randomN(n) {
-          return Math.floor(random() * n);
-        }
-
-        function randomChoice(alphabet) {
-          return alphabet.charAt(randomN(alphabet.length));
-        }
-
-        function fillElement(elem, alphabet, density) {
-          var rect = elem.getBoundingClientRect();
-          var GLYPHS = rect.width * density;
-
-          for (var i = 0; i < GLYPHS; i++) {
-            var p = document.createElement("P");
-            var t = document.createTextNode(randomChoice(alphabet));
-
-            p.appendChild(t);
-            p.className = "glyph-background";
-            p.style.color = "rgba(255, 255, 255, " + random() * 0.2 + ")";
-            p.style.top = (random() * rect.height * 1.3 - rect.height * 0.15) + "px";
-            p.style.left = (random() * rect.width - rect.width * 0.1) + "px";
-            p.style.fontSize = randomN(20) + "pt";
-            p.style.transform = "rotate(" + randomN(360) + "deg)";
-
-            elem.appendChild(p);
-          }
-        }
+        seed = START_SEED;
 
         fillElement(
           document.getElementsByClassName("banner-features")[0],
@@ -56,6 +63,21 @@
           0.1
         );
       }, false);
+
+      window.addEventListener('resize', function() {
+        seed = START_SEED;
+
+        fillElement(
+          document.getElementsByClassName("banner-features")[0],
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+          0.2
+        );
+        fillElement(
+          document.getElementsByClassName("banner-benchmark")[0],
+          "0123456789",
+          0.1
+        );
+      }, true);
     </script>
   </head>
   <body>
