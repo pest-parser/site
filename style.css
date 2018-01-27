@@ -10,6 +10,7 @@ body {
       transparent 0, transparent 26pt
     ), #192233;
   font-size: calc(12px + 1vw * 0.35);
+  overflow-x: hidden;
 }
 
 @media all and (min-width: 801px) {
