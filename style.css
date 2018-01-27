@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  /* background-color: #192233; */
+  background: repeating-linear-gradient(-45deg, #202c42, #202c42 0.5pt, #192233 0, #192233 20pt);
+  font-size: calc(12px + 1vw * 0.35);
+}
+
+.container-main {
+  display: grid;
+  grid-template-columns: 1fr minmax(auto, 800px) 1fr;
+  grid-template-rows: 50px auto auto 180px auto;
+}
+
+.bar-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-area: 1 / 2 / 2 / -1;
+  justify-self: self-end;
+  margin: 10px;
+}
+
+.bar-links > a {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+}
+
+.logo {
+  grid-area: 2 / 2 / 3 / 3;
+  margin: 40px;
+  max-width: 640px;
+  justify-self: center;
+}
+
+.bloom {
+  filter: blur(20px);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.button-try {
+  grid-area: 3 / 2 / 4 / 3;
+  justify-self: center;
+  background-color: #24c85a;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  width: 160px;
+  height: 50px;
+  border-radius: 25px;
+  margin-top: -25px;
+  line-height: 50px;
+  text-align: center;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.button-try:hover {
+  background-color: #2fdb67;
+}
+
+.button-try:active {
+  background-color: #24c85a;
+}
+
+.banner-features {
+  grid-area: 3 / 1 / 4 / -1;
+  background-color: #4158D0;
+  background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+  overflow: visible;
+}
+
+.features {
+  grid-area: 3 / 2 / 4 / -2;
+  padding: 40px 20px;
+}
+
+.glyph-background {
+  font-family: 'Space Mono', monospace;
+  position: relative;
+  margin: 0;
+  width: 0;
+  height: 0;
+  overflow: visible;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.banner-benchmark {
+  grid-area: 5 / 1 / 6 / -1;
+  background-color: #2485cb;
+  background-image: linear-gradient(67deg, #2485cb 0%, #08AEEA 37%, #11dd80 100%);
+  overflow: visible;
+}
+
+.benchmark {
+  grid-area: 5 / 2 / 6 / -2;
+  padding: 40px 20px;
+}
+
+p {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1em;
+  line-height: 1.4em;
+  color: white;
+}
+
+h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.4em;
+  color: white;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono:700" rel="stylesheet">
+    <script type="text/javascript">
+      window.addEventListener("DOMContentLoaded", function() {
+        var seed = 5;
+
+        function random() {
+            var x = Math.sin(seed++) * 10000;
+            return x - Math.floor(x);
+        }
+
+        function randomN(n) {
+          return Math.floor(random() * n);
+        }
+
+        function randomChoice(alphabet) {
+          return alphabet.charAt(randomN(alphabet.length));
+        }
+
+        function fillElement(elem, alphabet, density) {
+          var rect = elem.getBoundingClientRect();
+          var GLYPHS = rect.width * density;
+
+          for (var i = 0; i < GLYPHS; i++) {
+            var p = document.createElement("P");
+            var t = document.createTextNode(randomChoice(alphabet));
+
+            p.appendChild(t);
+            p.className = "glyph-background";
+            p.style.color = "rgba(255, 255, 255, " + random() * 0.2 + ")";
+            p.style.top = (random() * rect.height * 1.3 - rect.height * 0.15) + "px";
+            p.style.left = (random() * rect.width - rect.width * 0.1) + "px";
+            p.style.fontSize = randomN(20) + "pt";
+            p.style.transform = "rotate(" + randomN(360) + "deg)";
+
+            elem.insertBefore(p, elem.firstChild);
+          }
+        }
+
+        fillElement(
+          document.getElementsByClassName("banner-features")[0],
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+          0.2
+        );
+        fillElement(
+          document.getElementsByClassName("banner-benchmark")[0],
+          "0123456789",
+          0.1
+        );
+      }, false);
+    </script>
+  </head>
+  <body>
+    <div class="container-main">
+      <div class="bar-links">
+        <a href="#">Book</a>
+        <a href="#">Docs</a>
+        <a href="#">GitHub</a>
+      </div>
+      <img class="logo bloom" src="assets/pest-logo.svg">
+      <img class="logo" src="assets/pest-logo.svg">
+      <a class="button-try" href="#">Try it out!</a>
+      <div class="banner-features"></div>
+      <div class="features">
+        <h1>pest. The Elegant Parser</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius
+          augue nec leo accumsan, quis vehicula odio suscipit. Mauris eu neque
+          at augue pulvinar dignissim eget non elit. Aliquam venenatis libero
+          sed tincidunt varius. Ut vitae hendrerit enim. Cras pulvinar sapien
+          nulla, et condimentum ligula lacinia vitae. Cras ornare nisi ac
+          hendrerit dignissim. Nunc ornare ullamcorper nisl, quis efficitur leo
+          dictum at. Nulla in quam eget velit ultricies fermentum. Quisque ut
+          ultrices arcu, sit amet laoreet elit. Proin ultrices egestas eleifend.
+        </p>
+        <p>
+          Morbi molestie pharetra nunc quis pretium. Cras turpis dui, mattis sit
+          amet velit ut, elementum fringilla metus. Praesent tempus auctor
+          hendrerit. Aenean tempus lobortis orci, a rhoncus mauris ultricies
+          quis. Morbi nibh felis, luctus quis metus eget, faucibus tincidunt
+          augue. Integer hendrerit, nulla quis lacinia interdum, magna diam
+          rhoncus lectus, eu convallis est tellus in ligula. Proin erat sapien,
+          porttitor sit amet vehicula quis, luctus interdum mauris. Nam vel orci
+          tempus elit semper posuere sit amet ut tortor. Pellentesque vestibulum
+          lorem ligula, id venenatis mi consectetur eu. Vestibulum ac lectus
+          risus. Donec at ex id odio condimentum commodo. Etiam et diam
+          ullamcorper, porta ex eu, aliquam ex.
+        </p>
+      </div>
+      <div class="banner-benchmark"></div>
+      <div class="benchmark">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius
+          augue nec leo accumsan, quis vehicula odio suscipit. Mauris eu neque
+          at augue pulvinar dignissim eget non elit. Aliquam venenatis libero
+          sed tincidunt varius. Ut vitae hendrerit enim. Cras pulvinar sapien
+          nulla, et condimentum ligula lacinia vitae. Cras ornare nisi ac
+          hendrerit dignissim. Nunc ornare ullamcorper nisl, quis efficitur leo
+          dictum at. Nulla in quam eget velit ultricies fermentum. Quisque ut
+          ultrices arcu, sit amet laoreet elit. Proin ultrices egestas eleifend.
+        </p>
+        <p>
+          Morbi molestie pharetra nunc quis pretium. Cras turpis dui, mattis sit
+          amet velit ut, elementum fringilla metus. Praesent tempus auctor
+          hendrerit. Aenean tempus lobortis orci, a rhoncus mauris ultricies
+          quis. Morbi nibh felis, luctus quis metus eget, faucibus tincidunt
+          augue. Integer hendrerit, nulla quis lacinia interdum, magna diam
+          rhoncus lectus, eu convallis est tellus in ligula. Proin erat sapien,
+          porttitor sit amet vehicula quis, luctus interdum mauris. Nam vel orci
+          tempus elit semper posuere sit amet ut tortor. Pellentesque vestibulum
+          lorem ligula, id venenatis mi consectetur eu. Vestibulum ac lectus
+          risus. Donec at ex id odio condimentum commodo. Etiam et diam
+          ullamcorper, porta ex eu, aliquam ex.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
