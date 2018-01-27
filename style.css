@@ -1,6 +1,14 @@
 body {
   margin: 0;
-  background: repeating-linear-gradient(-45deg, #202c42, #202c42 0.5pt, #192233 0, #192233 20pt);
+  background:
+    repeating-linear-gradient(
+      -45deg, #202c42, #202c42 0.5pt,
+      transparent 0, transparent 40pt
+    ),
+    repeating-linear-gradient(
+      -45deg, #202c42, #202c42 0.5pt,
+      transparent 0, transparent 26pt
+    ), #192233;
   font-size: calc(12px + 1vw * 0.35);
 }
 
