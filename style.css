@@ -97,6 +97,7 @@ body {
   background-color: #4158D0;
   background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
   overflow: visible;
+  z-index: -1;
 }
 
 .features {
@@ -124,11 +125,35 @@ body {
   background-color: #2485cb;
   background-image: linear-gradient(67deg, #2485cb 0%, #08AEEA 37%, #11dd80 100%);
   overflow: visible;
+  z-index: -1;
 }
 
 .benchmark {
   grid-area: 5 / 2 / 6 / -2;
   padding: 40px 20px;
+}
+
+.chart-benchmark {
+  height: 200px;
+}
+
+.chart-benchmark .ct-series-a .ct-bar {
+  stroke: #4253d7;
+  stroke-width: 20px;
+}
+
+.chart-benchmark .ct-series-a line:nth-child(2) {
+  stroke: #fce045;
+}
+
+.chart-benchmark .ct-labels span {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.8em;
+  color: white;
+}
+
+.chart-benchmark .ct-grid {
+  stroke: rgba(255, 255, 255, 0.2);
 }
 
 p {

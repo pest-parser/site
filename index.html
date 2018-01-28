@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Space+Mono:700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <script type="text/javascript">
       var START_SEED = 5;
       var seed = START_SEED;
@@ -50,6 +52,21 @@
       }
 
       window.addEventListener("DOMContentLoaded", function() {
+        var data = {
+          labels: ['ujson', 'pest', 'nom', 'pest-AST'],
+            series: [
+            [11, 32, 85, 93]
+          ]
+        };
+
+        var options = {
+          seriesBarDistance: 15,
+          height: 200,
+          width: 280
+        };
+
+        var chart = new Chartist.Bar('.chart-benchmark', data, options);
+
         seed = START_SEED;
 
         fillElement(
@@ -63,6 +80,9 @@
           0.1
         );
       }, false);
+
+      var features = document.getElementsByClassName("banner-features")[0];
+      var benchmark = document.getElementsByClassName("banner-benchmark")[0];
 
       window.addEventListener('resize', function() {
         seed = START_SEED;
@@ -131,19 +151,7 @@
           dictum at. Nulla in quam eget velit ultricies fermentum. Quisque ut
           ultrices arcu, sit amet laoreet elit. Proin ultrices egestas eleifend.
         </p>
-        <p>
-          Morbi molestie pharetra nunc quis pretium. Cras turpis dui, mattis sit
-          amet velit ut, elementum fringilla metus. Praesent tempus auctor
-          hendrerit. Aenean tempus lobortis orci, a rhoncus mauris ultricies
-          quis. Morbi nibh felis, luctus quis metus eget, faucibus tincidunt
-          augue. Integer hendrerit, nulla quis lacinia interdum, magna diam
-          rhoncus lectus, eu convallis est tellus in ligula. Proin erat sapien,
-          porttitor sit amet vehicula quis, luctus interdum mauris. Nam vel orci
-          tempus elit semper posuere sit amet ut tortor. Pellentesque vestibulum
-          lorem ligula, id venenatis mi consectetur eu. Vestibulum ac lectus
-          risus. Donec at ex id odio condimentum commodo. Etiam et diam
-          ullamcorper, porta ex eu, aliquam ex.
-        </p>
+        <div class="chart-benchmark"></div>
       </div>
     </div>
   </body>
