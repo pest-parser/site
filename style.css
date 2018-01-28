@@ -137,12 +137,13 @@ body {
 }
 
 .chart-benchmark .ct-series-a .ct-bar {
-  stroke: #4253d7;
+  stroke: #1f59e3;
   stroke-width: 20px;
+  mix-blend-mode: hard-light;
 }
 
 .chart-benchmark .ct-series-a line:nth-child(2) {
-  stroke: #fce045;
+  stroke: #ed0072;
 }
 
 .chart-benchmark .ct-labels span {
