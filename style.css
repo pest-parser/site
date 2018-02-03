@@ -16,10 +16,6 @@ body {
   body {
     font-size: 14.7833px;
   }
-
-  .bar-links > div > a {
-    font-size: 17.6333px;
-  }
 }
 
 .container-main {
@@ -53,6 +49,12 @@ body {
   color: white;
   text-decoration: none;
   border-bottom: 0.5px solid #48A9EA;
+}
+
+@media all and (min-width: 801px) {
+  .bar-links > div > a {
+    font-size: 17.6333px;
+  }
 }
 
 .logo {
