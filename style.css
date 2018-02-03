@@ -16,6 +16,10 @@ body {
   body {
     font-size: 14.7833px;
   }
+
+  .bar-links > div > a {
+    font-size: 17.6333px;
+  }
 }
 
 .container-main {
