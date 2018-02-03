@@ -26,8 +26,8 @@ body {
 
 .bar-links {
   display: grid;
-  grid-gap: 15px;
-  margin: 10px 15px;
+  grid-gap: calc(15px + 1vw);
+  margin: calc(12px + 0.8vw) calc(15px + 3vw);
 }
 
 .bar-links-left {
@@ -51,9 +51,9 @@ body {
   border-bottom: 0.5px solid #48A9EA;
 }
 
-@media all and (min-width: 801px) {
+@media all and (min-width: 1201px) {
   .bar-links > div > a {
-    font-size: 17.6333px;
+    font-size: 19.6333px;
   }
 }
 
