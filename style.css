@@ -9,7 +9,7 @@ body {
       -45deg, #202c42, #202c42 0.5pt,
       transparent 0, transparent 26pt
     ), #192233;
-  font-size: calc(12px + 1vw * 0.35);
+  font-size: calc(12px + 0.35vw);
 }
 
 @media all and (min-width: 801px) {
@@ -45,7 +45,7 @@ body {
 .bar-links > div > a {
   font-family: 'Quicksand', sans-serif;
   font-weight: bold;
-  font-size: calc(1em + 1vw * 0.35);
+  font-size: calc(1em + 0.35vw);
   color: white;
   text-decoration: none;
   border-bottom: 0.5px solid #48A9EA;
