@@ -8,8 +8,6 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Space+Mono:700" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <script type="text/javascript">
       var START_SEED = 5;
       var seed = START_SEED;
@@ -52,21 +50,6 @@
       }
 
       window.addEventListener("DOMContentLoaded", function() {
-        var data = {
-          labels: ['ujson', 'pest', 'nom', 'pest-AST'],
-            series: [
-            [11, 32, 85, 93]
-          ]
-        };
-
-        var options = {
-          seriesBarDistance: 15,
-          height: 200,
-          width: 280
-        };
-
-        var chart = new Chartist.Bar('.chart-benchmark', data, options);
-
         seed = START_SEED;
 
         fillElement(
@@ -83,6 +66,20 @@
 
       var features = document.getElementsByClassName("banner-features")[0];
       var benchmark = document.getElementsByClassName("banner-benchmark")[0];
+
+      window.addEventListener('scroll', function () {
+        var elems = document.getElementsByClassName('hidden');
+        var windowHeight = window.innerHeight;
+        for (var i = 0; i < elems.length; i++) {
+          var posFromTop = elems[i].getBoundingClientRect().top;
+          if (posFromTop - windowHeight <= 0) {
+            elems[i].className = elems[i].className.replace(
+              'hidden',
+              'bounce'
+            );
+          }
+        }
+      });
 
       window.addEventListener('resize', function() {
         seed = START_SEED;
@@ -109,7 +106,7 @@
         <div><a href="#">Book</a></div>
         <div><a href="#">Docs</a></div>
       </div>
-      <img class="logo bloom" src="assets/pest-logo.svg">
+      <img class="logo logo-bloom" src="assets/pest-logo.svg">
       <img class="logo" src="assets/pest-logo.svg">
       <a class="button-try" href="#">Try it out!</a>
       <div class="banner-features"></div>
@@ -151,7 +148,20 @@
           dictum at. Nulla in quam eget velit ultricies fermentum. Quisque ut
           ultrices arcu, sit amet laoreet elit. Proin ultrices egestas eleifend.
         </p>
-        <div class="chart-benchmark"></div>
+        <div class="chart">
+          <div class="chart-label"><p class="chart-label-ujson4c">ujson4c</p></div>
+          <div class="chart-label"><p class="chart-label-pest">pest</p></div>
+          <div class="chart-label"><p class="chart-label-pest-ast">pest AST</p></div>
+          <div class="chart-label"><p class="chart-label-nom">nom</p></div>
+          <div class="chart-border chart-border-1"></div>
+          <div class="chart-border chart-border-2"></div>
+          <div class="chart-border chart-border-3"></div>
+          <div class="chart-border chart-border-4"></div>
+          <div class="chart-bar chart-bar-ujson4c hidden"></div>
+          <div class="chart-bar chart-bar-pest hidden"></div>
+          <div class="chart-bar chart-bar-pest-ast hidden"></div>
+          <div class="chart-bar chart-bar-nom hidden"></div>
+        </div>
       </div>
     </div>
   </body>
