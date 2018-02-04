@@ -62,13 +62,17 @@
           "0123456789",
           0.1
         );
+
+        elems = document.getElementsByClassName('hidden');
+        elems = Array.prototype.slice.call(elems);
+        startAnimations();
       }, false);
 
       var features = document.getElementsByClassName("banner-features")[0];
       var benchmark = document.getElementsByClassName("banner-benchmark")[0];
+      var elems = [];
 
-      window.addEventListener('scroll', function () {
-        var elems = document.getElementsByClassName('hidden');
+      function startAnimations() {
         var windowHeight = window.innerHeight;
         for (var i = 0; i < elems.length; i++) {
           var posFromTop = elems[i].getBoundingClientRect().top;
@@ -79,7 +83,9 @@
             );
           }
         }
-      });
+      }
+
+      window.addEventListener('scroll', startAnimations);
 
       window.addEventListener('resize', function() {
         seed = START_SEED;
@@ -157,10 +163,18 @@
           <div class="chart-border chart-border-2"></div>
           <div class="chart-border chart-border-3"></div>
           <div class="chart-border chart-border-4"></div>
-          <div class="chart-bar chart-bar-ujson4c hidden"></div>
-          <div class="chart-bar chart-bar-pest hidden"></div>
-          <div class="chart-bar chart-bar-pest-ast hidden"></div>
-          <div class="chart-bar chart-bar-nom hidden"></div>
+          <div class="chart-bar chart-bar-ujson4c">
+            <div class="hidden"></div>
+          </div>
+          <div class="chart-bar chart-bar-pest">
+            <div class="hidden"></div>
+          </div>
+          <div class="chart-bar chart-bar-pest-ast">
+            <div class="hidden"></div>
+          </div>
+          <div class="chart-bar chart-bar-nom">
+            <div class="hidden"></div>
+          </div>
           <div class="chart-value chart-value-0"><p>0ms</p></div>
           <div class="chart-value chart-value-25"><p>25ms</p></div>
           <div class="chart-value chart-value-50"><p>50ms</p></div>
