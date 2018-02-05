@@ -227,10 +227,17 @@ body {
 }
 
 .bounce {
-  animation: BounceAnimation 2.5s linear;
+  animation: BounceAnimation 2.5s linear, FadeInAnimation 0.4s ease;
+  animation-delay: 0.2s, 0.2s;
+  animation-fill-mode: backwards;
 }
 
-@keyframes BounceAnimation { 
+@keyframes FadeInAnimation {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes BounceAnimation {
   0% { transform: matrix3d(0.75, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   1.4% { transform: matrix3d(0.849, 0, 0, 0, 0, 0.879, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   2.7% { transform: matrix3d(0.985, 0, 0, 0, 0, 0.988, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
