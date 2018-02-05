@@ -63,7 +63,7 @@
           0.1
         );
 
-        elems = document.getElementsByClassName('hidden');
+        elems = document.getElementsByClassName('chart-bar-hidden');
         elems = Array.prototype.slice.call(elems);
         startAnimations();
       }, false);
@@ -78,8 +78,8 @@
           var posFromTop = elems[i].getBoundingClientRect().top;
           if (posFromTop - windowHeight <= 0) {
             elems[i].className = elems[i].className.replace(
-              'hidden',
-              'bounce'
+              'chart-bar-hidden',
+              'chart-bar-bounce'
             );
           }
         }
@@ -164,16 +164,24 @@
           <div class="chart-border chart-border-3"></div>
           <div class="chart-border chart-border-4"></div>
           <div class="chart-bar chart-bar-ujson4c">
-            <div class="hidden"></div>
+            <div class="chart-bar-hidden">
+              <p>11</p>
+            </div>
           </div>
           <div class="chart-bar chart-bar-pest">
-            <div class="hidden"></div>
+            <div class="chart-bar-hidden">
+              <p>18</p>
+            </div>
           </div>
           <div class="chart-bar chart-bar-pest-ast">
-            <div class="hidden"></div>
+            <div class="chart-bar-hidden">
+              <p>44</p>
+            </div>
           </div>
           <div class="chart-bar chart-bar-nom">
-            <div class="hidden"></div>
+            <div class="chart-bar-hidden">
+              <p>85</p>
+            </div>
           </div>
           <div class="chart-value chart-value-0"><p>0ms</p></div>
           <div class="chart-value chart-value-25"><p>25ms</p></div>

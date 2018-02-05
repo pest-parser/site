@@ -156,6 +156,7 @@ body {
 
 .chart-border {
   border-left: 0.5px dashed white;
+  width: 0.5px;
 }
 
 .chart-border-1 {
@@ -182,10 +183,25 @@ body {
 }
 
 .chart-bar > div {
+  box-sizing: border-box;
   margin-left: -25%;
+  padding-left: 25%;
+  text-align: center;
   height: 2.4em;
   border-radius: 0 3px 3px 0;
   background-color: #1245ff;
+}
+
+.chart-bar > div > p {
+  line-height: 2.4em;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.chart-bar > div:hover > p {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .chart-bar-ujson4c {
@@ -222,11 +238,11 @@ body {
   width: calc(85% + 25%); /* negative margin */
 }
 
-.hidden {
+.chart-bar-hidden {
   opacity: 0;
 }
 
-.bounce {
+.chart-bar-bounce {
   animation: BounceAnimation 2.5s linear, FadeInAnimation 0.4s ease;
   animation-delay: 0.2s, 0.2s;
   animation-fill-mode: backwards;
@@ -265,8 +281,6 @@ body {
   96.8% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
 }
-
-
 
 .chart-value {
   align-self: center;
