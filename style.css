@@ -125,6 +125,33 @@ body {
   user-select: none;
 }
 
+.illustration {
+  display: grid;
+  margin: 5em 0;
+  text-align: center;
+}
+
+.sample {
+  font-size: calc(1em + 7vw);
+  margin-bottom: 0.3em;
+}
+
+@media all and (min-width: 801px) {
+  .sample {
+    font-size: 70.7833px;
+  }
+}
+
+.sample > span:hover {
+  color: #765cf6;
+  border-bottom: 2px solid;
+  mix-blend-mode: multiply;
+}
+
+.token {
+  font-size: 1.6em;
+}
+
 .banner-benchmark {
   grid-area: 5 / 1 / 6 / -1;
   background-color: #2485cb;
@@ -311,6 +338,12 @@ body {
   grid-area: 5 / 5 / 6 / 6;
 }
 
+h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.4em;
+  color: white;
+}
+
 p {
   font-family: 'Quicksand', sans-serif;
   font-size: 1em;
@@ -318,8 +351,9 @@ p {
   color: white;
 }
 
-h1 {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 1.4em;
+code {
+  font-family: 'Space Mono', monospace;
+  font-size: 1em;
+  line-height: 1.5em;
   color: white;
 }

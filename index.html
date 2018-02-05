@@ -49,6 +49,29 @@
         }
       }
 
+      function findTokens() {
+        var spans = document.getElementsByClassName('sample')[0].children;
+        var token = document.getElementsByClassName('token')[0];
+        var tokens = [
+          "{:ident}", "{:dot}", "{:call}", "{:paren}", "{:int}", "{:paren}",
+          "{:comma}"
+        ];
+
+        function addListeners(i) {
+          spans[i].addEventListener("mouseover", function() {
+            var j = i;
+            token.innerHTML = tokens[j];
+          });
+          spans[i].addEventListener("mouseout", function() {
+            token.innerHTML = "{:statement}";
+          });
+        }
+
+        for (var i = 0; i < spans.length; i++) {
+          addListeners(i);
+        }
+      }
+
       window.addEventListener("DOMContentLoaded", function() {
         seed = START_SEED;
 
@@ -62,6 +85,8 @@
           "0123456789",
           0.1
         );
+
+        findTokens();
 
         elems = document.getElementsByClassName('chart-bar-hidden');
         elems = Array.prototype.slice.call(elems);
@@ -117,6 +142,15 @@
       <a class="button-try" href="#">Try it here!</a>
       <div class="banner-features"></div>
       <div class="features">
+        <div class="illustration">
+          <code class="sample">
+            <span>vals</span><span>.</span><span>push</span><span>(</span><span>3</span><span>)</span><span>;</span>
+          </code>
+          </br>
+          <code class="token">
+            {:statement}
+          </code>
+        </div>
         <h1>pest. The Elegant Parser</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius
