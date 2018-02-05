@@ -145,6 +145,12 @@ body {
   height: calc(17em + 5vw);
 }
 
+@media all and (min-width: 801px) {
+  .chart {
+    height: 291.317px;
+  }
+}
+
 .chart-label {
   justify-self: self-end;
   align-self: center;
