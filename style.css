@@ -152,6 +152,18 @@ body {
   font-size: 1.6em;
 }
 
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-top: 40px;
+  text-align: center;
+  justify-content: space-evenly;
+}
+
+.feature {
+  margin: 0 20px;
+}
+
 .banner-benchmark {
   grid-area: 5 / 1 / 6 / -1;
   background-color: #2485cb;
@@ -340,13 +352,20 @@ body {
 
 h1 {
   font-family: 'Quicksand', sans-serif;
-  font-size: 1.4em;
+  font-size: 2em;
+  color: white;
+}
+
+h2 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.6em;
+  font-weight: normal;
   color: white;
 }
 
 p {
   font-family: 'Quicksand', sans-serif;
-  font-size: 1em;
+  font-size: 1.15em;
   line-height: 1.4em;
   color: white;
 }
