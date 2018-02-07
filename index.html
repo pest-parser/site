@@ -103,13 +103,12 @@
         var sample = document.getElementsByClassName("sample")[0];
         spans = sample.children;
 
-        findTokens();
-
         jump();
         var jumpInterval = setInterval(jump, 2000);
 
         sample.addEventListener("mouseover", function() {
           clearInterval(jumpInterval);
+          findTokens();
         });
 
         elems = document.getElementsByClassName("chart-bar-hidden");
