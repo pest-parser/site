@@ -12,7 +12,6 @@
       var START_SEED = 5;
       var seed = START_SEED;
       var spans;
-      var jumpInterval;
 
       function random() {
           var x = Math.sin(seed++) * 10000;
@@ -65,8 +64,6 @@
 
         function addListeners(i) {
           spans[i].addEventListener("mouseover", function() {
-            if (jumpInterval) window.clearInterval(jumpInterval);
-
             var j = i;
             token.innerHTML = tokens[j];
           });
@@ -103,12 +100,17 @@
           0.1
         );
 
-        spans = document.getElementsByClassName("sample")[0].children;
+        var sample = document.getElementsByClassName("sample")[0];
+        spans = sample.children;
 
         findTokens();
 
         jump();
-        jumpInterval = setInterval(jump, 2000);
+        var jumpInterval = setInterval(jump, 2000);
+
+        sample.addEventListener("mouseover", function() {
+          clearInterval(jumpInterval);
+        });
 
         elems = document.getElementsByClassName("chart-bar-hidden");
         elems = Array.prototype.slice.call(elems);
