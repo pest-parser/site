@@ -52,7 +52,7 @@
       }
 
       function findTokens() {
-        var token = document.getElementsByClassName('token')[0];
+        var token = document.getElementsByClassName("token")[0];
         var tokens = [
           "{statement -> value -> ident}",
           "{statement -> calls -> dot}",
@@ -86,7 +86,7 @@
         var span = spans[i];
         var newSpan = span.cloneNode(true);
         span.parentNode.replaceChild(newSpan, span);
-        newSpan.classList.add('jump');
+        newSpan.classList.add("jump");
       }
 
       window.addEventListener("DOMContentLoaded", function() {
@@ -103,14 +103,14 @@
           0.1
         );
 
-        spans = document.getElementsByClassName('sample')[0].children;
+        spans = document.getElementsByClassName("sample")[0].children;
 
         findTokens();
 
         jump();
         jumpInterval = setInterval(jump, 2000);
 
-        elems = document.getElementsByClassName('chart-bar-hidden');
+        elems = document.getElementsByClassName("chart-bar-hidden");
         elems = Array.prototype.slice.call(elems);
         startAnimations();
       }, false);
@@ -125,16 +125,16 @@
           var posFromTop = elems[i].getBoundingClientRect().top;
           if (posFromTop - windowHeight <= 0) {
             elems[i].className = elems[i].className.replace(
-              'chart-bar-hidden',
-              'chart-bar-bounce'
+              "chart-bar-hidden",
+              "chart-bar-bounce"
             );
           }
         }
       }
 
-      window.addEventListener('scroll', startAnimations);
+      window.addEventListener("scroll", startAnimations);
 
-      window.addEventListener('resize', function() {
+      window.addEventListener("resize", function() {
         seed = START_SEED;
 
         fillElement(
