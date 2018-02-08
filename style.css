@@ -449,6 +449,10 @@ p {
   color: white;
 }
 
+a {
+  color: #5562ec;
+}
+
 code {
   font-family: 'Space Mono', monospace;
   font-size: 1em;

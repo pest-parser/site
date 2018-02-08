@@ -253,14 +253,10 @@
       <div class="content benchmark">
         <h2>Measurements</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius
-          augue nec leo accumsan, quis vehicula odio suscipit. Mauris eu neque
-          at augue pulvinar dignissim eget non elit. Aliquam venenatis libero
-          sed tincidunt varius. Ut vitae hendrerit enim. Cras pulvinar sapien
-          nulla, et condimentum ligula lacinia vitae. Cras ornare nisi ac
-          hendrerit dignissim. Nunc ornare ullamcorper nisl, quis efficitur leo
-          dictum at. Nulla in quam eget velit ultricies fermentum. Quisque ut
-          ultrices arcu, sit amet laoreet elit. Proin ultrices egestas eleifend.
+          Performance measurements put a <i>pest</i>-generated JSON parser
+          somewhere between one of the most optimized JSON parsers,
+          <a href="https://github.com/esnme/ujson4c">ujson4c</a>, and a static
+          native-speed parser, <a href="https://github.com/Geal/nom">nom</a>.
         </p>
         <div class="chart">
           <div class="chart-label"><p class="chart-label-ujson4c">ujson4c</p></div>
@@ -296,6 +292,15 @@
           <div class="chart-value chart-value-50"><p>50ms</p></div>
           <div class="chart-value chart-value-75"><p>75ms</p></div>
         </div>
+        <p>
+          The second entry is mapping <code>Pairs</code>, <i>pest's</i> internal
+          lazy tree representation, to a custom JSON AST. While the first entry
+          forms a perfectly usable tree, it does not produce a fully-processed
+          JSON object, with decimal to binary number conversion notably
+          missing. The second one does, but since it has an extra intermediate
+          representation of the object, it repeats some work by performing extra
+          allocations.
+        </p>
       </div>
     </div>
   </body>
