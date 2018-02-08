@@ -397,12 +397,14 @@ body {
 }
 
 h1 {
+  margin: 1.2em 0;
   font-family: 'Quicksand', sans-serif;
   font-size: 2.1em;
   color: white;
 }
 
 h2 {
+  margin: 1.2em 0;
   font-family: 'Quicksand', sans-serif;
   font-size: 1.8em;
   font-weight: lighter;
