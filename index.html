@@ -218,6 +218,16 @@
           dictum at. Nulla in quam eget velit ultricies fermentum. Quisque ut
           ultrices arcu, sit amet laoreet elit. Proin ultrices egestas eleifend.
         </p>
+        <code class="code-example">
+          <pre><span class="ident">alpha</span> = { <span class="string">'a'</span><span class="op">..</span><span class="string">'z'</span> <span class="op">|</span> <span class="string">'A'</span><span class="op">..</span><span class="string">'Z'</span> }
+<span class="ident">digit</span> = { <span class="string">'0'</span><span class="op">..</span><span class="string">'9'</span> }
+
+<span class="ident">ident</span> = { (<span class="ident">alpha</span> <span class="op">|</span> <span class="ident">digit</span>)<span class="op">+</span> }
+
+<span class="ident">ident_list</span> = <span class="mod">_</span>{ <span class="op">!</span><span class="ident">digit</span> <span class="op">~</span> <span class="ident">ident</span> <span class="op">~</span> (<span class="string">" "</span> <span class="op">~</span> <span class="ident">ident</span>)<span class="op">+</span> }
+          <span class="comment">// ^</span>
+          <span class="comment">// ident_list rule is silent (produces no tokens or error reports)</span></pre>
+        </code>
       </div>
       <div class="banner-benchmark"></div>
       <div class="content benchmark">

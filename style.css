@@ -211,6 +211,38 @@ body {
   grid-area: 4 / 2 / 5 / -2;
 }
 
+.code-example {
+  display: block;
+  color: #dde1f9;
+  background-color: #253451;
+  padding: 0.8em 1.3em;
+  border-radius: 3px;
+}
+
+.code-example > pre {
+  margin: 0;
+}
+
+.ident {
+  color: #51d3f6;
+}
+
+.string {
+  color: #7ef69d;
+}
+
+.op {
+  color: #ff926e;
+}
+
+.mod {
+  color: #697bdb;
+}
+
+.comment {
+  color: #a5adc6;
+}
+
 .banner-benchmark {
   grid-area: 5 / 1 / 6 / -1;
   background-color: #2485cb;
