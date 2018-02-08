@@ -209,14 +209,8 @@
       <div class="content example">
         <h2>Example</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius
-          augue nec leo accumsan, quis vehicula odio suscipit. Mauris eu neque
-          at augue pulvinar dignissim eget non elit. Aliquam venenatis libero
-          sed tincidunt varius. Ut vitae hendrerit enim. Cras pulvinar sapien
-          nulla, et condimentum ligula lacinia vitae. Cras ornare nisi ac
-          hendrerit dignissim. Nunc ornare ullamcorper nisl, quis efficitur leo
-          dictum at. Nulla in quam eget velit ultricies fermentum. Quisque ut
-          ultrices arcu, sit amet laoreet elit. Proin ultrices egestas eleifend.
+          The following is an example of a grammar for a list of alpha-numeric
+          identifiers where the first identifier does not start with a digit:
         </p>
         <code class="code-example">
           <pre><span class="ident">alpha</span> = { <span class="string">'a'</span><span class="op">..</span><span class="string">'z'</span> <span class="op">|</span> <span class="string">'A'</span><span class="op">..</span><span class="string">'Z'</span> }
@@ -228,6 +222,11 @@
           <span class="comment">// ^</span>
           <span class="comment">// ident_list rule is silent (produces no tokens or error reports)</span></pre>
         </code>
+        <p>
+          Grammars are saved in separate <code>.pest</code> files which are
+          never mixed with procedural code. This results in an always up-to-date
+          formalization of a language that is easy to read and maintain.
+        </p>
       </div>
       <div class="banner-benchmark"></div>
       <div class="content benchmark">
