@@ -212,16 +212,14 @@
           The following is an example of a grammar for a list of alpha-numeric
           identifiers where the first identifier does not start with a digit:
         </p>
-        <code class="code-example">
-          <pre><span class="ident">alpha</span> = { <span class="string">'a'</span><span class="op">..</span><span class="string">'z'</span> <span class="op">|</span> <span class="string">'A'</span><span class="op">..</span><span class="string">'Z'</span> }
+        <code class="code-example"><span class="ident">alpha</span> = { <span class="string">'a'</span><span class="op">..</span><span class="string">'z'</span> <span class="op">|</span> <span class="string">'A'</span><span class="op">..</span><span class="string">'Z'</span> }
 <span class="ident">digit</span> = { <span class="string">'0'</span><span class="op">..</span><span class="string">'9'</span> }
 
 <span class="ident">ident</span> = { (<span class="ident">alpha</span> <span class="op">|</span> <span class="ident">digit</span>)<span class="op">+</span> }
 
 <span class="ident">ident_list</span> = <span class="mod">_</span>{ <span class="op">!</span><span class="ident">digit</span> <span class="op">~</span> <span class="ident">ident</span> <span class="op">~</span> (<span class="string">" "</span> <span class="op">~</span> <span class="ident">ident</span>)<span class="op">+</span> }
           <span class="comment">// ^</span>
-          <span class="comment">// ident_list rule is silent (produces no tokens or error reports)</span></pre>
-        </code>
+          <span class="comment">// ident_list rule is silent (produces no tokens or error reports)</span></code>
         <p>
           Grammars are saved in separate <code>.pest</code> files which are
           never mixed with procedural code. This results in an always up-to-date
@@ -234,25 +232,21 @@
           error reporting. For the example above, the input <code>"123"</code>
           will result in:
         </p>
-        <code class="code-example">
-          <pre>thread 'main' panicked at ' --> 1:1
+        <code class="code-example">thread 'main' panicked at ' --> 1:1
   <span class="comment">|</span>
 1 <span class="comment">|</span> <span class="string">123</span>
   <span class="comment">| ^---</span>
   <span class="comment">|</span>
-  = <span class="op">unexpected digit</span>', src/main.rs:12</pre>
-        </code>
+  = <span class="op">unexpected digit</span>', src/main.rs:12</code>
         <p>
           while <code>"ab *"</code> will result in:
         </p>
-        <code class="code-example">
-          <pre>thread 'main' panicked at ' --> 1:1
+        <code class="code-example">thread 'main' panicked at ' --> 1:1
   <span class="comment">|</span>
 1 <span class="comment">|</span> <span class="string">ab *</span>
   <span class="comment">|    ^---</span>
   <span class="comment">|</span>
-  = <span class="op">expected ident</span>', src/main.rs:12</pre>
-        </code>
+  = <span class="op">expected ident</span>', src/main.rs:12</code>
         </br>
       </div>
       <div class="banner-benchmark"></div>
