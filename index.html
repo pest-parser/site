@@ -227,6 +227,33 @@
           never mixed with procedural code. This results in an always up-to-date
           formalization of a language that is easy to read and maintain.
         </p>
+        </br>
+        <h2>Meaningful error reporting</h2>
+        <p>
+          Based on the grammar definition, the parser also includes automatic
+          error reporting. For the example above, the input <code>"123"</code>
+          will result in:
+        </p>
+        <code class="code-example">
+          <pre>thread 'main' panicked at ' --> 1:1
+  <span class="comment">|</span>
+1 <span class="comment">|</span> <span class="string">123</span>
+  <span class="comment">| ^---</span>
+  <span class="comment">|</span>
+  = <span class="op">unexpected digit</span>', src/main.rs:12</pre>
+        </code>
+        <p>
+          while <code>"ab *"</code> will result in:
+        </p>
+        <code class="code-example">
+          <pre>thread 'main' panicked at ' --> 1:1
+  <span class="comment">|</span>
+1 <span class="comment">|</span> <span class="string">ab *</span>
+  <span class="comment">|    ^---</span>
+  <span class="comment">|</span>
+  = <span class="op">expected ident</span>', src/main.rs:12</pre>
+        </code>
+        </br>
       </div>
       <div class="banner-benchmark"></div>
       <div class="content benchmark">
