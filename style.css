@@ -21,7 +21,7 @@ body {
 .container-main {
   display: grid;
   grid-template-columns: 1fr minmax(auto, 800px) 1fr;
-  grid-template-rows: 50px auto auto 180px auto;
+  grid-template-rows: 50px auto auto auto auto;
 }
 
 .bar-links {
@@ -97,6 +97,10 @@ body {
   background-color: #24c85a;
 }
 
+.content {
+  padding: 40px 20px;
+}
+
 .banner-features {
   grid-area: 3 / 1 / 4 / -1;
   background-color: #4158D0;
@@ -107,7 +111,6 @@ body {
 
 .features {
   grid-area: 3 / 2 / 4 / -2;
-  padding: 40px 20px;
 }
 
 .glyph-background {
@@ -204,6 +207,10 @@ body {
   margin: 0 20px;
 }
 
+.example {
+  grid-area: 4 / 2 / 5 / -2;
+}
+
 .banner-benchmark {
   grid-area: 5 / 1 / 6 / -1;
   background-color: #2485cb;
@@ -214,7 +221,6 @@ body {
 
 .benchmark {
   grid-area: 5 / 2 / 6 / -2;
-  padding: 40px 20px;
 }
 
 .chart {
