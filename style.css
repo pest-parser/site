@@ -14,7 +14,7 @@ body {
 
 @media all and (min-width: 801px) {
   body {
-    font-size: 14.7833px;
+    font-size: 14.8px;
   }
 }
 
@@ -53,7 +53,7 @@ body {
 
 @media all and (min-width: 1201px) {
   .bar-links > div > a {
-    font-size: 19.6333px;
+    font-size: 19.6px;
   }
 }
 
@@ -135,14 +135,14 @@ body {
 }
 
 .sample {
-  font-size: calc(1em + 7vw);
+  font-size: calc(1em + 6.8vw);
   font-weight: bold;
   margin-bottom: 0.3em;
 }
 
 @media all and (min-width: 801px) {
   .sample {
-    font-size: 70.7833px;
+    font-size: 69.2px;
   }
 }
 
