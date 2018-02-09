@@ -248,13 +248,14 @@
   <span class="comment">|</span>
   = <span class="op">expected ident</span>', src/main.rs:12</code>
         </br>
+        </br>
       </div>
       <div class="banner-benchmark"></div>
       <div class="content benchmark">
         <h2>Measurements</h2>
         <p>
-          Performance measurements put a <i>pest</i>-generated JSON parser
-          somewhere between one of the most optimized JSON parsers,
+          Performance measurements put a pest-generated JSON parser somewhere
+          between one of the most optimized JSON parsers,
           <a href="https://github.com/esnme/ujson4c">ujson4c</a>, and a static
           native-speed parser, <a href="https://github.com/Geal/nom">nom</a>.
         </p>
@@ -293,13 +294,12 @@
           <div class="chart-value chart-value-75"><p>75ms</p></div>
         </div>
         <p>
-          The second entry is mapping <code>Pairs</code>, <i>pest's</i> internal
-          lazy tree representation, to a custom JSON AST. While the first entry
-          forms a perfectly usable tree, it does not produce a fully-processed
-          JSON object, with decimal to binary number conversion notably
-          missing. The second one does, but since it has an extra intermediate
-          representation of the object, it repeats some work by performing extra
-          allocations.
+          The second entry is mapping <code>Pairs</code>, pest's internal lazy
+          tree representation, to a custom JSON AST. While the first entry forms
+          a perfectly usable tree, it does not produce a fully-processed JSON
+          object, with decimal to binary number conversion notably missing. The
+          second one does, but since it has an extra intermediate representation
+          of the object, it repeats some work by performing extra allocations.
         </p>
       </div>
     </div>
