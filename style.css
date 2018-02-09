@@ -136,6 +136,7 @@ body {
 
 .sample {
   font-size: calc(1em + 7vw);
+  font-weight: bold;
   margin-bottom: 0.3em;
 }
 
@@ -450,7 +451,7 @@ p {
 }
 
 a {
-  color: #5562ec;
+  color: white;
 }
 
 code {
