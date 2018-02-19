@@ -309,13 +309,13 @@ body {
   margin-left: -25%;
   padding-left: 25%;
   text-align: center;
-  height: 2.4em;
   border-radius: 0 3px 3px 0;
   background-color: #1245ff;
 }
 
 .chart-bar > div > p {
-  line-height: 2.4em;
+  margin: 0;
+  padding: 0.3em;
   font-weight: bold;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
