@@ -473,6 +473,7 @@ body {
   margin: 14px;
   border-radius: 8px;
   font-family: 'Space Mono', monospace;
+  font-variant-ligatures: none;
   font-size: 1em;
   line-height: 60px;
   text-align: center;
@@ -513,6 +514,7 @@ a {
 
 code {
   font-family: 'Space Mono', monospace;
+  font-variant-ligatures: none;
   font-size: 1em;
   line-height: 1.5em;
   color: white;
@@ -521,6 +523,7 @@ code {
 textarea {
   resize: none;
   font-family: 'Space Mono', monospace;
+  font-variant-ligatures: none;
   font-size: 1em;
   line-height: 1.5em;
   background-color: #253451;
