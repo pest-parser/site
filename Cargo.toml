@@ -1,0 +1,7 @@
+[package]
+name = "pest-site"
+version = "0.1.0"
+authors = ["Dragoș Tiselice <dragostiselice@gmail.com>"]
+
+[dependencies]
+stdweb = "^0.4"
