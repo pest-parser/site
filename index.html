@@ -154,6 +154,16 @@
         }
       }
 
+      function selected(node) {
+        var nodes = document.getElementsByClassName("node-selected");
+
+        for (var i = 0; i < nodes.length; i++) {
+          nodes[i].classList.remove("node-selected");
+        }
+
+        node.classList.add("node-selected");
+      }
+
       window.addEventListener("scroll", startAnimations);
 
       window.addEventListener("resize", function() {
@@ -183,7 +193,7 @@
       </div>
       <img class="logo logo-bloom" src="assets/pest-logo.svg">
       <img class="logo" src="assets/pest-logo.svg">
-      <a class="button-try" href="#">Try it here!</a>
+      <a class="button-try" href="#editor">Try it here!</a>
       <div class="banner-features"></div>
       <div class="content features">
         <div class="illustration">
@@ -237,7 +247,7 @@
           The following is an example of a grammar for a list of alpha-numeric
           identifiers where the first identifier does not start with a digit:
         </p>
-        <code class="code-example"><span class="ident">alpha</span> = { <span class="string">'a'</span><span class="op">..</span><span class="string">'z'</span> <span class="op">|</span> <span class="string">'A'</span><span class="op">..</span><span class="string">'Z'</span> }
+        <code class="code-block"><span class="ident">alpha</span> = { <span class="string">'a'</span><span class="op">..</span><span class="string">'z'</span> <span class="op">|</span> <span class="string">'A'</span><span class="op">..</span><span class="string">'Z'</span> }
 <span class="ident">digit</span> = { <span class="string">'0'</span><span class="op">..</span><span class="string">'9'</span> }
 
 <span class="ident">ident</span> = { (<span class="ident">alpha</span> <span class="op">|</span> <span class="ident">digit</span>)<span class="op">+</span> }
@@ -257,7 +267,7 @@
           error reporting. For the example above, the input <code>"123"</code>
           will result in:
         </p>
-        <code class="code-example">thread 'main' panicked at ' --> 1:1
+        <code class="code-block">thread 'main' panicked at ' --> 1:1
   <span class="comment">|</span>
 1 <span class="comment">|</span> <span class="string">123</span>
   <span class="comment">| ^---</span>
@@ -266,7 +276,7 @@
         <p>
           while <code>"ab *"</code> will result in:
         </p>
-        <code class="code-example">thread 'main' panicked at ' --> 1:1
+        <code class="code-block">thread 'main' panicked at ' --> 1:1
   <span class="comment">|</span>
 1 <span class="comment">|</span> <span class="string">ab *</span>
   <span class="comment">|    ^---</span>
@@ -326,6 +336,19 @@
           second one does, but since it has an extra intermediate representation
           of the object, it repeats some work by performing extra allocations.
         </p>
+      </div>
+      <div class="content editor">
+        <a name="editor"><h2>Editor</h2></a>
+        <div class="editor-grid">
+          <textarea rows="15" placeholder="Grammar" class="editor-grammar grammar-area"></textarea>
+          <textarea rows="1" placeholder="Input" class="editor-input"></textarea>
+          <div class="editor-tree">
+            <div class="node" onclick="selected(this)">expr</div>
+            <div class="node" onclick="selected(this)">num</div>
+            <div class="node node-selected" onclick="selected(this)">int</div>
+          </div>
+          <textarea rows="5" placeholder="Output" readonly class="editor-output"></textarea>
+        </div>
       </div>
     </div>
   </body>
