@@ -487,6 +487,10 @@ body {
 .cm-s-pest span.cm-variable { color: #51d3f6; }
 .cm-s-pest span.cm-error { background: #ac4142; color: #b0b0b0; }
 
+.cm-s-pest .CodeMirror-placeholder {
+  color: #999;
+}
+
 .cm-s-pest .CodeMirror-lint-mark-error {
   background-image: none;
   border-bottom: 1px dotted #ff3d3d;
