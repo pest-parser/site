@@ -385,16 +385,30 @@
 
       CodeMirror.registerHelper("lint", "pest", function(text) {
         if (window.lint) {
+          var doc = CodeMirror.Doc(text);
           var errors = window.lint(text);
           var mapped = [];
 
           for (var i = 0; i < errors.length; i++) {
+            var from = doc.clipPos(eval("CodeMirror.Pos" + errors[i].from));
+            var to = doc.clipPos(eval("CodeMirror.Pos" + errors[i].to));
+
+            if (from.line == to.line && from.ch == to.ch) {
+              to.ch += 1;
+              to = doc.clipPos(to);
+            }
+
+            if (from.line == to.line && from.ch == to.ch) {
+              from.ch -= 1;
+              from = doc.clipPos(from);
+            }
+
             mapped.push({
               message: errors[i].message,
-              from: eval("CodeMirror.Pos" + errors[i].from),
-              to: eval("CodeMirror.Pos" + errors[i].to)
+              from: from,
+              to: to
             });
-          }
+          }console.log(mapped);
 
           return mapped;
         } else {
@@ -404,10 +418,10 @@
 
       var grammar = document.getElementsByClassName("editor-grammar")[0];
       var myCodeMirror = CodeMirror.fromTextArea(grammar, {
-        "mode": "pest",
-        "lint": "pest",
-        "theme": "pest",
-        "placeholder": "Grammar"
+        mode: "pest",
+        lint: "pest",
+        theme: "pest",
+        placeholder: "Grammar"
       });
     </script>
   </body>
