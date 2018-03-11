@@ -152,7 +152,6 @@ body {
 
 .sample > span:hover {
   color: #765cf6;
-  border-bottom: 2px solid;
   mix-blend-mode: multiply;
 }
 
