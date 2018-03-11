@@ -340,7 +340,7 @@
       <div class="content editor">
         <a name="editor"><h2>Editor</h2></a>
         <div class="editor-grid">
-          <textarea rows="15" placeholder="Grammar" class="editor-grammar grammar-area"></textarea>
+          <textarea rows="15" class="editor-grammar grammar-area"></textarea>
           <textarea rows="1" placeholder="Input" class="editor-input"></textarea>
           <div class="editor-tree">
             <div class="node" onclick="selected(this)">expr</div>
@@ -352,5 +352,62 @@
       </div>
     </div>
     <script src="pest-site.js"></script>
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/addon/mode/simple.js"></script>
+    <script src="codemirror/addon/lint/lint.js"></script>
+    <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <script type="text/javascript">
+      CodeMirror.defineSimpleMode("pest", {
+        start: [
+          {regex: /"/, token: "string", next: "string"},
+          {regex: /'(?:[^'\\]|\\(?:[nrt0'"]|x[\da-fA-F]{2}|u\{[\da-fA-F]{6}\}))'/, token: "string"},
+          {regex: /\/\/.*/, token: "comment"},
+          {regex: /\d+/, token: "number"},
+          {regex: /[~|*+?&!]|(\.\.)/, token: "operator"},
+          {regex: /[a-zA-Z_]\w*/, token: "variable"},
+          {regex: /=/, next: "mod"}
+        ],
+        mod: [
+          {regex: /\{/, next: "start"},
+          {regex: /[_@!]/, token: "operator-2"},
+        ],
+        string: [
+            {regex: /"/, token: "string", next: "start"},
+            {regex: /(?:[^\\"]|\\(?:.|$))*/, token: "string"}
+        ],
+        meta: {
+          dontIndentStates: ["comment"],
+          lineComment: "//"
+        }
+      });
+
+      CodeMirror.registerHelper("lint", "pest", function(text) {
+        if (window.lint) {
+          var errors = window.lint(text);
+          var mapped = [];
+
+          for (var i = 0; i < errors.length; i++) {
+            mapped.push({
+              message: errors[i].message,
+              from: eval("CodeMirror.Pos" + errors[i].from),
+              to: eval("CodeMirror.Pos" + errors[i].to)
+            });
+          }
+
+          return mapped;
+        } else {
+          return [];
+        }
+      });
+
+      var grammar = document.getElementsByClassName("editor-grammar")[0];
+      var myCodeMirror = CodeMirror.fromTextArea(grammar, {
+        "mode": "pest",
+        "lint": "pest",
+        "theme": "pest",
+        "placeholder": "Grammar"
+      });
+    </script>
   </body>
 </html>

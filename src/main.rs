@@ -1,7 +1,12 @@
+extern crate pest;
 extern crate pest_meta;
 extern crate pest_vm;
 #[macro_use]
 extern crate stdweb;
+
+use std::collections::HashMap;
+
+use pest::{Error, Position};
 
 use pest_meta::parser::{self, Rule};
 use pest_meta::validator;
@@ -70,18 +75,14 @@ fn listen_for_input() {
 fn wait_and_run() {
     web::set_timeout(|| {
         if unsafe { NEEDS_RUN } {
-            compile_grammar();
+            // compile_grammar();
             unsafe { NEEDS_RUN = false; }
         }
     }, 800);
 }
 
-fn compile_grammar() {
-    let grammar = web::document().query_selector(".editor-grammar").unwrap().unwrap();
-    let grammar: TextAreaElement = grammar.try_into().unwrap();
-    let grammar = grammar.value();
-
-    let pairs = try_output!(parser::parse(Rule::grammar_rules, &grammar).map_err(|error| {
+fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
+    let result = parser::parse(Rule::grammar_rules, &grammar).map_err(|error| {
         error.renamed_rules(|rule| match *rule {
             Rule::grammar_rule => "rule".to_owned(),
             Rule::_push => "push".to_owned(),
@@ -108,9 +109,51 @@ fn compile_grammar() {
             Rule::single_quote => "`'`".to_owned(),
             other_rule => format!("{:?}", other_rule)
         })
-    }));
-    let defaults = try_output_vec!(validator::validate_pairs(pairs.clone()));
-    let ast = try_output_vec!(parser::consume_rules(pairs));
+    });
+
+    let pairs = match result {
+        Ok(pairs) => pairs,
+        Err(error) => return vec![convert_error(error)]
+    };
+    let defaults = match validator::validate_pairs(pairs.clone()){
+        Ok(defaults) => defaults,
+        Err(errors) => return errors.into_iter().map(convert_error).collect()
+    };
+    let ast = match parser::consume_rules(pairs) {
+        Ok(ast) => ast,
+        Err(errors) => return errors.into_iter().map(convert_error).collect()
+    };
+
+    vec![]
+}
+
+fn convert_error(error: Error<Rule>) -> HashMap<String, String> {
+    match error {
+        Error::CustomErrorPos { message, pos } => {
+            let mut map = HashMap::new();
+
+            map.insert("from".to_owned(), line_col(&pos));
+            map.insert("to".to_owned(), line_col(&pos));
+            map.insert("message".to_owned(), format!("{}", message));
+
+            map
+        }
+        Error::CustomErrorSpan { message, span } => {
+            let mut map = HashMap::new();
+
+            map.insert("from".to_owned(), line_col(&span.start_pos()));
+            map.insert("to".to_owned(), line_col(&span.end_pos()));
+            map.insert("message".to_owned(), format!("{}", message));
+
+            map
+        }
+        _ => unreachable!()
+    }
+}
+
+fn line_col(pos: &Position) -> String {
+    let (line, col) = pos.line_col();
+    format!("({}, {})", line - 1, col - 1)
 }
 
 fn add_node() {
@@ -133,4 +176,11 @@ fn add_node() {
 fn main() {
     listen_for_input();
     add_node();
+
+    js! {
+        window.lint = function (grammar) {
+            var compile_grammar = @{compile_grammar};
+            return compile_grammar(grammar);
+        }
+    }
 }

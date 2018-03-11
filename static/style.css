@@ -446,6 +446,10 @@ body {
     grid-area: 1 / 1 / 2 / 3;
   }
 
+  .cm-s-pest.CodeMirror {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+
   .editor-input {
     grid-area: 2 / 1 / 3 / 3;
   }
@@ -458,6 +462,52 @@ body {
   .editor-output {
     grid-column: span 2;
   }
+}
+
+.cm-s-pest.CodeMirror {
+  font-family: 'Space Mono', monospace;
+  font-variant-ligatures: none;
+  font-size: 1em;
+  line-height: 1.5em;
+  background: #253451;
+  padding: 0.8em 1.3em;
+  border-radius: 3px;
+  color: white;
+}
+
+.cm-s-pest .CodeMirror-cursor {
+  border-left: 1px solid white;
+}
+
+.cm-s-pest span.cm-comment { color: #a5adc6; }
+.cm-s-pest span.cm-operator { color: #ff926e; }
+.cm-s-pest span.cm-operator-2 { color: #697bdb; }
+.cm-s-pest span.cm-number { color: #aa759f; }
+.cm-s-pest span.cm-string { color: #7ef69d; }
+.cm-s-pest span.cm-variable { color: #51d3f6; }
+.cm-s-pest span.cm-error { background: #ac4142; color: #b0b0b0; }
+
+.cm-s-pest .CodeMirror-lint-mark-error {
+  background-image: none;
+  border-bottom: 1px dotted #ff3d3d;
+}
+
+.CodeMirror-lint-tooltip {
+  background-color: white !important;
+  font-family: 'Space Mono', monospace !important;
+  font-variant-ligatures: none !important;
+  font-size: 1em !important;
+  line-height: 1.5em !important;
+  padding: 0.8em 1.3em !important;
+  padding-left: 0 !important;
+  border: none !important;
+  border-left: 2em solid #ff3d3d !important;
+  border-radius: 3px !important;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.CodeMirror-lint-marker-error, .CodeMirror-lint-message-error {
+  background-image: none !important;
 }
 
 .editor-tree {

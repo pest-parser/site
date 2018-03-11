@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Dragoș Tiselice <dragostiselice@gmail.com>"]
 
 [dependencies]
+pest = { git = "https://github.com/pest-parser/pest" }
 pest_meta = { git = "https://github.com/pest-parser/pest" }
 pest_vm = { git = "https://github.com/pest-parser/pest" }
 stdweb = "^0.4"
