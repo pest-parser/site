@@ -12,49 +12,8 @@ use pest_meta::parser::{self, Rule};
 use pest_meta::validator;
 
 use stdweb::traits::*;
-use stdweb::unstable::TryInto;
 use stdweb::web;
 use stdweb::web::event::{ClickEvent, InputEvent};
-use stdweb::web::html_element::TextAreaElement;
-
-macro_rules! try_output {
-    ( $result:expr ) => {
-        match $result {
-            Ok(value) => value,
-            Err(error) => {
-                let output = web::document().query_selector(".editor-output").unwrap().unwrap();
-                let output: TextAreaElement = output.try_into().unwrap();
-                output.set_value(&format!(
-                    "parsing error\n\n{}",
-                    error
-                ));
-
-                return;
-            }
-        }
-    };
-}
-
-macro_rules! try_output_vec {
-    ( $result:expr ) => {
-        match $result {
-            Ok(value) => value,
-            Err(error) => {
-                let output = web::document().query_selector(".editor-output").unwrap().unwrap();
-                let output: TextAreaElement = output.try_into().unwrap();
-                output.set_value(&format!(
-                    "grammar error\n\n{}",
-                    &error.into_iter()
-                        .map(|error| format!("{}", error))
-                        .collect::<Vec<_>>()
-                        .join("\n\n")
-                ));
-
-                return;
-            }
-        }
-    };
-}
 
 static mut NEEDS_RUN: bool = false;
 
