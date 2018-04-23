@@ -463,6 +463,41 @@ body {
   }
 }
 
+.editor-input {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  background-color: #253451;
+  border-radius: 3px;
+}
+
+.editor-input-text {
+  background-color: initial;
+  border-radius: 0;
+}
+
+.editor-input-select {
+  font-family: 'Space Mono', monospace;
+  font-variant-ligatures: none;
+  font-size: 1em;
+  text-align-last: center;
+  background: #3f4e6b url('assets/dropdown.svg') no-repeat;
+  background-position: 90% 50%;
+  background-blend-mode: soft-light;
+  border: 1.5px solid #57627a;
+  border-radius: 0 3px 3px 0;
+  color: white;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.editor-input-select:disabled {
+  background: #3a475f url('assets/dropdown.svg') no-repeat;
+  background-position: 90% 50%;
+  background-blend-mode: soft-light;
+  color: #7a879c;
+}
+
 .cm-s-pest.CodeMirror {
   font-family: 'Space Mono', monospace;
   font-variant-ligatures: none;

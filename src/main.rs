@@ -11,20 +11,20 @@ use pest::{Error, Position};
 use pest_meta::parser::{self, Rule};
 use pest_meta::validator;
 
+use pest_vm::Vm;
+
 use stdweb::traits::*;
+use stdweb::unstable::TryInto;
 use stdweb::web;
 use stdweb::web::event::{ClickEvent, InputEvent};
 
 static mut NEEDS_RUN: bool = false;
+static mut VM: Option<Vm> = None;
 
 fn listen_for_input() {
     let grammar = web::document().query_selector(".editor-grammar").unwrap().unwrap();
     let input = web::document().query_selector(".editor-input").unwrap().unwrap();
 
-    grammar.add_event_listener(move |_: InputEvent| {
-        unsafe { NEEDS_RUN = true; }
-        wait_and_run();
-    });
     input.add_event_listener(move |_: InputEvent| {
         unsafe { NEEDS_RUN = true; }
         wait_and_run();
@@ -72,16 +72,28 @@ fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
 
     let pairs = match result {
         Ok(pairs) => pairs,
-        Err(error) => return vec![convert_error(error)]
+        Err(error) => {
+            add_rules_to_select(vec![]);
+            return vec![convert_error(error)];
+        }
     };
-    let defaults = match validator::validate_pairs(pairs.clone()){
-        Ok(defaults) => defaults,
-        Err(errors) => return errors.into_iter().map(convert_error).collect()
-    };
+
+    if let Err(errors) = validator::validate_pairs(pairs.clone()) {
+        add_rules_to_select(vec![]);
+        return errors.into_iter().map(convert_error).collect();
+    }
+
     let ast = match parser::consume_rules(pairs) {
         Ok(ast) => ast,
-        Err(errors) => return errors.into_iter().map(convert_error).collect()
+        Err(errors) => {
+            add_rules_to_select(vec![]);
+            return errors.into_iter().map(convert_error).collect();
+        }
     };
+
+    unsafe { VM = Some(Vm::new(ast.clone())); }
+
+    add_rules_to_select(ast.iter().map(|rule| rule.name.as_str()).collect());
 
     vec![]
 }
@@ -113,6 +125,53 @@ fn convert_error(error: Error<Rule>) -> HashMap<String, String> {
 fn line_col(pos: &Position) -> String {
     let (line, col) = pos.line_col();
     format!("({}, {})", line - 1, col - 1)
+}
+
+fn add_rules_to_select(rules: Vec<&str>) {
+    let select = web::document().query_selector(".editor-input-select").unwrap().unwrap();
+    let parent = select.parent_node().unwrap();
+
+    if rules.is_empty() {
+        let new_select = web::document().create_element("select").unwrap();
+        new_select.class_list().add("editor-input-select").unwrap();
+
+        js! {
+            @{&new_select}.disabled = true;
+        }
+
+        let option = web::document().create_element("option").unwrap();
+        option.append_child(&web::document().create_text_node("..."));
+        new_select.append_child(&option);
+
+        parent.replace_child(&new_select, &select).unwrap();
+    } else {
+        let current_option = select.child_nodes().into_iter().find(|o| {
+            let value = js! {
+                return @{o}.selected;
+            };
+
+            value.try_into().unwrap()
+        }).and_then(|o| o.text_content());
+
+        let new_select = web::document().create_element("select").unwrap();
+        new_select.class_list().add("editor-input-select").unwrap();
+
+        for rule in rules {
+            let option = web::document().create_element("option").unwrap();
+            option.append_child(&web::document().create_text_node(rule));
+            new_select.append_child(&option);
+
+            if let Some(ref text) = current_option {
+                if text == rule {
+                    js! {
+                        @{option}.selected = true;
+                    }
+                }
+            }
+        }
+
+        parent.replace_child(&new_select, &select).unwrap();
+    }
 }
 
 fn add_node() {

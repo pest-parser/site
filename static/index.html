@@ -341,7 +341,12 @@
         <a name="editor"><h2>Editor</h2></a>
         <div class="editor-grid">
           <textarea rows="15" class="editor-grammar grammar-area"></textarea>
-          <textarea rows="1" placeholder="Input" class="editor-input"></textarea>
+          <div class="editor-input">
+            <textarea rows="1" placeholder="Input" class="editor-input-text"></textarea>
+            <select disabled class="editor-input-select">
+              <option>...</option>
+            </select>
+          </div>
           <div class="editor-tree">
             <div class="node" onclick="selected(this)">expr</div>
             <div class="node" onclick="selected(this)">num</div>
