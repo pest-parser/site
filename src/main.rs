@@ -16,7 +16,7 @@ use pest_vm::Vm;
 use stdweb::traits::*;
 use stdweb::unstable::TryInto;
 use stdweb::web;
-use stdweb::web::event::{ClickEvent, InputEvent};
+use stdweb::web::event::InputEvent;
 
 static mut NEEDS_RUN: bool = false;
 static mut VM: Option<Vm> = None;
@@ -174,26 +174,8 @@ fn add_rules_to_select(rules: Vec<&str>) {
     }
 }
 
-fn add_node() {
-    let tree = web::document().query_selector(".editor-tree").unwrap().unwrap();
-
-    let node = web::document().create_element("div").unwrap();
-    node.class_list().add("node").unwrap();
-    node.class_list().add("node-selected").unwrap();
-    node.append_child(&web::document().create_text_node("digit"));
-    let node_clone = node.clone();
-    node.add_event_listener(move |_: ClickEvent| {
-        js! {
-            selected(@{&node_clone});
-        }
-    });
-
-    tree.append_child(node.as_node());
-}
-
 fn main() {
     listen_for_input();
-    add_node();
 
     js! {
         window.lint = function (grammar) {
