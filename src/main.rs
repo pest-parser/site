@@ -74,15 +74,22 @@ fn format_pair(pair: Pair<&str>, indent_level: u32) -> String {
         indent.push_str("  ");
     }
 
-    let children: Vec<_> = pair.clone().into_inner().map(|pair| {
-        format_pair(pair, indent_level + 1)
+    let children: Vec<_> = pair.clone().into_inner().collect();
+    let len = children.len();
+    let children: Vec<_> = children.into_iter().map(|pair| {
+        format_pair(pair, if len > 1 { indent_level + 1 } else { 0 })
     }).collect();
-    let children = children.join("\n");
 
-    if children.is_empty() {
-        format!("{}- {}: {:?}", indent, pair.as_rule(), pair.into_span().as_str())
+    let dash = if indent_level == 0 {
+        ""
     } else {
-        format!("{}- {}\n{}", indent, pair.as_rule(), children)
+        "- "
+    };
+
+    match len {
+        0 => format!("{}{}{}: {:?}", indent, dash, pair.as_rule(), pair.into_span().as_str()),
+        1 => format!("{}{}{} > {}", indent, dash, pair.as_rule(), children[0]),
+        _ => format!("{}{}{}\n{}", indent, dash, pair.as_rule(), children.join("\n"))
     }
 }
 
