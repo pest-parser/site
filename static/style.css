@@ -543,6 +543,9 @@ p {
 }
 
 a {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.15em;
+  line-height: 1.65em;
   color: white;
 }
 
@@ -552,6 +555,34 @@ code {
   font-size: 1em;
   line-height: 1.5em;
   color: white;
+}
+
+button {
+  justify-self: center;
+  background-color: #616e86;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1em;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 0.8em 1em;
+  color: white;
+  border: 0;
+  border-radius: 2px;
+  text-align: center;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: width 400ms ease-in-out;
+}
+
+button:hover {
+  background-color: #7b89a5;
+}
+
+button:active {
+  background-color: #596375;
+}
+
+button:disabled {
+  background-color: #596375;
 }
 
 textarea {

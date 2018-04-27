@@ -35,8 +35,8 @@
       var spans;
 
       function random() {
-          var x = Math.sin(seed++) * 10000;
-          return x - Math.floor(x);
+        var x = Math.sin(seed++) * 10000;
+        return x - Math.floor(x);
       }
 
       function randomN(n) {
@@ -329,6 +329,7 @@
       </div>
       <div class="content editor">
         <a name="editor"><h2>Editor</h2></a>
+        <button onclick="share()">Share</button><a class="direct-link"></a>
         <div class="editor-grid">
           <textarea rows="15" class="editor-grammar grammar-area"></textarea>
           <div class="editor-input">
@@ -413,6 +414,65 @@
         theme: "pest",
         placeholder: "Grammar"
       });
+
+      var url = new URL(window.location.href);
+      var bin = url.searchParams.get("bin");
+      if (bin) {
+        var http = new XMLHttpRequest();
+        var url = "https://api.myjson.com/bins/" + bin;
+        http.open("GET", url, true);
+
+        http.onreadystatechange = function() {
+          if (http.readyState == 4 && http.status == 200) {
+            var data = JSON.parse(http.responseText);
+
+            myCodeMirror.setValue(data["grammar"]);
+
+            setTimeout(function() {
+              var select = document.getElementsByClassName("editor-input-select")[0];
+
+              for (var i = 0; i < select.options.length; i++) {
+                console.log(i, select.options[i].value);
+                if (select.options[i].value == data["rule"]) {
+                  select.selectedIndex = i;
+                  break;
+                }
+              }
+
+              document.getElementsByClassName("editor-input-text")[0].value = data["input"];
+            }, 1000);
+          }
+        }
+        http.send(null);
+      }
+
+      function share() {
+        var data = {};
+        var select = document.getElementsByClassName("editor-input-select")[0];
+
+        data["grammar"] = myCodeMirror.getValue();
+        data["input"] = document.getElementsByClassName("editor-input-text")[0].value;
+        data["rule"] = select.options[select.selectedIndex].value;
+
+        var http = new XMLHttpRequest();
+        var url = "https://api.myjson.com/bins";
+        http.open("POST", url, true);
+        http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+        http.onreadystatechange = function() {
+          if (http.readyState == 4 && http.status == 201) {
+            var url = JSON.parse(http.responseText)["uri"];
+            var tokens = url.split("/");
+            var bin = tokens[tokens.length - 1];
+
+            var link = document.getElementsByClassName("direct-link")[0];
+
+            link.href = "https://pest-parser.github.io/?bin=" + bin + "#editor";
+            link.text = "direct link";
+          }
+        }
+        http.send(JSON.stringify(data));
+      }
     </script>
   </body>
 </html>
