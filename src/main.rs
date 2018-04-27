@@ -163,6 +163,11 @@ fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
     unsafe { VM = Some(Vm::new(ast.clone())); }
 
     add_rules_to_select(ast.iter().map(|rule| rule.name.as_str()).collect());
+
+    js! {
+        if (set_current_data) set_current_data();
+    }
+
     parse_input();
 
     vec![]

@@ -350,6 +350,8 @@
     <script src="codemirror/addon/mode/simple.js"></script>
     <link rel="stylesheet" href="codemirror/lib/codemirror.css">
     <script type="text/javascript">
+      var current_data = null;
+
       CodeMirror.defineSimpleMode("pest", {
         start: [
           {regex: /"/, token: "string", next: "string"},
@@ -425,25 +427,47 @@
         http.onreadystatechange = function() {
           if (http.readyState == 4 && http.status == 200) {
             var data = JSON.parse(http.responseText);
+            current_data = data;
 
             myCodeMirror.setValue(data["grammar"]);
 
-            setTimeout(function() {
-              var select = document.getElementsByClassName("editor-input-select")[0];
-
-              for (var i = 0; i < select.options.length; i++) {
-                console.log(i, select.options[i].value);
-                if (select.options[i].value == data["rule"]) {
-                  select.selectedIndex = i;
-                  break;
-                }
-              }
-
-              document.getElementsByClassName("editor-input-text")[0].value = data["input"];
-            }, 1000);
+            // setTimeout(function() {
+              // var select = document.getElementsByClassName("editor-input-select")[0];
+              //
+              // for (var i = 0; i < select.options.length; i++) {
+              //   console.log(i, select.options[i].value);
+              //   if (select.options[i].value == data["rule"]) {
+              //     select.selectedIndex = i;
+              //     break;
+              //   }
+              // }
+              //
+              // var input = document.getElementsByClassName("editor-input-text")[0];
+              // input.value = data["input"];
+            //
+            //   var event = document.createEvent('Event');
+            //   event.initEvent('input', true, true);
+            //
+            //   input.dispatchEvent(event);
+            // }, 1000);
           }
         }
         http.send(null);
+      }
+
+      function set_current_data() {
+        var select = document.getElementsByClassName("editor-input-select")[0];
+
+        for (var i = 0; i < select.options.length; i++) {
+          console.log(i, select.options[i].value);
+          if (select.options[i].value == current_data["rule"]) {
+            select.selectedIndex = i;
+            break;
+          }
+        }
+
+        var input = document.getElementsByClassName("editor-input-text")[0];
+        input.value = current_data["input"];
       }
 
       function share() {
