@@ -430,44 +430,28 @@
             current_data = data;
 
             myCodeMirror.setValue(data["grammar"]);
-
-            // setTimeout(function() {
-              // var select = document.getElementsByClassName("editor-input-select")[0];
-              //
-              // for (var i = 0; i < select.options.length; i++) {
-              //   console.log(i, select.options[i].value);
-              //   if (select.options[i].value == data["rule"]) {
-              //     select.selectedIndex = i;
-              //     break;
-              //   }
-              // }
-              //
-              // var input = document.getElementsByClassName("editor-input-text")[0];
-              // input.value = data["input"];
-            //
-            //   var event = document.createEvent('Event');
-            //   event.initEvent('input', true, true);
-            //
-            //   input.dispatchEvent(event);
-            // }, 1000);
           }
         }
         http.send(null);
       }
 
       function set_current_data() {
-        var select = document.getElementsByClassName("editor-input-select")[0];
+        if (current_data) {
+          var select = document.getElementsByClassName("editor-input-select")[0];
 
-        for (var i = 0; i < select.options.length; i++) {
-          console.log(i, select.options[i].value);
-          if (select.options[i].value == current_data["rule"]) {
-            select.selectedIndex = i;
-            break;
+          for (var i = 0; i < select.options.length; i++) {
+            console.log(i, select.options[i].value);
+            if (select.options[i].value == current_data["rule"]) {
+              select.selectedIndex = i;
+              break;
+            }
           }
-        }
 
-        var input = document.getElementsByClassName("editor-input-text")[0];
-        input.value = current_data["input"];
+          var input = document.getElementsByClassName("editor-input-text")[0];
+          input.value = current_data["input"];
+
+          current_data = null;
+        }
       }
 
       function share() {
