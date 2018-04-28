@@ -19,11 +19,12 @@ use stdweb::traits::*;
 use stdweb::unstable::TryInto;
 use stdweb::Value;
 use stdweb::web;
-use stdweb::web::event::InputEvent;
+use stdweb::web::event::{ChangeEvent, InputEvent};
 use stdweb::web::html_element::TextAreaElement;
 
 static mut NEEDS_RUN: bool = false;
 static mut VM: Option<Vm> = None;
+static mut LAST_SELECTION: Option<String> = None;
 
 fn listen_for_input() {
     let input = web::document().query_selector(".editor-input-text").unwrap().unwrap();
@@ -205,11 +206,11 @@ fn line_col(pos: &Position) -> String {
 fn add_rules_to_select(rules: Vec<&str>) {
     let select = web::document().query_selector(".editor-input-select").unwrap().unwrap();
     let parent = select.parent_node().unwrap();
+    let new_select = web::document().create_element("select").unwrap();
+
+    new_select.class_list().add("editor-input-select").unwrap();
 
     if rules.is_empty() {
-        let new_select = web::document().create_element("select").unwrap();
-        new_select.class_list().add("editor-input-select").unwrap();
-
         js! {
             @{&new_select}.disabled = true;
         }
@@ -220,17 +221,12 @@ fn add_rules_to_select(rules: Vec<&str>) {
 
         parent.replace_child(&new_select, &select).unwrap();
     } else {
-        let selected = selected_option();
-
-        let new_select = web::document().create_element("select").unwrap();
-        new_select.class_list().add("editor-input-select").unwrap();
-
         for rule in rules {
             let option = web::document().create_element("option").unwrap();
             option.append_child(&web::document().create_text_node(rule));
             new_select.append_child(&option);
 
-            if let Some(ref text) = selected {
+            if let Some(ref text) = unsafe { &LAST_SELECTION } {
                 if text == rule {
                     js! {
                         @{option}.selected = true;
@@ -241,6 +237,12 @@ fn add_rules_to_select(rules: Vec<&str>) {
 
         parent.replace_child(&new_select, &select).unwrap();
     }
+
+    new_select.add_event_listener(move |_: ChangeEvent| {
+        unsafe { LAST_SELECTION = selected_option(); }
+
+        parse_input();
+    });
 }
 
 fn main() {

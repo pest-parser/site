@@ -440,9 +440,10 @@
           var select = document.getElementsByClassName("editor-input-select")[0];
 
           for (var i = 0; i < select.options.length; i++) {
-            console.log(i, select.options[i].value);
             if (select.options[i].value == current_data["rule"]) {
               select.selectedIndex = i;
+              var event = new Event('change');
+              select.dispatchEvent(event);
               break;
             }
           }
