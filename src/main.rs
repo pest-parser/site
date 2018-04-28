@@ -11,7 +11,7 @@ use pest::{Error, Position};
 use pest_new::iterators::Pair;
 
 use pest_meta::parser::{self, Rule};
-use pest_meta::validator;
+use pest_meta::{optimizer, validator};
 
 use pest_vm::Vm;
 
@@ -161,7 +161,7 @@ fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
         }
     };
 
-    unsafe { VM = Some(Vm::new(ast.clone())); }
+    unsafe { VM = Some(Vm::new(optimizer::optimize(ast.clone()))); }
 
     add_rules_to_select(ast.iter().map(|rule| rule.name.as_str()).collect());
 
