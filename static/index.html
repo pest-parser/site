@@ -279,53 +279,37 @@
       <div class="content benchmark">
         <h2>Measurements</h2>
         <p>
-          Performance measurements put a pest-generated JSON parser somewhere
-          between one of the most optimized JSON parsers,
+          Performance measurements place a pest-generated JSON parser in
+          a competitive position against one of the most optimized JSON parsers,
           <a href="https://github.com/esnme/ujson4c">ujson4c</a>, and a static
           native-speed parser, <a href="https://github.com/Geal/nom">nom</a>.
         </p>
         <div class="chart">
-          <div class="chart-label"><p class="chart-label-ujson4c">ujson4c</p></div>
           <div class="chart-label"><p class="chart-label-pest">pest</p></div>
-          <div class="chart-label"><p class="chart-label-pest-ast">pest AST</p></div>
+          <div class="chart-label"><p class="chart-label-ujson4c">ujson4c</p></div>
           <div class="chart-label"><p class="chart-label-nom">nom</p></div>
           <div class="chart-border chart-border-1"></div>
           <div class="chart-border chart-border-2"></div>
           <div class="chart-border chart-border-3"></div>
-          <div class="chart-border chart-border-4"></div>
-          <div class="chart-bar chart-bar-ujson4c">
-            <div class="chart-bar-hidden">
-              <p>11</p>
-            </div>
-          </div>
           <div class="chart-bar chart-bar-pest">
             <div class="chart-bar-hidden">
-              <p>18</p>
+              <p>29.9</p>
             </div>
           </div>
-          <div class="chart-bar chart-bar-pest-ast">
+          <div class="chart-bar chart-bar-ujson4c">
             <div class="chart-bar-hidden">
-              <p>44</p>
+              <p>30.0</p>
             </div>
           </div>
           <div class="chart-bar chart-bar-nom">
             <div class="chart-bar-hidden">
-              <p>85</p>
+              <p>39.5</p>
             </div>
           </div>
-          <div class="chart-value chart-value-0"><p>0ms</p></div>
-          <div class="chart-value chart-value-25"><p>25ms</p></div>
-          <div class="chart-value chart-value-50"><p>50ms</p></div>
-          <div class="chart-value chart-value-75"><p>75ms</p></div>
+          <div class="chart-value chart-value-20"><p>20ms</p></div>
+          <div class="chart-value chart-value-30"><p>30ms</p></div>
+          <div class="chart-value chart-value-40"><p>40ms</p></div>
         </div>
-        <p>
-          The second entry is mapping <code>Pairs</code>, pest's internal lazy
-          tree representation, to a custom JSON AST. While the first entry forms
-          a perfectly usable tree, it does not produce a fully-processed JSON
-          object, with decimal to binary number conversion notably missing. The
-          second one does, but since it has an extra intermediate representation
-          of the object, it repeats some work by performing extra allocations.
-        </p>
       </div>
       <div class="content editor">
         <a name="editor"><h2>Editor</h2></a>

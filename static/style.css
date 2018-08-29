@@ -255,8 +255,8 @@ body {
 
 .chart {
   display: grid;
-  grid-template-columns: 6em repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr) 1.5em;
+  grid-template-columns: 6em repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr) 1.5em;
   height: calc(17em + 5vw);
 }
 
@@ -294,10 +294,6 @@ body {
   grid-area: 1 / 4 / -1 / 5;
 }
 
-.chart-border-4 {
-  grid-area: 1 / 5 / -1 / 6;
-}
-
 .chart-bar {
   overflow: hidden;
   align-self: center;
@@ -325,38 +321,29 @@ body {
   transition: opacity 0.3s ease-in-out;
 }
 
-.chart-bar-ujson4c {
+.chart-bar-pest {
   grid-area: 1 / 2 / 2 / -1;
 }
 
-.chart-bar-ujson4c > div {
-  width: calc(11% + 25%); /* negative margin */
+.chart-bar-pest > div {
+  width: calc((29.9% - 20%) * 3.33 + 25%); /* negative margin */
+  background-color: #ff007b;
 }
 
-.chart-bar-pest {
+.chart-bar-ujson4c {
   grid-area: 2 / 2 / 3 / -1;
 }
 
-.chart-bar-pest > div {
-  width: calc(18% + 25%); /* negative margin */
-  background-color: #ff007b;
-}
-
-.chart-bar-pest-ast {
-  grid-area: 3 / 2 / 4 / -1;
-}
-
-.chart-bar-pest-ast > div {
-  width: calc(44% + 25%); /* negative margin */
-  background-color: #ff007b;
+.chart-bar-ujson4c > div {
+  width: calc((34% - 20%) * 3.33 + 25%); /* negative margin */
 }
 
 .chart-bar-nom {
-  grid-area: 4 / 2 / 5 / -1;
+  grid-area: 3 / 2 / 4 / -1;
 }
 
 .chart-bar-nom > div {
-  width: calc(85% + 25%); /* negative margin */
+  width: calc((39.5% - 20%) * 3.33 + 25%); /* negative margin */
 }
 
 .chart-bar-hidden {
@@ -410,20 +397,16 @@ body {
   margin-left: 0.5em;
 }
 
-.chart-value-0 {
+.chart-value-20 {
   grid-area: 5 / 2 / 6 / 3;
 }
 
-.chart-value-25 {
+.chart-value-30 {
   grid-area: 5 / 3 / 6 / 4;
 }
 
-.chart-value-50 {
+.chart-value-40 {
   grid-area: 5 / 4 / 6 / 5;
-}
-
-.chart-value-75 {
-  grid-area: 5 / 5 / 6 / 6;
 }
 
 .editor {
