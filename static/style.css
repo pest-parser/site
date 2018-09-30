@@ -335,7 +335,7 @@ body {
 }
 
 .chart-bar-ujson4c > div {
-  width: calc((34% - 20%) * 3.33 + 25%); /* negative margin */
+  width: calc((30% - 20%) * 3.33 + 25%); /* negative margin */
 }
 
 .chart-bar-nom {
