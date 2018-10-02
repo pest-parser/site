@@ -1,7 +1,0 @@
-[package]
-name = "pest_new"
-version = "0.1.0"
-authors = ["Dragos Tiselice <dragostiselice@gmail.com>"]
-
-[dependencies]
-pest = { git = "https://github.com/pest-parser/pest" }

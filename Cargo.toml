@@ -6,8 +6,7 @@ version = "0.1.0"
 authors = ["Dragoș Tiselice <dragostiselice@gmail.com>"]
 
 [dependencies]
-pest = "^1.0"
-pest_meta = { git = "https://github.com/pest-parser/pest" }
-pest_new = { path = "pest_new" }
-pest_vm = { git = "https://github.com/pest-parser/pest" }
+pest = "2.0"
+pest_meta = "2.0"
+pest_vm = "2.0"
 stdweb = "^0.4"

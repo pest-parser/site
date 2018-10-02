@@ -1,14 +1,13 @@
 extern crate pest;
 extern crate pest_meta;
-extern crate pest_new;
 extern crate pest_vm;
 #[macro_use]
 extern crate stdweb;
 
 use std::collections::HashMap;
 
-use pest::{Error, Position};
-use pest_new::iterators::Pair;
+use pest::error::{Error, ErrorVariant, InputLocation};
+use pest::iterators::Pair;
 
 use pest_meta::parser::{self, Rule};
 use pest_meta::{optimizer, validator};
@@ -144,20 +143,20 @@ fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
         Ok(pairs) => pairs,
         Err(error) => {
             add_rules_to_select(vec![]);
-            return vec![convert_error(error)];
+            return vec![convert_error(error, &grammar)];
         }
     };
 
     if let Err(errors) = validator::validate_pairs(pairs.clone()) {
         add_rules_to_select(vec![]);
-        return errors.into_iter().map(convert_error).collect();
+        return errors.into_iter().map(|e| convert_error(e, &grammar)).collect();
     }
 
     let ast = match parser::consume_rules(pairs) {
         Ok(ast) => ast,
         Err(errors) => {
             add_rules_to_select(vec![]);
-            return errors.into_iter().map(convert_error).collect();
+            return errors.into_iter().map(|e| convert_error(e, &grammar)).collect();
         }
     };
 
@@ -174,32 +173,76 @@ fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
     vec![]
 }
 
-fn convert_error(error: Error<Rule>) -> HashMap<String, String> {
-    match error {
-        Error::CustomErrorPos { message, pos } => {
-            let mut map = HashMap::new();
-
-            map.insert("from".to_owned(), line_col(&pos));
-            map.insert("to".to_owned(), line_col(&pos));
-            map.insert("message".to_owned(), format!("{}", message));
-
-            map
-        }
-        Error::CustomErrorSpan { message, span } => {
-            let mut map = HashMap::new();
-
-            map.insert("from".to_owned(), line_col(&span.start_pos()));
-            map.insert("to".to_owned(), line_col(&span.end_pos()));
-            map.insert("message".to_owned(), format!("{}", message));
-
-            map
-        }
+fn convert_error(error: Error<Rule>, grammar: &str) -> HashMap<String, String> {
+    let message = match error.variant {
+        ErrorVariant::CustomError { message } => message,
         _ => unreachable!()
+    };
+
+    match error.location {
+        InputLocation::Pos(pos) => {
+            let mut map = HashMap::new();
+
+            map.insert("from".to_owned(), line_col(pos, grammar));
+            map.insert("to".to_owned(), line_col(pos, grammar));
+            map.insert("message".to_owned(), format!("{}", message));
+
+            map
+        }
+        InputLocation::Span((start, end)) => {
+            let mut map = HashMap::new();
+
+            map.insert("from".to_owned(), line_col(start, grammar));
+            map.insert("to".to_owned(), line_col(end, grammar));
+            map.insert("message".to_owned(), format!("{}", message));
+
+            map
+        }
     }
 }
 
-fn line_col(pos: &Position) -> String {
-    let (line, col) = pos.line_col();
+fn line_col(pos: usize, input: &str) -> String {
+    let (line, col) = {
+        let mut pos = pos;
+        // Position's pos is always a UTF-8 border.
+        let slice = &input[..pos];
+        let mut chars = slice.chars().peekable();
+
+        let mut line_col = (1, 1);
+
+        while pos != 0 {
+            match chars.next() {
+                Some('\r') => {
+                    if let Some(&'\n') = chars.peek() {
+                        chars.next();
+
+                        if pos == 1 {
+                            pos -= 1;
+                        } else {
+                            pos -= 2;
+                        }
+
+                        line_col = (line_col.0 + 1, 1);
+                    } else {
+                        pos -= 1;
+                        line_col = (line_col.0, line_col.1 + 1);
+                    }
+                }
+                Some('\n') => {
+                    pos -= 1;
+                    line_col = (line_col.0 + 1, 1);
+                }
+                Some(c) => {
+                    pos -= c.len_utf8();
+                    line_col = (line_col.0, line_col.1 + 1);
+                }
+                None => unreachable!()
+            }
+        }
+
+        line_col
+    };
+
     format!("({}, {})", line - 1, col - 1)
 }
 
