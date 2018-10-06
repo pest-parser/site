@@ -216,17 +216,18 @@
           <div>
             <h2>Correctness</h2>
             <p>
-              By leveraging Rust's memory safety guarantees, parsing will run
-              within the confines of its specified grammar. Any issue will be
-              fixed from there, in a declarative fashion.
+              Grammars offer better correctness guarantees, and any issues that
+              arise can be solved in a declarative fashion from the grammar
+              itself. Rust's memory safety guarantees further limit the amount
+              of damage that an incorrect implementation is able to do.
             </p>
           </div>
           <div class="feature">
             <h2>Performance</h2>
             <p>
               High-level static analysis and careful low-level implementation
-              ensure parsing speeds similar to highly optimized manually written
-              parsers.
+              ensure parsing speeds that can be* similar to highly optimized
+              manually written parsers.
             </p>
           </div>
         </div>
@@ -280,36 +281,39 @@
         <h2>Measurements</h2>
         <p>
           Performance measurements place a pest-generated JSON parser in
-          a competitive position against one of the most optimized JSON parsers,
-          <a href="https://github.com/esnme/ujson4c">ujson4c</a>, and a static
+          somewhere below an optimized JSON parsers,
+          <a href="https://github.com/serde-rs/serde">serde</a>, and a static
           native-speed parser, <a href="https://github.com/Geal/nom">nom</a>.
         </p>
         <div class="chart">
           <div class="chart-label"><p class="chart-label-pest">pest</p></div>
-          <div class="chart-label"><p class="chart-label-ujson4c">ujson4c</p></div>
           <div class="chart-label"><p class="chart-label-nom">nom</p></div>
+          <div class="chart-label"><p class="chart-label-serde">serde</p></div>
           <div class="chart-border chart-border-1"></div>
           <div class="chart-border chart-border-2"></div>
           <div class="chart-border chart-border-3"></div>
           <div class="chart-bar chart-bar-pest">
             <div class="chart-bar-hidden">
-              <p>29.9</p>
-            </div>
-          </div>
-          <div class="chart-bar chart-bar-ujson4c">
-            <div class="chart-bar-hidden">
-              <p>30.0</p>
+              <p>150</p>
             </div>
           </div>
           <div class="chart-bar chart-bar-nom">
             <div class="chart-bar-hidden">
-              <p>39.5</p>
+              <p>366</p>
             </div>
           </div>
-          <div class="chart-value chart-value-20"><p>20ms</p></div>
-          <div class="chart-value chart-value-30"><p>30ms</p></div>
-          <div class="chart-value chart-value-40"><p>40ms</p></div>
+          <div class="chart-bar chart-bar-serde">
+            <div class="chart-bar-hidden">
+              <p>472</p>
+            </div>
+          </div>
+          <div class="chart-value chart-value-0"><p>0MB/s</p></div>
+          <div class="chart-value chart-value-250"><p>250MB/s</p></div>
+          <div class="chart-value chart-value-500"><p>500MB/s</p></div>
         </div>
+        <p>
+          * performance measurements are still very much a work in progress
+        </p>
       </div>
       <div class="content editor">
         <a name="editor"><h2>Editor</h2></a>

@@ -255,7 +255,7 @@ body {
 
 .chart {
   display: grid;
-  grid-template-columns: 6em repeat(3, 1fr);
+  grid-template-columns: 6em repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr) 1.5em;
   height: calc(17em + 5vw);
 }
@@ -326,24 +326,24 @@ body {
 }
 
 .chart-bar-pest > div {
-  width: calc((29.9% - 20%) * 3.33 + 25%); /* negative margin */
+  width: calc(15% + 25%); /* negative margin */
   background-color: #ff007b;
 }
 
-.chart-bar-ujson4c {
+.chart-bar-nom {
   grid-area: 2 / 2 / 3 / -1;
 }
 
-.chart-bar-ujson4c > div {
-  width: calc((30% - 20%) * 3.33 + 25%); /* negative margin */
+.chart-bar-nom > div {
+  width: calc(36.6% + 25%); /* negative margin */
 }
 
-.chart-bar-nom {
+.chart-bar-serde {
   grid-area: 3 / 2 / 4 / -1;
 }
 
-.chart-bar-nom > div {
-  width: calc((39.5% - 20%) * 3.33 + 25%); /* negative margin */
+.chart-bar-serde > div {
+  width: calc(47.2% + 25%); /* negative margin */
 }
 
 .chart-bar-hidden {
@@ -397,15 +397,15 @@ body {
   margin-left: 0.5em;
 }
 
-.chart-value-20 {
+.chart-value-0 {
   grid-area: 5 / 2 / 6 / 3;
 }
 
-.chart-value-30 {
+.chart-value-250 {
   grid-area: 5 / 3 / 6 / 4;
 }
 
-.chart-value-40 {
+.chart-value-500 {
   grid-area: 5 / 4 / 6 / 5;
 }
 
