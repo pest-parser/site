@@ -216,18 +216,17 @@
           <div>
             <h2>Correctness</h2>
             <p>
-              Grammars offer better correctness guarantees, and any issues that
-              arise can be solved in a declarative fashion from the grammar
-              itself. Rust's memory safety guarantees further limit the amount
-              of damage that an incorrect implementation is able to do.
+              Grammars offer better correctness guarantees, and issues can be
+              solved declaratively in the grammar itself. Rust's memory safety
+              further limits the amount of damage bugs can do.
             </p>
           </div>
           <div class="feature">
             <h2>Performance</h2>
             <p>
               High-level static analysis and careful low-level implementation
-              ensure parsing speeds that can be* similar to highly optimized
-              manually written parsers.
+              build a solid foundation on which serious performance tuning is
+              possible.
             </p>
           </div>
         </div>
@@ -311,9 +310,6 @@
           <div class="chart-value chart-value-250"><p>250MB/s</p></div>
           <div class="chart-value chart-value-500"><p>500MB/s</p></div>
         </div>
-        <p>
-          * performance measurements are still very much a work in progress
-        </p>
       </div>
       <div class="content editor">
         <a name="editor"><h2>Editor</h2></a>
