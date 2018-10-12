@@ -56,7 +56,7 @@ fn parse_input() {
         match vm.parse(&rule, &input.value()) {
             Ok(pairs) => {
                 let lines: Vec<_> = pairs.map(|pair| {
-                    format_pair(pair, 0)
+                    format_pair(pair, 0, true)
                 }).collect();
                 let lines = lines.join("\n");
 
@@ -67,23 +67,23 @@ fn parse_input() {
     }
 }
 
-fn format_pair(pair: Pair<&str>, indent_level: u32) -> String {
-    let mut indent = String::new();
-
-    for _ in 0..indent_level {
-        indent.push_str("  ");
-    }
+fn format_pair(pair: Pair<&str>, indent_level: usize, is_newline: bool) -> String {
+    let indent = if is_newline {
+        "  ".repeat(indent_level)
+    } else {
+        "".to_string()
+    };
 
     let children: Vec<_> = pair.clone().into_inner().collect();
     let len = children.len();
     let children: Vec<_> = children.into_iter().map(|pair| {
-        format_pair(pair, if len > 1 { indent_level + 1 } else { 0 })
+        format_pair(pair, if len > 1 { indent_level + 1 } else { indent_level }, len > 1)
     }).collect();
 
-    let dash = if indent_level == 0 {
-        ""
-    } else {
+    let dash = if is_newline {
         "- "
+    } else {
+        ""
     };
 
     match len {
