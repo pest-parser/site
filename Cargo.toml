@@ -1,12 +1,10 @@
-cargo-features = ["rename-dependency"]
-
 [package]
 name = "pest-site"
 version = "0.1.0"
 authors = ["Dragoș Tiselice <dragostiselice@gmail.com>"]
 
 [dependencies]
-pest = "2.0"
-pest_meta = "2.0"
-pest_vm = "2.0"
+pest = "2.1"
+pest_meta = "2.1"
+pest_vm = "2.1"
 stdweb = "^0.4"
