@@ -348,7 +348,7 @@
         ],
         mod: [
           {regex: /\{/, next: "start"},
-          {regex: /[_@!]/, token: "operator-2"},
+          {regex: /[_@!$]/, token: "operator-2"},
         ],
         string: [
             {regex: /"/, token: "string", next: "start"},
