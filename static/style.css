@@ -31,13 +31,13 @@ body {
 }
 
 .bar-links-left {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, auto);
   grid-area: 1 / 1 / 2 / 3;
   justify-self: self-start;
 }
 
 .bar-links-right {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, auto);
   grid-area: 1 / 2 / 2 / -1;
   justify-self: self-end;
 }
