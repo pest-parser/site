@@ -213,7 +213,7 @@
               Grammar-generated parsers are both easier to use and maintain than
               their hand-written counterparts.
             </p>
-          </div class="feature">
+          </div>
           <div>
             <h2>Correctness</h2>
             <p>
@@ -314,6 +314,7 @@
       </div>
       <div class="content editor">
         <a name="editor"><h2>Editor</h2></a>
+        <button onclick="wideMode()" id="modeBtn">Wide Mode</button>
         <button onclick="share()">Share</button><a class="direct-link"></a>
         <div class="editor-grid">
           <textarea rows="15" class="editor-grammar grammar-area"></textarea>
@@ -323,10 +324,13 @@
               <option>...</option>
             </select>
           </div>
-          <textarea rows="7" placeholder="Output" readonly class="editor-output"></textarea>
+          <div class="output-wrapper">
+            <textarea rows="7" placeholder="Output" readonly class="editor-output"></textarea>
+          </div>
         </div>
       </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.11/split.min.js"></script>
     <script src="pest-site.js"></script>
     <script src="codemirror/lib/codemirror.js"></script>
     <script src="codemirror/addon/display/placeholder.js"></script>
@@ -334,7 +338,14 @@
     <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
     <script src="codemirror/addon/mode/simple.js"></script>
     <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+
     <script type="text/javascript">
+      const editorDom = document.querySelector(".editor");
+      const gridDom = document.querySelector(".editor-grid");
+      const inputDom = document.querySelector(".editor-input");
+      const outputDom = document.querySelector(".editor-output");
+      const modeBtn = document.querySelector("#modeBtn");
+      let windowHeight = window.innerHeight;
       var current_data = null;
 
       CodeMirror.defineSimpleMode("pest", {
@@ -371,12 +382,12 @@
             var from = doc.clipPos(eval("CodeMirror.Pos" + errors[i].from));
             var to = doc.clipPos(eval("CodeMirror.Pos" + errors[i].to));
 
-            if (from.line == to.line && from.ch == to.ch) {
+            if (from.line === to.line && from.ch === to.ch) {
               to.ch += 1;
               to = doc.clipPos(to);
             }
 
-            if (from.line == to.line && from.ch == to.ch) {
+            if (from.line === to.line && from.ch === to.ch) {
               from.ch -= 1;
               from = doc.clipPos(from);
             }
@@ -399,7 +410,7 @@
         mode: "pest",
         lint: "pest",
         theme: "pest",
-        placeholder: "Grammar"
+        placeholder: "Grammar",
       });
 
       var url = new URL(window.location.href);
@@ -410,7 +421,7 @@
         http.open("GET", url, true);
 
         http.onreadystatechange = function() {
-          if (http.readyState == 4 && http.status == 200) {
+          if (http.readyState === 4 && http.status === 200) {
             var data = JSON.parse(http.responseText);
             current_data = data;
 
@@ -425,7 +436,7 @@
           var select = document.getElementsByClassName("editor-input-select")[0];
 
           for (var i = 0; i < select.options.length; i++) {
-            if (select.options[i].value == current_data["rule"]) {
+            if (select.options[i].value === current_data["rule"]) {
               select.selectedIndex = i;
               var event = new Event('change');
               select.dispatchEvent(event);
@@ -454,7 +465,7 @@
         http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
         http.onreadystatechange = function() {
-          if (http.readyState == 4 && http.status == 201) {
+          if (http.readyState === 4 && http.status === 201) {
             var url = JSON.parse(http.responseText)["uri"];
             var tokens = url.split("/");
             var bin = tokens[tokens.length - 1];
@@ -464,8 +475,53 @@
             link.href = "https://pest-parser.github.io/?bin=" + bin + "#editor";
             link.text = "direct link";
           }
-        }
+        };
         http.send(JSON.stringify(data));
+      }
+      let split = null;
+      let sizes = localStorage.getItem('split-sizes');
+      if (sizes) {
+        sizes = JSON.parse(sizes)
+      } else {
+        sizes = [33, 33, 33] // default sizes
+      }
+      function makeResizable(wideMode) {
+        if (wideMode) {
+          split = Split(['.CodeMirror', '.editor-input', '.output-wrapper'], {
+            sizes,
+            onDragEnd: function(_sizes) {
+              sizes = _sizes;
+              localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+          })
+        } else {
+          if (split) {
+            split.destroy();
+          }
+        }
+      }
+      function wideMode() {
+        modeBtn.onclick = restore;
+        modeBtn.innerText = "Normal Mode";
+        inputDom.classList.add("wide-input");
+        editorDom.classList.add("wide-editor");
+        gridDom.classList.add("flex-editor");
+        const upperHeight = document.querySelector('#modeBtn').scrollHeight + 30;
+        gridDom.setAttribute('style', `height: ${windowHeight - upperHeight}px`);
+        myCodeMirror.setSize(null, outputDom.clientHeight - 20);
+        makeResizable(true);
+        window.scrollTo(0,document.body.scrollHeight);
+      }
+
+      function restore() {
+        modeBtn.onclick = wideMode;
+        modeBtn.innerText = "Wide Mode";
+        inputDom.classList.remove("wide-input");
+        editorDom.classList.remove("wide-editor");
+        gridDom.classList.remove("flex-editor");
+        outputDom.setAttribute("rows", 7);
+        myCodeMirror.setSize(null, outputDom.clientHeight);
+        makeResizable(false);
       }
     </script>
   </body>
