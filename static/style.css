@@ -412,12 +412,29 @@ body {
 .editor {
   grid-area: 6 / 2 / 7 / -2;
 }
-
-.editor-grid {
-  display: grid;
-  grid-gap: 20px;
+.wide-editor {
+  grid-area: 6 / 1 / 7 / 4;
+  padding-top: 0;
+  padding-bottom: 0
 }
-
+.gutter:hover {
+  cursor: col-resize;
+}
+.flex-editor {
+  display: flex;
+  flex-direction: row;
+}
+.output-wrapper {
+  display: grid;
+  grid-template-rows: 100%;
+}
+.editor-grid > div {
+  margin-bottom: 20px;
+}
+.wide-input {
+  grid-template-columns: none !important;
+  grid-template-rows: 20fr 1fr;
+}
 .editor-input {
   display: grid;
   grid-template-columns: 4fr 1fr;
