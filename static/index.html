@@ -331,7 +331,14 @@
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.11/split.min.js"></script>
-    <script src="pest-site.js"></script>
+    <script type="module">
+      import init, { lint } from './pest_site.js';
+      window.lint = lint;
+      async function run() {
+        await init();
+      }
+      run();
+    </script>
     <script src="codemirror/lib/codemirror.js"></script>
     <script src="codemirror/addon/display/placeholder.js"></script>
     <script src="codemirror/addon/lint/lint.js"></script>
@@ -379,8 +386,8 @@
           var mapped = [];
 
           for (var i = 0; i < errors.length; i++) {
-            var from = doc.clipPos(eval("CodeMirror.Pos" + errors[i].from));
-            var to = doc.clipPos(eval("CodeMirror.Pos" + errors[i].to));
+            var from = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("from")));
+            var to = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("to")));
 
             if (from.line === to.line && from.ch === to.ch) {
               to.ch += 1;
@@ -393,7 +400,7 @@
             }
 
             mapped.push({
-              message: errors[i].message,
+              message: errors[i].get("message"),
               from: from,
               to: to
             });
