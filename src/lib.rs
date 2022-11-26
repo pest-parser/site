@@ -1,9 +1,3 @@
-extern crate pest;
-extern crate pest_meta;
-extern crate pest_vm;
-#[macro_use]
-extern crate stdweb;
-
 use std::collections::HashMap;
 
 use pest::error::{Error, ErrorVariant, InputLocation};
@@ -14,44 +8,90 @@ use pest_meta::{optimizer, validator};
 
 use pest_vm::Vm;
 
-use stdweb::traits::*;
-use stdweb::unstable::TryInto;
-use stdweb::Value;
-use stdweb::web;
-use stdweb::web::event::{ChangeEvent, InputEvent};
-use stdweb::web::html_element::TextAreaElement;
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+use web_sys::{Node, Document, Event, InputEvent};
+use web_sys::{HtmlOptionElement, HtmlSelectElement, HtmlTextAreaElement};
 
 static mut NEEDS_RUN: bool = false;
 static mut VM: Option<Vm> = None;
 static mut LAST_SELECTION: Option<String> = None;
 
-fn listen_for_input() {
-    let input = web::document().query_selector(".editor-input-text").unwrap().unwrap();
+#[wasm_bindgen]
+extern "C" {
+    fn set_current_data();
+}
 
-    input.add_event_listener(move |_: InputEvent| {
+fn document() -> Document {
+    web_sys::window()
+        .expect_throw("no window")
+        .document()
+        .expect_throw("no document")
+}
+
+fn element<T: JsCast>(sel: &str) -> T {
+    document()
+        .query_selector(sel)
+        .unwrap_throw()
+        .expect_throw(&format!("no {} element", sel))
+        .dyn_into()
+        .expect_throw("wrong element type")
+}
+
+fn create_element<T: JsCast>(tag: &str) -> T {
+    document()
+        .create_element(tag)
+        .expect_throw(&format!("could not create {} element", tag))
+        .dyn_into()
+        .expect_throw("wrong element type")
+}
+
+fn listen_for_input() {
+    let input = element::<Node>(".editor-input-text");
+
+    let func = Closure::<dyn Fn(InputEvent)>::new(move |_| {
         unsafe { NEEDS_RUN = true; }
         wait_and_run();
     });
+
+    input
+        .add_event_listener_with_callback("input", func.as_ref().unchecked_ref())
+        .unwrap_throw();
+    func.forget();
+
+    let select = element::<HtmlSelectElement>(".editor-input-select");
+
+    let func = Closure::<dyn Fn(Event)>::new(move |_: Event| {
+        unsafe { LAST_SELECTION = selected_option(); }
+
+        parse_input();
+    });
+
+    select
+        .add_event_listener_with_callback("change", func.as_ref().unchecked_ref())
+        .unwrap_throw();
+    func.forget();
 }
 
 fn wait_and_run() {
-    web::set_timeout(|| {
+    let win = web_sys::window().expect_throw("no window");
+    let func = Closure::<dyn FnOnce()>::once_into_js(|| {
         if unsafe { NEEDS_RUN } {
             parse_input();
             unsafe { NEEDS_RUN = false; }
         }
-    }, 800);
+    });
+
+    win.set_timeout_with_callback_and_timeout_and_arguments_0(func.as_ref().unchecked_ref(), 800)
+        .unwrap_throw();
 }
 
 fn parse_input() {
-    let input = web::document().query_selector(".editor-input-text").unwrap().unwrap();
-    let output = web::document().query_selector(".editor-output").unwrap().unwrap();
-
-    let input: TextAreaElement = input.try_into().unwrap();
-    let output: TextAreaElement = output.try_into().unwrap();
+    let input = element::<HtmlTextAreaElement>(".editor-input-text");
+    let output = element::<HtmlTextAreaElement>(".editor-output");
 
     if let Some(rule) = selected_option() {
-        let vm = unsafe { VM.as_ref().unwrap() };
+        let vm = unsafe { VM.as_ref().expect_throw("no VM") };
 
         match vm.parse(&rule, &input.value()) {
             Ok(pairs) => {
@@ -87,56 +127,23 @@ fn format_pair(pair: Pair<&str>, indent_level: usize, is_newline: bool) -> Strin
     };
 
     match len {
-        0 => format!("{}{}{}: {:?}", indent, dash, pair.as_rule(), pair.into_span().as_str()),
+        0 => format!("{}{}{}: {:?}", indent, dash, pair.as_rule(), pair.as_span().as_str()),
         1 => format!("{}{}{} > {}", indent, dash, pair.as_rule(), children[0]),
         _ => format!("{}{}{}\n{}", indent, dash, pair.as_rule(), children.join("\n"))
     }
 }
 
 fn selected_option() -> Option<String> {
-    let select = web::document().query_selector(".editor-input-select").unwrap().unwrap();
-
-    select.child_nodes().into_iter().find(|o| {
-        let value = js! {
-            return @{o}.selected;
-        };
-
-        if value != Value::Undefined {
-            value.try_into().unwrap()
-        } else {
-            false
-        }
-    }).and_then(|o| o.text_content())
+    element::<HtmlSelectElement>(".editor-input-select")
+        .selected_options()
+        .item(0)?
+        .text_content()
+        .filter(|text| text != "...")
 }
 
 fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
     let result = parser::parse(Rule::grammar_rules, &grammar).map_err(|error| {
-        error.renamed_rules(|rule| match *rule {
-            Rule::grammar_rule => "rule".to_owned(),
-            Rule::_push => "push".to_owned(),
-            Rule::assignment_operator => "`=`".to_owned(),
-            Rule::silent_modifier => "`_`".to_owned(),
-            Rule::atomic_modifier => "`@`".to_owned(),
-            Rule::compound_atomic_modifier => "`$`".to_owned(),
-            Rule::non_atomic_modifier => "`!`".to_owned(),
-            Rule::opening_brace => "`{`".to_owned(),
-            Rule::closing_brace => "`}`".to_owned(),
-            Rule::opening_paren => "`(`".to_owned(),
-            Rule::positive_predicate_operator => "`&`".to_owned(),
-            Rule::negative_predicate_operator => "`!`".to_owned(),
-            Rule::sequence_operator => "`&`".to_owned(),
-            Rule::choice_operator => "`|`".to_owned(),
-            Rule::optional_operator => "`?`".to_owned(),
-            Rule::repeat_operator => "`*`".to_owned(),
-            Rule::repeat_once_operator => "`+`".to_owned(),
-            Rule::comma => "`,`".to_owned(),
-            Rule::closing_paren => "`)`".to_owned(),
-            Rule::quote => "`\"`".to_owned(),
-            Rule::insensitive_string => "`^`".to_owned(),
-            Rule::range_operator => "`..`".to_owned(),
-            Rule::single_quote => "`'`".to_owned(),
-            other_rule => format!("{:?}", other_rule)
-        })
+        error.renamed_rules(pest_meta::parser::rename_meta_rule)
     });
 
     let pairs = match result {
@@ -164,9 +171,7 @@ fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
 
     add_rules_to_select(ast.iter().map(|rule| rule.name.as_str()).collect());
 
-    js! {
-        if (set_current_data) set_current_data();
-    }
+    set_current_data();
 
     parse_input();
 
@@ -246,55 +251,38 @@ fn line_col(pos: usize, input: &str) -> String {
     format!("({}, {})", line - 1, col - 1)
 }
 
-fn add_rules_to_select(rules: Vec<&str>) {
-    let select = web::document().query_selector(".editor-input-select").unwrap().unwrap();
-    let parent = select.parent_node().unwrap();
-    let new_select = web::document().create_element("select").unwrap();
+fn add_rules_to_select(mut rules: Vec<&str>) {
+    let select = element::<HtmlSelectElement>(".editor-input-select");
 
-    new_select.class_list().add("editor-input-select").unwrap();
+    while let Some(node) = select.first_child() {
+        select.remove_child(&node).unwrap_throw();
+    }
 
+    select.set_disabled(rules.is_empty());
     if rules.is_empty() {
-        js! {
-            @{&new_select}.disabled = true;
-        }
+        rules.push("...");
+    }
 
-        let option = web::document().create_element("option").unwrap();
-        option.append_child(&web::document().create_text_node("..."));
-        new_select.append_child(&option);
+    for rule in rules {
+        let option: HtmlOptionElement = create_element("option");
+        option.append_child(&document().create_text_node(rule)).unwrap_throw();
+        select.append_child(&option).unwrap_throw();
 
-        parent.replace_child(&new_select, &select).unwrap();
-    } else {
-        for rule in rules {
-            let option = web::document().create_element("option").unwrap();
-            option.append_child(&web::document().create_text_node(rule));
-            new_select.append_child(&option);
-
-            if let Some(ref text) = unsafe { &LAST_SELECTION } {
-                if text == rule {
-                    js! {
-                        @{option}.selected = true;
-                    }
-                }
+        if let Some(ref text) = unsafe { &LAST_SELECTION } {
+            if text == rule {
+                option.set_selected(true);
             }
         }
-
-        parent.replace_child(&new_select, &select).unwrap();
     }
-
-    new_select.add_event_listener(move |_: ChangeEvent| {
-        unsafe { LAST_SELECTION = selected_option(); }
-
-        parse_input();
-    });
 }
 
-fn main() {
-    listen_for_input();
+#[wasm_bindgen]
+pub fn lint(grammar: JsValue) -> JsValue {
+    serde_wasm_bindgen::to_value(&compile_grammar(grammar.as_string().unwrap()))
+        .expect_throw("could not serialize grammar results")
+}
 
-    js! {
-        window.lint = function (grammar) {
-            var compile_grammar = @{compile_grammar};
-            return compile_grammar(grammar);
-        }
-    }
+#[wasm_bindgen(start)]
+pub fn start() {
+    listen_for_input();
 }
