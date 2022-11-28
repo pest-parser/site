@@ -17,3 +17,10 @@ cp pkg/*.wasm www/
 # Copy in authored files
 cp -R static/* www/
 ```
+
+You can then test the site by serving the `www` directory with your dev server
+of choice. For example:
+
+```sh
+python3 -m http.server 3030 --directory www
+```
