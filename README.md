@@ -10,7 +10,7 @@ mkdir -p www
 rm -rf www/*
 
 # Build and copy in the JS and WASM from Pest
-wasm-pack build --taget web
+wasm-pack build --target web
 cp pkg/*.js www/
 cp pkg/*.wasm www/
 
