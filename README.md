@@ -15,3 +15,10 @@ of choice. For example:
 ```sh
 python3 -m http.server 3030 --directory www
 ```
+
+You can then test the site by serving the `www` directory with your dev server
+of choice. For example:
+
+```sh
+python3 -m http.server 3030 --directory www
+```
