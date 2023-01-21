@@ -2,15 +2,9 @@
 
 version: "3"
 
-vars:
-  WEBROOT: "./www"
-
 tasks:
   default:
     cmds:
-      - mkdir -p www
-      - rm -rf {{.WEBROOT}}/*
       - wasm-pack build --target web
-      - cp -R static/* {{.WEBROOT}}/
-      - cp pkg/*.js {{.WEBROOT}}
-      - cp pkg/*.wasm {{.WEBROOT}}
+      - pnpm install
+      - pnpm run build
