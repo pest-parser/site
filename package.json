@@ -2,7 +2,9 @@
   "name": "site",
   "private": true,
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [],
   "author": "",
@@ -10,5 +12,8 @@
   "dependencies": {
     "codemirror": "6",
     "parcel": "^2.8.3"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.3"
   }
 }
