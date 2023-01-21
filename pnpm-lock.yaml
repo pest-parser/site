@@ -1,11 +1,13 @@
 lockfileVersion: 5.4
 
 specifiers:
+  "@codemirror/lint": ^6.1.0
   codemirror: "6"
   parcel: ^2.8.3
   prettier: ^2.8.3
 
 dependencies:
+  "@codemirror/lint": 6.1.0
   codemirror: 6.0.1
   parcel: 2.8.3
 

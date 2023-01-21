@@ -731,7 +731,8 @@ button:disabled {
   background-color: #596375;
 }
 
-textarea, .editor-grammar {
+textarea,
+.editor-grammar {
   resize: none;
   font-family: "Space Mono", monospace;
   font-variant-ligatures: none;
@@ -742,4 +743,8 @@ textarea, .editor-grammar {
   border: none;
   border-radius: 3px;
   color: white;
+}
+
+.cm-diagnosticText {
+  color: black;
 }

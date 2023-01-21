@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@codemirror/lint": "^6.1.0",
     "codemirror": "6",
     "parcel": "^2.8.3"
   },
