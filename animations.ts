@@ -1,31 +1,31 @@
 let START_SEED = 5;
 let seed = START_SEED;
-let spans;
+let spans: HTMLCollection;
 
 function random() {
-  let x = Math.sin(seed++) * 10000;
+  const x = Math.sin(seed++) * 10000;
   return x - Math.floor(x);
 }
 
-function randomN(n) {
+function randomN(n: number) {
   return Math.floor(random() * n);
 }
 
-function randomChoice(alphabet) {
+function randomChoice(alphabet: string) {
   return alphabet.charAt(randomN(alphabet.length));
 }
 
-function fillElement(elem, alphabet, density) {
-  let rect = elem.getBoundingClientRect();
-  let GLYPHS = rect.width * density;
+function fillElement(elem: Element, alphabet: string, density: number) {
+  const rect = elem.getBoundingClientRect();
+  const GLYPHS = rect.width * density;
 
   while (elem.firstChild) {
     elem.removeChild(elem.firstChild);
   }
 
   for (let i = 0; i < GLYPHS; i++) {
-    let p = document.createElement("P");
-    let t = document.createTextNode(randomChoice(alphabet));
+    const p = document.createElement("P");
+    const t = document.createTextNode(randomChoice(alphabet));
 
     p.appendChild(t);
     p.className = "glyph-background";
@@ -40,8 +40,8 @@ function fillElement(elem, alphabet, density) {
 }
 
 function findTokens() {
-  let token = document.getElementsByClassName("token")[0];
-  let tokens = [
+  const token = document.querySelector(".token")!;
+  const tokens = [
     "{statement -> value -> ident}",
     "{statement -> calls -> dot}",
     "{statement -> calls -> ident}",
@@ -51,7 +51,7 @@ function findTokens() {
     "{statement -> semicolon}",
   ];
 
-  function addListeners(i) {
+  function addListeners(i: number) {
     spans[i].addEventListener("mouseover", function () {
       let j = i;
       token.innerHTML = tokens[j];
@@ -71,8 +71,8 @@ function jump() {
 
   let span = spans[i];
   let newSpan = span.cloneNode(true);
-  span.parentNode.replaceChild(newSpan, span);
-  newSpan.classList.add("jump");
+  span.parentNode?.replaceChild(newSpan, span);
+  if (newSpan instanceof Element) newSpan.classList.add("jump");
 }
 
 window.addEventListener(
@@ -102,21 +102,20 @@ window.addEventListener(
       findTokens();
     });
 
-    elems = document.getElementsByClassName("chart-bar-hidden");
-    elems = Array.prototype.slice.call(elems);
+    elems = [...document.getElementsByClassName("chart-bar-hidden")];
     startAnimations();
   },
   false
 );
 
-let features = document.getElementsByClassName("banner-features")[0];
-let benchmark = document.getElementsByClassName("banner-benchmark")[0];
-let elems = [];
+const features = document.querySelector(".banner-features")!;
+const benchmark = document.querySelector(".banner-benchmark")!;
+let elems: Element[] = [];
 
 function startAnimations() {
-  let windowHeight = window.innerHeight;
+  const windowHeight = window.innerHeight;
   for (let i = 0; i < elems.length; i++) {
-    let posFromTop = elems[i].getBoundingClientRect().top;
+    const posFromTop = elems[i].getBoundingClientRect().top;
     if (posFromTop - windowHeight <= 0) {
       elems[i].className = elems[i].className.replace(
         "chart-bar-hidden",
