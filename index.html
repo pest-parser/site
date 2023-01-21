@@ -339,14 +339,17 @@
       }
       run();
     </script>
-    <script src="codemirror/lib/codemirror.js"></script>
-    <script src="codemirror/addon/display/placeholder.js"></script>
-    <script src="codemirror/addon/lint/lint.js"></script>
-    <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
-    <script src="codemirror/addon/mode/simple.js"></script>
-    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <style>
+      @import "npm:codemirror/addon/lint/lint.css";
+      @import "npm:codemirror/lib/codemirror.css";
+    </style>
 
-    <script type="text/javascript">
+    <script type="module">
+      import Codemirror from "codemirror";
+      import "codemirror/addon/display/placeholder.js"
+      import "codemirror/addon/lint/lint.js"
+      import "codemirror/addon/mode/simple.js"
+
       const editorDom = document.querySelector(".editor");
       const gridDom = document.querySelector(".editor-grid");
       const inputDom = document.querySelector(".editor-input");

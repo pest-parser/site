@@ -1,9 +1,11 @@
 lockfileVersion: 5.4
 
 specifiers:
+  codemirror: '5'
   parcel: ^2.8.3
 
 dependencies:
+  codemirror: 5.65.11
   parcel: 2.8.3
 
 packages:
@@ -957,6 +959,10 @@ packages:
   /clone/2.1.2:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
+    dev: false
+
+  /codemirror/5.65.11:
+    resolution: {integrity: sha512-Gp62g2eKSCHYt10axmGhKq3WoJSvVpvhXmowNq7pZdRVowwtvBR/hi2LSP5srtctKkRT33T6/n8Kv1UGp7JW4A==}
     dev: false
 
   /color-convert/1.9.3:
