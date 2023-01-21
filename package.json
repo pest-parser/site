@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "start": "parcel index.html",
+    "build": "parcel build index.html",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
