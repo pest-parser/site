@@ -1,15 +1,13 @@
 import Codemirror from "codemirror";
-import "codemirror/addon/display/placeholder.js";
-import "codemirror/addon/lint/lint.js";
-import "codemirror/addon/mode/simple.js";
 
-const editorDom = document.querySelector(".editor");
-const gridDom = document.querySelector(".editor-grid");
-const inputDom = document.querySelector(".editor-input");
-const outputDom = document.querySelector(".editor-output");
-const modeBtn = document.querySelector("#modeBtn");
+const editorDom = document.querySelector(".editor")!;
+const gridDom = document.querySelector(".editor-grid")!;
+const inputDom = document.querySelector(".editor-input")!;
+const outputDom = document.querySelector(".editor-output")!;
+const modeBtn = document.querySelector("#modeBtn")!;
+
 let windowHeight = window.innerHeight;
-var current_data = null;
+let current_data = null;
 
 CodeMirror.defineSimpleMode("pest", {
   start: [
@@ -40,13 +38,13 @@ CodeMirror.defineSimpleMode("pest", {
 
 CodeMirror.registerHelper("lint", "pest", function (text) {
   if (window.lint) {
-    var doc = CodeMirror.Doc(text);
-    var errors = window.lint(text);
-    var mapped = [];
+    let doc = CodeMirror.Doc(text);
+    let errors = window.lint(text);
+    let mapped = [];
 
-    for (var i = 0; i < errors.length; i++) {
-      var from = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("from")));
-      var to = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("to")));
+    for (let i = 0; i < errors.length; i++) {
+      let from = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("from")));
+      let to = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("to")));
 
       if (from.line === to.line && from.ch === to.ch) {
         to.ch += 1;
@@ -71,24 +69,24 @@ CodeMirror.registerHelper("lint", "pest", function (text) {
   }
 });
 
-var grammar = document.getElementsByClassName("editor-grammar")[0];
-var myCodeMirror = CodeMirror.fromTextArea(grammar, {
+let grammar = document.getElementsByClassName("editor-grammar")[0];
+let myCodeMirror = CodeMirror.fromTextArea(grammar, {
   mode: "pest",
   lint: "pest",
   theme: "pest",
   placeholder: "Grammar",
 });
 
-var url = new URL(window.location.href);
-var bin = url.searchParams.get("bin");
+let url = new URL(window.location.href);
+let bin = url.searchParams.get("bin");
 if (bin) {
-  var http = new XMLHttpRequest();
-  var url = "https://api.myjson.com/bins/" + bin;
+  let http = new XMLHttpRequest();
+  let url = "https://api.myjson.com/bins/" + bin;
   http.open("GET", url, true);
 
   http.onreadystatechange = function () {
     if (http.readyState === 4 && http.status === 200) {
-      var data = JSON.parse(http.responseText);
+      let data = JSON.parse(http.responseText);
       current_data = data;
 
       myCodeMirror.setValue(data["grammar"]);
@@ -99,18 +97,18 @@ if (bin) {
 
 function set_current_data() {
   if (current_data) {
-    var select = document.getElementsByClassName("editor-input-select")[0];
+    let select = document.getElementsByClassName("editor-input-select")[0];
 
-    for (var i = 0; i < select.options.length; i++) {
+    for (let i = 0; i < select.options.length; i++) {
       if (select.options[i].value === current_data["rule"]) {
         select.selectedIndex = i;
-        var event = new Event("change");
+        let event = new Event("change");
         select.dispatchEvent(event);
         break;
       }
     }
 
-    var input = document.getElementsByClassName("editor-input-text")[0];
+    let input = document.getElementsByClassName("editor-input-text")[0];
     input.value = current_data["input"];
 
     current_data = null;
@@ -118,25 +116,25 @@ function set_current_data() {
 }
 
 function share() {
-  var data = {};
-  var select = document.getElementsByClassName("editor-input-select")[0];
+  let data = {};
+  let select = document.getElementsByClassName("editor-input-select")[0];
 
   data["grammar"] = myCodeMirror.getValue();
   data["input"] = document.getElementsByClassName("editor-input-text")[0].value;
   data["rule"] = select.options[select.selectedIndex].value;
 
-  var http = new XMLHttpRequest();
-  var url = "https://api.myjson.com/bins";
+  let http = new XMLHttpRequest();
+  let url = "https://api.myjson.com/bins";
   http.open("POST", url, true);
   http.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
 
   http.onreadystatechange = function () {
     if (http.readyState === 4 && http.status === 201) {
-      var url = JSON.parse(http.responseText)["uri"];
-      var tokens = url.split("/");
-      var bin = tokens[tokens.length - 1];
+      let url = JSON.parse(http.responseText)["uri"];
+      let tokens = url.split("/");
+      let bin = tokens[tokens.length - 1];
 
-      var link = document.getElementsByClassName("direct-link")[0];
+      let link = document.getElementsByClassName("direct-link")[0];
 
       link.href = "https://pest-parser.github.io/?bin=" + bin + "#editor";
       link.text = "direct link";
