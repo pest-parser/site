@@ -6,9 +6,6 @@
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@codemirror/lint": "^6.1.0",
     "codemirror": "6",
