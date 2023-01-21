@@ -1,5 +1,6 @@
 /target
 **/*.rs.bk
 Cargo.lock
-www/
+pkg/
 node_modules
+.parcel-cache
