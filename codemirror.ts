@@ -50,14 +50,6 @@ const pestLinter = linter((view) => {
       let [fromLine, fromCh] = errors[i].get("from").slice(1, -1).split(", ").map(x => parseInt(x));
       let [toLine, toCh] = errors[i].get("to").slice(1, -1).split(", ").map(x => parseInt(x));
 
-      if (fromLine === toLine && fromCh === toCh) {
-        toCh += 1;
-      }
-
-      if (fromLine === toLine && fromCh === toCh) {
-        fromCh -= 1;
-      }
-
       diagnostics.push({
         severity: "error",
         message: errors[i].get("message"),
@@ -80,12 +72,12 @@ const editor = new EditorView({
 
 (window as any).set_current_data = function() {
   if (current_data) {
-    var select = document.querySelector<HTMLSelectElement>("editor-input-select")!;
+    const select = document.querySelector<HTMLSelectElement>("editor-input-select")!;
 
-    for (var i = 0; i < select.options.length; i++) {
+    for (let i = 0; i < select.options.length; i++) {
       if (select.options[i].value === current_data["rule"]) {
         select.selectedIndex = i;
-        var event = new Event('change');
+        const event = new Event('change');
         select.dispatchEvent(event);
         break;
       }
@@ -96,6 +88,30 @@ const editor = new EditorView({
 
     current_data = null;
   }
+}
+
+function wideMode() {
+  modeBtn.onclick = restore;
+  modeBtn.innerText = "Normal Mode";
+  inputDom.classList.add("wide-input");
+  editorDom.classList.add("wide-editor");
+  gridDom.classList.add("flex-editor");
+  const upperHeight = document.querySelector('#modeBtn').scrollHeight + 30;
+  gridDom.setAttribute('style', `height: ${windowHeight - upperHeight}px`);
+  editor.setSize(null, outputDom.clientHeight - 20);
+  makeResizable(true);
+  window.scrollTo(0,document.body.scrollHeight);
+}
+
+function restore() {
+  modeBtn.onclick = wideMode;
+  modeBtn.innerText = "Wide Mode";
+  inputDom.classList.remove("wide-input");
+  editorDom.classList.remove("wide-editor");
+  gridDom.classList.remove("flex-editor");
+  outputDom.setAttribute("rows", 7);
+  editor.setSize(null, outputDom.clientHeight);
+  makeResizable(false);
 }
 
 init()
