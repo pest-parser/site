@@ -731,7 +731,7 @@ button:disabled {
   background-color: #596375;
 }
 
-textarea {
+textarea, .editor-grammar {
   resize: none;
   font-family: "Space Mono", monospace;
   font-variant-ligatures: none;
