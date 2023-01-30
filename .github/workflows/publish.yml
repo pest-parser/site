@@ -38,7 +38,8 @@ jobs:
           command: check
           args: --release --all-features
       - uses: jetli/wasm-pack-action@v0.4.0
-        version: 'latest'
+        with:
+          version: 'latest'
       - name: Build wasm
         run: wasm-pack build --target web
       - name: Build Project
@@ -66,7 +67,8 @@ jobs:
           command: check
           args: --release --all-features
       - uses: jetli/wasm-pack-action@v0.4.0
-        version: 'latest'
+        with:
+          version: 'latest'
       - name: Build wasm
         run: wasm-pack build --target web
       - name: Setup mdBook
