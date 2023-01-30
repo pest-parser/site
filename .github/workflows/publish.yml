@@ -69,6 +69,15 @@ jobs:
         version: 'latest'
       - name: Build wasm
         run: wasm-pack build --target web
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: 'latest'
+      - name: Build pest book
+        working-directory: ./book
+        run: mdbook build
+      - name: Move book to dist
+        run: mv ./book/book ./dist
       - name: Build Project
         run: pnpm run build
       - name: Setup Pages
