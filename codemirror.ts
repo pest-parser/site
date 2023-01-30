@@ -1,5 +1,9 @@
 import { EditorView, minimalSetup } from "codemirror";
 import { linter, Diagnostic } from "@codemirror/lint";
+import { closeBrackets } from "@codemirror/autocomplete";
+import { StreamLanguage } from "@codemirror/language";
+import { tags } from "@lezer/highlight"
+import { HighlightStyle, syntaxHighlighting } from "@codemirror/language"
 import init, { lint } from "./pkg/pest_site.js";
 
 const editorDom = document.querySelector<HTMLDivElement>(".editor")!;
@@ -38,7 +42,31 @@ const modeBtn = document.querySelector<HTMLButtonElement>("#modeBtn")!;
 //   },
 // });
 
-
+const pestLanguage = StreamLanguage.define({
+  token(stream) {
+    if (stream.match(/"/)) {
+      stream.eatWhile(/[^"]/);
+      stream.eat(/"/);
+      return "string";
+    } else if (stream.match(/'(?:[^'\\]|\\(?:[nrt0'"]|x[\da-fA-F]{2}|u\{[\da-fA-F]{6}\}))'/)) {
+      return "string";
+    } else if (stream.match(/\/\/.*/)) {
+      return "comment";
+    } else if (stream.match(/\d+/)) {
+      return "number";
+    } else if (stream.match(/[~|*+?&!]|(\.\.)/)) {
+      return "operator";
+    } else if (stream.match(/[a-zA-Z_]\w*/)) {
+      return "variable";
+    } else if (stream.match(/=/)) {
+      stream.eatWhile(/[_@!$]/);
+      return "operator-2";
+    } else {
+      stream.next();
+      return null;
+    }
+  },
+});
 let current_data = null;
 
 const pestLinter = linter((view) => {
@@ -64,9 +92,13 @@ const pestLinter = linter((view) => {
   }
 });
 
+const pestHighlightStyle = HighlightStyle.define([
+  {tag: tags.string, color: "#7ef69d"},
+])
+
 let grammar = document.querySelector(".editor-grammar")!;
 const editor = new EditorView({
-  extensions: [minimalSetup, pestLinter],
+  extensions: [minimalSetup, pestLinter, closeBrackets(), pestLanguage, syntaxHighlighting(pestHighlightStyle)],
   parent: grammar,
 });
 
@@ -90,28 +122,28 @@ const editor = new EditorView({
   }
 }
 
-function wideMode() {
-  modeBtn.onclick = restore;
-  modeBtn.innerText = "Normal Mode";
-  inputDom.classList.add("wide-input");
-  editorDom.classList.add("wide-editor");
-  gridDom.classList.add("flex-editor");
-  const upperHeight = document.querySelector('#modeBtn').scrollHeight + 30;
-  gridDom.setAttribute('style', `height: ${windowHeight - upperHeight}px`);
-  editor.setSize(null, outputDom.clientHeight - 20);
-  makeResizable(true);
-  window.scrollTo(0,document.body.scrollHeight);
-}
+// function wideMode() {
+//   modeBtn.onclick = restore;
+//   modeBtn.innerText = "Normal Mode";
+//   inputDom.classList.add("wide-input");
+//   editorDom.classList.add("wide-editor");
+//   gridDom.classList.add("flex-editor");
+//   const upperHeight = document.querySelector('#modeBtn').scrollHeight + 30;
+//   gridDom.setAttribute('style', `height: ${windowHeight - upperHeight}px`);
+//   editor.setSize(null, outputDom.clientHeight - 20);
+//   makeResizable(true);
+//   window.scrollTo(0,document.body.scrollHeight);
+// }
 
-function restore() {
-  modeBtn.onclick = wideMode;
-  modeBtn.innerText = "Wide Mode";
-  inputDom.classList.remove("wide-input");
-  editorDom.classList.remove("wide-editor");
-  gridDom.classList.remove("flex-editor");
-  outputDom.setAttribute("rows", 7);
-  editor.setSize(null, outputDom.clientHeight);
-  makeResizable(false);
-}
+// function restore() {
+//   modeBtn.onclick = wideMode;
+//   modeBtn.innerText = "Wide Mode";
+//   inputDom.classList.remove("wide-input");
+//   editorDom.classList.remove("wide-editor");
+//   gridDom.classList.remove("flex-editor");
+//   outputDom.setAttribute("rows", 7);
+//   editor.setSize(null, outputDom.clientHeight);
+//   makeResizable(false);
+// }
 
 init()
