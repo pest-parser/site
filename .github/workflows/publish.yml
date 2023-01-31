@@ -23,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
@@ -43,6 +45,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
