@@ -8,8 +8,12 @@ vars:
 tasks:
   default:
     cmds:
-      - mkdir -p www
+      - mkdir -p {{.WEBROOT}}
       - rm -rf {{.WEBROOT}}/*
+      - rm -rf book/book/*
+      - mdbook build book -d book/book
+      - mkdir -p {{.WEBROOT}}/book
+      - cp -R book/book/book/* {{.WEBROOT}}/book
       - wasm-pack build --target web
       - cp -R static/* {{.WEBROOT}}/
       - cp pkg/*.js {{.WEBROOT}}
