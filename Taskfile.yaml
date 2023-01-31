@@ -8,8 +8,9 @@ vars:
 tasks:
   default:
     cmds:
-      - mkdir -p {{.WEBROOT}}/book
+      - mkdir -p {{.WEBROOT}}
       - rm -rf {{.WEBROOT}}/*
+      - mkdir -p {{.WEBROOT}}/book
       - rm -rf book/book/*
 
       - mdbook build book -d book/book
