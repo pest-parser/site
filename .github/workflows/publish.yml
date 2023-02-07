@@ -57,6 +57,10 @@ jobs:
           version: 'latest'
       - name: Install Task
         uses: arduino/setup-task@v1
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6.0.2
       - name: Run Build
         run: task
       - name: Setup Pages
@@ -64,7 +68,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: 'www'
+          path: 'dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
