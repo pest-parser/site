@@ -6,11 +6,32 @@ vars:
   WEBROOT: "./www"
 
 tasks:
-  default:
+  book:
+    dir: ./book
     cmds:
-      - mkdir -p www
+      - mdbook build
+
+  clean:
+    cmds:
+      - mkdir -p {{.WEBROOT}}
       - rm -rf {{.WEBROOT}}/*
+      - mkdir -p {{.WEBROOT}}/book
+
+  pack:
+    cmds:
       - wasm-pack build --target web
+    generates:
+      - pkg/**
+      - target/**
+    sources:
+      - Cargo.toml
+      - Cargo.lock
+      - src/**
+
+  default:
+    deps: [clean, book, pack]
+    cmds:
+      - cp -R book/book/* {{.WEBROOT}}/book
       - cp -R static/* {{.WEBROOT}}/
       - cp pkg/*.js {{.WEBROOT}}
       - cp pkg/*.wasm {{.WEBROOT}}

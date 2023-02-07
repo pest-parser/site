@@ -2,23 +2,14 @@
 
 This repo contains the source code for https://pest.rs
 
-You can build it with [wasm-pack](https://github.com/rustwasm/wasm-pack):
+To build it, you need [task](https://taskfile.dev/), [wasm-pack](https://rustwasm.github.io/wasm-pack/), and [mdbook](https://rust-lang.github.io/mdBook/):
 
 ```sh
-# Create an empty directory to hold the output (and remove any old files)
-mkdir -p www
-rm -rf www/*
-
-# Build and copy in the JS and WASM from Pest
-wasm-pack build --target web
-cp pkg/*.js www/
-cp pkg/*.wasm www/
-
-# Copy in authored files
-cp -R static/* www/
+# run the taskfile (this may be go-task)
+task
 ```
 
-You can then test the site by serving the `www` directory with your dev server
+You can then test the site by serving the built `www` directory with your dev server
 of choice. For example:
 
 ```sh
