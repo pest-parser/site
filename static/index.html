@@ -330,14 +330,6 @@
         </div>
       </div>
     </div>
-    <script type="module">
-      import init, { lint } from '../pkg/pest_site.js';
-      async function run() {
-        await init();
-        window.lint = lint;
-      }
-      run();
-    </script>
     <script src="raw:codemirror/lib/codemirror.js"></script>
     <script src="raw:codemirror/addon/display/placeholder.js"></script>
     <script src="raw:codemirror/addon/lint/lint.js"></script>
@@ -347,6 +339,11 @@
 
     <script type="module">
       import Split from 'split.js'
+      import init, { lint } from '../pkg/pest_site.js';
+      async function run() {
+        await init();
+        window.lint = lint;
+      }
 
       const editorDom = document.querySelector(".editor");
       const gridDom = document.querySelector(".editor-grid");
@@ -384,6 +381,7 @@
         if (window.lint) {
           var doc = CodeMirror.Doc(text);
           var errors = window.lint(text);
+          console.log(errors)
           var mapped = [];
 
           for (var i = 0; i < errors.length; i++) {
@@ -439,7 +437,8 @@
         http.send(null);
       }
 
-      function set_current_data() {
+      // TODO we set this global to allow WASM to call it - probably pass this function *to* the call instead?
+      global.set_current_data = function() {
         if (current_data) {
           var select = document.getElementsByClassName("editor-input-select")[0];
 
@@ -533,6 +532,8 @@
         myCodeMirror.setSize(null, outputDom.clientHeight);
         makeResizable(false);
       }
+
+      run();
     </script>
   </body>
 </html>
