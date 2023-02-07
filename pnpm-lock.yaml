@@ -4,11 +4,13 @@ specifiers:
   '@parcel/config-default': ^2.8.3
   '@parcel/transformer-raw': ^2.8.3
   parcel: ^2.8.3
+  split.js: ^1.6.5
 
 devDependencies:
   '@parcel/config-default': 2.8.3
   '@parcel/transformer-raw': 2.8.3
   parcel: 2.8.3
+  split.js: 1.6.5
 
 packages:
 
@@ -1673,6 +1675,10 @@ packages:
   /source-map/0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /split.js/1.6.5:
+    resolution: {integrity: sha512-mPTnGCiS/RiuTNsVhCm9De9cCAUsrNFFviRbADdKiiV+Kk8HKp/0fWu7Kr8pi3/yBmsqLFHuXGT9UUZ+CNLwFw==}
     dev: true
 
   /srcset/4.0.0:

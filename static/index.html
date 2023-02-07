@@ -314,7 +314,7 @@
       </div>
       <div class="content editor">
         <a name="editor"><h2>Editor</h2></a>
-        <button onclick="wideMode()" id="modeBtn">Wide Mode</button>
+        <button id="modeBtn">Wide Mode</button>
         <button onclick="share()">Share</button><a class="direct-link"></a>
         <div class="editor-grid">
           <textarea rows="15" class="editor-grammar grammar-area"></textarea>
@@ -330,7 +330,6 @@
         </div>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.11/split.min.js"></script>
     <script type="module">
       import init, { lint } from '../pkg/pest_site.js';
       window.lint = lint;
@@ -346,7 +345,9 @@
     <script src="raw:codemirror/addon/mode/simple.js"></script>
     <link rel="stylesheet" href="codemirror/lib/codemirror.css">
 
-    <script type="text/javascript">
+    <script type="module">
+      import Split from 'split.js'
+
       const editorDom = document.querySelector(".editor");
       const gridDom = document.querySelector(".editor-grid");
       const inputDom = document.querySelector(".editor-input");
@@ -519,6 +520,8 @@
         makeResizable(true);
         window.scrollTo(0,document.body.scrollHeight);
       }
+
+      modeBtn.onclick = wideMode;
 
       function restore() {
         modeBtn.onclick = wideMode;
