@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "parcel static/index.html",
+    "build": "parcel build static/index.html"
+  },
+	"devDependencies": {
+		"parcel": "^2.8.3"
+	}
+}

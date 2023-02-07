@@ -7,3 +7,5 @@ Cargo.lock
 www/
 .task
 node_modules
+dist
+.parcel-cache
