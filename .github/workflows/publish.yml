@@ -35,6 +35,8 @@ jobs:
           version: 'latest'
       - name: Install Task
         uses: arduino/setup-task@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Build
         run: task
   gh-release:
