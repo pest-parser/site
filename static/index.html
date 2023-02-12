@@ -396,7 +396,6 @@
         if (window.lint) {
           var doc = CodeMirror.Doc(text);
           var errors = window.lint(text);
-          console.log(errors)
           var mapped = [];
 
           for (var i = 0; i < errors.length; i++) {
