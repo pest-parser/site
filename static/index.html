@@ -2,20 +2,20 @@
 <html>
   <head>
     <title>pest. The Elegant Parser</title>
-    
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/favicons/favicon.png?width=57&height=57" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/favicons/favicon.png?width=114&height=114" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/favicons/favicon.png?width=72&height=72" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/favicons/favicon.png?width=144&height=144" />
-    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="assets/favicons/favicon.png?width=60&height=60" />
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/favicons/favicon.png?width=120&height=120" />
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/favicons/favicon.png?width=76&height=76" />
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/favicons/favicon.png?width=152&height=152" />
-    <link rel="icon" type="image/png" href="assets/favicons/favicon.png?width=196&height=196" sizes="196x196" />
-    <link rel="icon" type="image/png" href="assets/favicons/favicon.png?width=96&height=96" sizes="96x96" />
-    <link rel="icon" type="image/png" href="assets/favicons/favicon.png?width=32&height=32" sizes="32x32" />
-    <link rel="icon" type="image/png" href="assets/favicons/favicon.png?width=16&height=16" sizes="16x16" />
-    <link rel="icon" type="image/png" href="assets/favicons/favicon.png?width=128&height=128" sizes="128x128" />
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="assets/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon-128.png" sizes="128x128" />
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
@@ -329,7 +329,7 @@
       </div>
       <div class="content editor">
         <a name="editor"><h2>Editor</h2></a>
-        <button id="modeBtn">Wide Mode</button>
+        <button onclick="wideMode()" id="modeBtn">Wide Mode</button>
         <button onclick="share()">Share</button><a class="direct-link"></a>
         <div class="editor-grid">
           <textarea rows="15" class="editor-grammar grammar-area"></textarea>
@@ -345,21 +345,23 @@
         </div>
       </div>
     </div>
-    <script src="raw:codemirror/lib/codemirror.js"></script>
-    <script src="raw:codemirror/addon/display/placeholder.js"></script>
-    <script src="raw:codemirror/addon/lint/lint.js"></script>
-    <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
-    <script src="raw:codemirror/addon/mode/simple.js"></script>
-    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.11/split.min.js"></script>
     <script type="module">
-      import Split from 'split.js'
-      import init, { lint } from '../pkg/pest_site.js';
+      import init, { lint } from './pest_site.js';
+      window.lint = lint;
       async function run() {
         await init();
-        window.lint = lint;
       }
+      run();
+    </script>
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/addon/display/placeholder.js"></script>
+    <script src="codemirror/addon/lint/lint.js"></script>
+    <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
+    <script src="codemirror/addon/mode/simple.js"></script>
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
 
+    <script type="text/javascript">
       const editorDom = document.querySelector(".editor");
       const gridDom = document.querySelector(".editor-grid");
       const inputDom = document.querySelector(".editor-input");
@@ -451,8 +453,7 @@
         http.send(null);
       }
 
-      // TODO we set this global to allow WASM to call it - probably pass this function *to* the call instead?
-      global.set_current_data = function() {
+      function set_current_data() {
         if (current_data) {
           var select = document.getElementsByClassName("editor-input-select")[0];
 
@@ -534,8 +535,6 @@
         window.scrollTo(0,document.body.scrollHeight);
       }
 
-      modeBtn.onclick = wideMode;
-
       function restore() {
         modeBtn.onclick = wideMode;
         modeBtn.innerText = "Wide Mode";
@@ -546,8 +545,6 @@
         myCodeMirror.setSize(null, outputDom.clientHeight);
         makeResizable(false);
       }
-
-      run();
     </script>
   </body>
 </html>
