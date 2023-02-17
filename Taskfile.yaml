@@ -2,9 +2,6 @@
 
 version: '3'
 
-vars:
-  WEBROOT: "./www"
-
 tasks:
   book:
     dir: ./book
@@ -13,9 +10,8 @@ tasks:
 
   clean:
     cmds:
-      - mkdir -p {{.WEBROOT}}
-      - rm -rf {{.WEBROOT}}/*
-      - mkdir -p {{.WEBROOT}}/book
+      - mkdir -p dist/book
+      - rm -rf dist/book/**
 
   pack:
     cmds:
@@ -31,7 +27,9 @@ tasks:
   default:
     deps: [clean, book, pack]
     cmds:
-      - cp -R book/book/* {{.WEBROOT}}/book
-      - cp -R static/* {{.WEBROOT}}/
-      - cp pkg/*.js {{.WEBROOT}}
-      - cp pkg/*.wasm {{.WEBROOT}}
+      - pnpm run build
+  
+  dev:
+    deps: [clean, book, pack]
+    cmds:
+      - pnpm run start

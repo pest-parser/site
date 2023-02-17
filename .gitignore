@@ -1,5 +1,10 @@
+# Rust
 /target
 **/*.rs.bk
 Cargo.lock
-www/
+
+# Web
 .task
+node_modules/
+dist/
+.parcel-cache
