@@ -27,9 +27,11 @@ tasks:
   default:
     deps: [clean, book, pack]
     cmds:
+      - pnpm install
       - pnpm run build
   
   dev:
     deps: [clean, book, pack]
     cmds:
+      - pnpm install
       - pnpm run start
