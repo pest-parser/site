@@ -1,17 +1,32 @@
-# Source code for `https://pest.rs`
+# Pest Site
 
-This repo contains the source code for https://pest.rs
+[![Build status](https://github.com/pest-parser/site/actions/workflows/publish.yml/badge.svg)](https://github.com/pest-parser/site/actions/workflows/publish.yml)
 
-To build it, you need [task](https://taskfile.dev/), [wasm-pack](https://rustwasm.github.io/wasm-pack/), and [mdbook](https://rust-lang.github.io/mdBook/):
+The source code for the [pest.rs](https://pest.rs).
 
-```sh
-# run the taskfile (this may be go-task)
-task
+## Development Guide
+
+To build it, you need:
+
+- [Task](https://taskfile.dev)
+- [wasm-pack](https://rustwasm.github.io/wasm-pack)
+- [mdBook](https://rust-lang.github.io/mdBook)
+- Node.js & Yarn
+
+### Start Web Development Server
+
+We use [Vite](https://vitejs.dev) for build frontend.
+
+Run `yarn install` to install the dependencies.
+
+```bash
+$ yarn install
 ```
 
-You can then test the site by serving the built `www` directory with your dev server
-of choice. For example:
+And then use `yarn dev` to start Vite dev server.
 
-```sh
-python3 -m http.server 3030 --directory www
+> `yarn dev` it also will compile the WASM.
+
+```bash
+$ yarn dev
 ```

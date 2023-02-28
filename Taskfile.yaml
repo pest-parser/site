@@ -13,9 +13,7 @@ tasks:
 
   clean:
     cmds:
-      - mkdir -p {{.WEBROOT}}
-      - rm -rf {{.WEBROOT}}/*
-      - mkdir -p {{.WEBROOT}}/book
+      - rm -rf {{.WEBROOT}}
 
   pack:
     cmds:
@@ -29,9 +27,8 @@ tasks:
       - src/**
 
   default:
-    deps: [clean, book, pack]
+    deps: [clean, book]
     cmds:
+      - yarn build
+      - mkdir -p {{.WEBROOT}}/book
       - cp -R book/book/* {{.WEBROOT}}/book
-      - cp -R static/* {{.WEBROOT}}/
-      - cp pkg/*.js {{.WEBROOT}}
-      - cp pkg/*.wasm {{.WEBROOT}}
