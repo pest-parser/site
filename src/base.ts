@@ -76,9 +76,9 @@ function jump() {
   newSpan.classList.add('jump');
 }
 
-window.addEventListener(
+document.addEventListener(
   'DOMContentLoaded',
-  function () {
+  () => {
     seed = START_SEED;
 
     fillElement(
@@ -99,15 +99,12 @@ window.addEventListener(
       findTokens();
     });
 
-    elems = document.querySelector('.chart-bar-hidden');
-    elems = Array.prototype.slice.call(elems);
+    elems = document.querySelectorAll('.chart-bar-hidden');
     startAnimations();
   },
   false
 );
 
-let features = document.querySelector('.banner-features') as HTMLElement;
-let benchmark = document.querySelector('.banner-benchmark') as HTMLElement;
 let elems: any = [];
 
 function startAnimations() {
@@ -131,11 +128,11 @@ window.addEventListener(
     seed = START_SEED;
 
     fillElement(
-      features,
+      document.querySelector('.banner-features'),
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
       0.2
     );
-    fillElement(benchmark, '0123456789', 0.1);
+    fillElement(document.querySelector('.banner-benchmark'), '0123456789', 0.1);
   },
   true
 );

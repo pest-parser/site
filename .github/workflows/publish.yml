@@ -22,9 +22,20 @@ jobs:
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
+      - name: Setup | Cache
+        uses: actions/cache@v3.0.11
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            node_modules/
+            target/
+          key: ubuntu-latest-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/yarn.lock') }}
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
@@ -48,9 +59,20 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
+      - name: Setup | Cache
+        uses: actions/cache@v3.0.11
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            node_modules/
+            target/
+          key: ubuntu-latest-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/yarn.lock') }}
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
