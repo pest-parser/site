@@ -1,259 +1,261 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>pest. The Elegant Parser</title>
 
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/favicons/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/favicons/apple-touch-icon-114x114.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/favicons/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/favicons/apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="assets/favicons/apple-touch-icon-60x60.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/favicons/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/favicons/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/favicons/apple-touch-icon-152x152.png" />
-    <link rel="icon" type="image/png" href="assets/favicons/favicon-196x196.png" sizes="196x196" />
-    <link rel="icon" type="image/png" href="assets/favicons/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/png" href="assets/favicons/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="assets/favicons/favicon-16x16.png" sizes="16x16" />
-    <link rel="icon" type="image/png" href="assets/favicons/favicon-128.png" sizes="128x128" />
+<head>
+  <title>pest. The Elegant Parser</title>
 
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/favicons/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/favicons/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/favicons/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/favicons/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="assets/favicons/apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/favicons/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/favicons/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/favicons/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="assets/favicons/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="assets/favicons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="assets/favicons/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="assets/favicons/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="assets/favicons/favicon-128.png" sizes="128x128" />
 
-    <meta name="application-name" content="&nbsp;"/>
-    <meta name="msapplication-TileColor" content="#FFFFFF" />
-    <meta name="msapplication-TileImage" content="assets/favicons/mstile-144x144.png" />
-    <meta name="msapplication-square70x70logo" content="assets/favicons/mstile-70x70.png" />
-    <meta name="msapplication-square150x150logo" content="assets/favicons/mstile-150x150.png" />
-    <meta name="msapplication-wide310x150logo" content="assets/favicons/mstile-310x150.png" />
-    <meta name="msapplication-square310x310logo" content="assets/favicons/mstile-310x310.png" />
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="description" content="The Elegant Parser" >
-    <meta name="og:title" content="pest">
-    <meta name="og:description" content="The Elegant Parser">
-    <meta name="og:url" content="https://pest.rs">
-    <meta name="og:image" content="https://pest.rs/assets/pest-logo.png">
-    <meta name="og:image:alt" content="The pest Logo.">
-    <meta name="og:site_name" content="pest.rs">
-    <meta name="og:locale" content="en_US">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="theme-color" content="#192233">
+  <meta name="application-name" content="&nbsp;" />
+  <meta name="msapplication-TileColor" content="#FFFFFF" />
+  <meta name="msapplication-TileImage" content="assets/favicons/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="assets/favicons/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="assets/favicons/mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="assets/favicons/mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="assets/favicons/mstile-310x310.png" />
 
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
-    <script type="text/javascript">
-      var START_SEED = 5;
-      var seed = START_SEED;
-      var spans;
+  <meta name="description" content="The Elegant Parser">
+  <meta name="og:title" content="pest">
+  <meta name="og:description" content="The Elegant Parser">
+  <meta name="og:url" content="https://pest.rs">
+  <meta name="og:image" content="https://pest.rs/assets/pest-logo.png">
+  <meta name="og:image:alt" content="The pest Logo.">
+  <meta name="og:site_name" content="pest.rs">
+  <meta name="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#192233">
 
-      function random() {
-        var x = Math.sin(seed++) * 10000;
-        return x - Math.floor(x);
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
+  <script type="text/javascript">
+    var START_SEED = 5;
+    var seed = START_SEED;
+    var spans;
+
+    function random() {
+      var x = Math.sin(seed++) * 10000;
+      return x - Math.floor(x);
+    }
+
+    function randomN(n) {
+      return Math.floor(random() * n);
+    }
+
+    function randomChoice(alphabet) {
+      return alphabet.charAt(randomN(alphabet.length));
+    }
+
+    function fillElement(elem, alphabet, density) {
+      var rect = elem.getBoundingClientRect();
+      var GLYPHS = rect.width * density;
+
+      while (elem.firstChild) {
+        elem.removeChild(elem.firstChild);
       }
 
-      function randomN(n) {
-        return Math.floor(random() * n);
+      for (var i = 0; i < GLYPHS; i++) {
+        var p = document.createElement("P");
+        var t = document.createTextNode(randomChoice(alphabet));
+
+        p.appendChild(t);
+        p.className = "glyph-background";
+        p.style.color = "rgba(255, 255, 255, " + random() * 0.2 + ")";
+        p.style.top = (random() * rect.height * 1.3 - rect.height * 0.15) + "px";
+        p.style.left = (random() * rect.width - rect.width * 0.05) + "px";
+        p.style.fontSize = randomN(20) + "pt";
+        p.style.transform = "rotate(" + randomN(360) + "deg)";
+
+        elem.appendChild(p);
       }
+    }
 
-      function randomChoice(alphabet) {
-        return alphabet.charAt(randomN(alphabet.length));
-      }
+    function findTokens() {
+      var token = document.getElementsByClassName("token")[0];
+      var tokens = [
+        "{statement -> value -> ident}",
+        "{statement -> calls -> dot}",
+        "{statement -> calls -> ident}",
+        "{statement -> calls -> parent}",
+        "{statement -> calls -> args -> int}",
+        "{statement -> calls -> parent}",
+        "{statement -> semicolon}"
+      ];
 
-      function fillElement(elem, alphabet, density) {
-        var rect = elem.getBoundingClientRect();
-        var GLYPHS = rect.width * density;
-
-        while (elem.firstChild) {
-          elem.removeChild(elem.firstChild);
-        }
-
-        for (var i = 0; i < GLYPHS; i++) {
-          var p = document.createElement("P");
-          var t = document.createTextNode(randomChoice(alphabet));
-
-          p.appendChild(t);
-          p.className = "glyph-background";
-          p.style.color = "rgba(255, 255, 255, " + random() * 0.2 + ")";
-          p.style.top = (random() * rect.height * 1.3 - rect.height * 0.15) + "px";
-          p.style.left = (random() * rect.width - rect.width * 0.05) + "px";
-          p.style.fontSize = randomN(20) + "pt";
-          p.style.transform = "rotate(" + randomN(360) + "deg)";
-
-          elem.appendChild(p);
-        }
-      }
-
-      function findTokens() {
-        var token = document.getElementsByClassName("token")[0];
-        var tokens = [
-          "{statement -> value -> ident}",
-          "{statement -> calls -> dot}",
-          "{statement -> calls -> ident}",
-          "{statement -> calls -> parent}",
-          "{statement -> calls -> args -> int}",
-          "{statement -> calls -> parent}",
-          "{statement -> semicolon}"
-        ];
-
-        function addListeners(i) {
-          spans[i].addEventListener("mouseover", function() {
-            var j = i;
-            token.innerHTML = tokens[j];
-          });
-          spans[i].addEventListener("mouseout", function() {
-            token.innerHTML = "{statement}";
-          });
-        }
-
-        for (var i = 0; i < spans.length; i++) {
-          addListeners(i);
-        }
-      }
-
-      function jump() {
-        var i = Math.floor(Math.random() * spans.length);
-
-        var span = spans[i];
-        var newSpan = span.cloneNode(true);
-        span.parentNode.replaceChild(newSpan, span);
-        newSpan.classList.add("jump");
-      }
-
-      window.addEventListener("DOMContentLoaded", function() {
-        seed = START_SEED;
-
-        fillElement(
-          document.getElementsByClassName("banner-features")[0],
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-          0.2
-        );
-        fillElement(
-          document.getElementsByClassName("banner-benchmark")[0],
-          "0123456789",
-          0.1
-        );
-
-        var sample = document.getElementsByClassName("sample")[0];
-        spans = sample.children;
-
-        jump();
-        var jumpInterval = setInterval(jump, 2000);
-
-        sample.addEventListener("mouseover", function() {
-          clearInterval(jumpInterval);
-          findTokens();
+      function addListeners(i) {
+        spans[i].addEventListener("mouseover", function () {
+          var j = i;
+          token.innerHTML = tokens[j];
         });
-
-        elems = document.getElementsByClassName("chart-bar-hidden");
-        elems = Array.prototype.slice.call(elems);
-        startAnimations();
-      }, false);
-
-      var features = document.getElementsByClassName("banner-features")[0];
-      var benchmark = document.getElementsByClassName("banner-benchmark")[0];
-      var elems = [];
-
-      function startAnimations() {
-        var windowHeight = window.innerHeight;
-        for (var i = 0; i < elems.length; i++) {
-          var posFromTop = elems[i].getBoundingClientRect().top;
-          if (posFromTop - windowHeight <= 0) {
-            elems[i].className = elems[i].className.replace(
-              "chart-bar-hidden",
-              "chart-bar-bounce"
-            );
-          }
-        }
+        spans[i].addEventListener("mouseout", function () {
+          token.innerHTML = "{statement}";
+        });
       }
 
-      window.addEventListener("scroll", startAnimations);
+      for (var i = 0; i < spans.length; i++) {
+        addListeners(i);
+      }
+    }
 
-      window.addEventListener("resize", function() {
-        seed = START_SEED;
+    function jump() {
+      var i = Math.floor(Math.random() * spans.length);
 
-        fillElement(
-          document.getElementsByClassName("banner-features")[0],
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-          0.2
-        );
-        fillElement(
-          document.getElementsByClassName("banner-benchmark")[0],
-          "0123456789",
-          0.1
-        );
-      }, true);
-    </script>
-  </head>
-  <body>
-    <div class="container-main">
-      <div class="bar-links bar-links-left">
-        <div><a href="https://github.com/pest-parser/pest">GitHub</a></div>
-        <div><a href="https://plugins.jetbrains.com/plugin/12046-pest">IDEA Plugin</a></div>
-      </div>
-      <div class="bar-links bar-links-right">
-        <div><a href="book">Book</a></div>
-        <div><a href="https://docs.rs/pest">Docs</a></div>
-      </div>
-      <img class="logo logo-bloom" src="assets/pest-logo.svg">
-      <img class="logo" src="assets/pest-logo.svg">
-      <a class="button-try" href="#editor">Try it here!</a>
-      <div class="banner-features"></div>
-      <div class="content features">
-        <div class="illustration">
-          <code class="sample">
+      var span = spans[i];
+      var newSpan = span.cloneNode(true);
+      span.parentNode.replaceChild(newSpan, span);
+      newSpan.classList.add("jump");
+    }
+
+    window.addEventListener("DOMContentLoaded", function () {
+      seed = START_SEED;
+
+      fillElement(
+        document.getElementsByClassName("banner-features")[0],
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+        0.2
+      );
+      fillElement(
+        document.getElementsByClassName("banner-benchmark")[0],
+        "0123456789",
+        0.1
+      );
+
+      var sample = document.getElementsByClassName("sample")[0];
+      spans = sample.children;
+
+      jump();
+      var jumpInterval = setInterval(jump, 2000);
+
+      sample.addEventListener("mouseover", function () {
+        clearInterval(jumpInterval);
+        findTokens();
+      });
+
+      elems = document.getElementsByClassName("chart-bar-hidden");
+      elems = Array.prototype.slice.call(elems);
+      startAnimations();
+    }, false);
+
+    var features = document.getElementsByClassName("banner-features")[0];
+    var benchmark = document.getElementsByClassName("banner-benchmark")[0];
+    var elems = [];
+
+    function startAnimations() {
+      var windowHeight = window.innerHeight;
+      for (var i = 0; i < elems.length; i++) {
+        var posFromTop = elems[i].getBoundingClientRect().top;
+        if (posFromTop - windowHeight <= 0) {
+          elems[i].className = elems[i].className.replace(
+            "chart-bar-hidden",
+            "chart-bar-bounce"
+          );
+        }
+      }
+    }
+
+    window.addEventListener("scroll", startAnimations);
+
+    window.addEventListener("resize", function () {
+      seed = START_SEED;
+
+      fillElement(
+        document.getElementsByClassName("banner-features")[0],
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+        0.2
+      );
+      fillElement(
+        document.getElementsByClassName("banner-benchmark")[0],
+        "0123456789",
+        0.1
+      );
+    }, true);
+  </script>
+</head>
+
+<body>
+  <div class="container-main">
+    <div class="bar-links bar-links-left">
+      <div><a href="https://github.com/pest-parser/pest">GitHub</a></div>
+      <div><a href="https://plugins.jetbrains.com/plugin/12046-pest">IDEA Plugin</a></div>
+    </div>
+    <div class="bar-links bar-links-right">
+      <div><a href="book">Book</a></div>
+      <div><a href="https://docs.rs/pest">Docs</a></div>
+    </div>
+    <img class="logo logo-bloom" src="assets/pest-logo.svg">
+    <img class="logo" src="assets/pest-logo.svg">
+    <a class="button-try" href="#editor">Try it here!</a>
+    <div class="banner-features"></div>
+    <div class="content features">
+      <div class="illustration">
+        <code class="sample">
             <span>vals</span><span>.</span><span>push</span><span>(</span><span>3</span><span>)</span><span>;</span>
           </code>
-          </br>
-          <code class="token">
+        </br>
+        <code class="token">
             {statement}
           </code>
+      </div>
+      <h1>pest. The Elegant Parser</h1>
+      <p>
+        pest is a general purpose parser written in Rust with a focus on
+        <strong>accessibility</strong>, <strong>correctness</strong>, and
+        <strong>performance</strong>. It uses
+        <a href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">
+          parsing expression grammars (or PEG)</a> as input, which are similar
+        in spirit to regular expressions, but which offer the enhanced
+        expressivity needed to parse complex languages.
+      </p>
+      <div class="feature-grid">
+        <div class="feature">
+          <h2>Accessibility</h2>
+          <p>
+            Grammar-generated parsers are both easier to use and maintain than
+            their hand-written counterparts.
+          </p>
         </div>
-        <h1>pest. The Elegant Parser</h1>
-        <p>
-          pest is a general purpose parser written in Rust with a focus on
-          <strong>accessibility</strong>, <strong>correctness</strong>, and
-          <strong>performance</strong>. It uses
-          <a href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">
-            parsing expression grammars (or PEG)</a> as input, which are similar
-          in spirit to regular expressions, but which offer the enhanced
-          expressivity needed to parse complex languages.
-        </p>
-        <div class="feature-grid">
-          <div class="feature">
-            <h2>Accessibility</h2>
-            <p>
-              Grammar-generated parsers are both easier to use and maintain than
-              their hand-written counterparts.
-            </p>
-          </div>
-          <div>
-            <h2>Correctness</h2>
-            <p>
-              Grammars offer better correctness guarantees, and issues can be
-              solved declaratively in the grammar itself. Rust's memory safety
-              further limits the amount of damage bugs can do.
-            </p>
-          </div>
-          <div class="feature">
-            <h2>Performance</h2>
-            <p>
-              High-level static analysis and careful low-level implementation
-              build a solid foundation on which serious performance tuning is
-              possible.
-            </p>
-          </div>
+        <div>
+          <h2>Correctness</h2>
+          <p>
+            Grammars offer better correctness guarantees, and issues can be
+            solved declaratively in the grammar itself. Rust's memory safety
+            further limits the amount of damage bugs can do.
+          </p>
+        </div>
+        <div class="feature">
+          <h2>Performance</h2>
+          <p>
+            High-level static analysis and careful low-level implementation
+            build a solid foundation on which serious performance tuning is
+            possible.
+          </p>
         </div>
       </div>
-      <div class="content example">
-        <h2>Example</h2>
-        <p>
-          The following is an example of a grammar for a list of alpha-numeric
-          identifiers where the first identifier does not start with a digit:
-        </p>
-        <code class="code-block"><span class="ident">alpha</span> = { <span class="string">'a'</span><span class="op">..</span><span class="string">'z'</span> <span class="op">|</span> <span class="string">'A'</span><span class="op">..</span><span class="string">'Z'</span> }
+    </div>
+    <div class="content example">
+      <h2>Example</h2>
+      <p>
+        The following is an example of a grammar for a list of alpha-numeric
+        identifiers where the first identifier does not start with a digit:
+      </p>
+      <code class="code-block"><span class="ident">alpha</span> = { <span class="string">'a'</span><span class="op">..</span><span class="string">'z'</span> <span class="op">|</span> <span class="string">'A'</span><span class="op">..</span><span class="string">'Z'</span> }
 <span class="ident">digit</span> = { <span class="string">'0'</span><span class="op">..</span><span class="string">'9'</span> }
 
 <span class="ident">ident</span> = { (<span class="ident">alpha</span> <span class="op">|</span> <span class="ident">digit</span>)<span class="op">+</span> }
@@ -261,290 +263,325 @@
 <span class="ident">ident_list</span> = <span class="mod">_</span>{ <span class="op">!</span><span class="ident">digit</span> <span class="op">~</span> <span class="ident">ident</span> <span class="op">~</span> (<span class="string">" "</span> <span class="op">~</span> <span class="ident">ident</span>)<span class="op">+</span> }
           <span class="comment">// ^</span>
           <span class="comment">// ident_list rule is silent (produces no tokens or error reports)</span></code>
-        <p>
-          Grammars are saved in separate <code>.pest</code> files which are
-          never mixed with procedural code. This results in an always up-to-date
-          formalization of a language that is easy to read and maintain.
-        </p>
-        </br>
-        <h2>Meaningful error reporting</h2>
-        <p>
-          Based on the grammar definition, the parser also includes automatic
-          error reporting. For the example above, the input <code>"123"</code>
-          will result in:
-        </p>
-        <code class="code-block">thread 'main' panicked at ' --> 1:1
+      <p>
+        Grammars are saved in separate <code>.pest</code> files which are
+        never mixed with procedural code. This results in an always up-to-date
+        formalization of a language that is easy to read and maintain.
+      </p>
+      </br>
+      <h2>Meaningful error reporting</h2>
+      <p>
+        Based on the grammar definition, the parser also includes automatic
+        error reporting. For the example above, the input <code>"123"</code>
+        will result in:
+      </p>
+      <code class="code-block">thread 'main' panicked at ' --> 1:1
   <span class="comment">|</span>
 1 <span class="comment">|</span> <span class="string">123</span>
   <span class="comment">| ^---</span>
   <span class="comment">|</span>
   = <span class="op">unexpected digit</span>', src/main.rs:12</code>
-        <p>
-          while <code>"ab *"</code> will result in:
-        </p>
-        <code class="code-block">thread 'main' panicked at ' --> 1:1
+      <p>
+        while <code>"ab *"</code> will result in:
+      </p>
+      <code class="code-block">thread 'main' panicked at ' --> 1:1
   <span class="comment">|</span>
 1 <span class="comment">|</span> <span class="string">ab *</span>
   <span class="comment">|    ^---</span>
   <span class="comment">|</span>
   = <span class="op">expected ident</span>', src/main.rs:12</code>
-        </br>
-        </br>
-      </div>
-      <div class="banner-benchmark"></div>
-      <div class="content benchmark">
-        <h2>Measurements</h2>
-        <p>
-          Performance measurements place a pest-generated JSON parser in
-          somewhere below an optimized JSON parsers,
-          <a href="https://github.com/serde-rs/serde">serde</a>, and a static
-          native-speed parser, <a href="https://github.com/Geal/nom">nom</a>.
-        </p>
-        <div class="chart">
-          <div class="chart-label"><p class="chart-label-pest">pest</p></div>
-          <div class="chart-label"><p class="chart-label-nom">nom</p></div>
-          <div class="chart-label"><p class="chart-label-serde">serde</p></div>
-          <div class="chart-border chart-border-1"></div>
-          <div class="chart-border chart-border-2"></div>
-          <div class="chart-border chart-border-3"></div>
-          <div class="chart-bar chart-bar-pest">
-            <div class="chart-bar-hidden">
-              <p>150</p>
-            </div>
-          </div>
-          <div class="chart-bar chart-bar-nom">
-            <div class="chart-bar-hidden">
-              <p>366</p>
-            </div>
-          </div>
-          <div class="chart-bar chart-bar-serde">
-            <div class="chart-bar-hidden">
-              <p>472</p>
-            </div>
-          </div>
-          <div class="chart-value chart-value-0"><p>0MB/s</p></div>
-          <div class="chart-value chart-value-250"><p>250MB/s</p></div>
-          <div class="chart-value chart-value-500"><p>500MB/s</p></div>
+      </br>
+      </br>
+    </div>
+    <div class="banner-benchmark"></div>
+    <div class="content benchmark">
+      <h2>Measurements</h2>
+      <p>
+        Performance measurements place a pest-generated JSON parser in
+        somewhere below an optimized JSON parsers,
+        <a href="https://github.com/serde-rs/serde">serde</a>, and a static
+        native-speed parser, <a href="https://github.com/Geal/nom">nom</a>.
+      </p>
+      <div class="chart">
+        <div class="chart-label">
+          <p class="chart-label-pest">pest</p>
         </div>
-      </div>
-      <div class="content editor">
-        <a name="editor"><h2>Editor</h2></a>
-        <button onclick="wideMode()" id="modeBtn">Wide Mode</button>
-        <button onclick="share()">Share</button><a class="direct-link"></a>
-        <div class="editor-grid">
-          <textarea rows="15" class="editor-grammar grammar-area"></textarea>
-          <div class="editor-input">
-            <textarea rows="3" placeholder="Input" class="editor-input-text"></textarea>
-            <select disabled class="editor-input-select">
-              <option>...</option>
-            </select>
+        <div class="chart-label">
+          <p class="chart-label-nom">nom</p>
+        </div>
+        <div class="chart-label">
+          <p class="chart-label-serde">serde</p>
+        </div>
+        <div class="chart-border chart-border-1"></div>
+        <div class="chart-border chart-border-2"></div>
+        <div class="chart-border chart-border-3"></div>
+        <div class="chart-bar chart-bar-pest">
+          <div class="chart-bar-hidden">
+            <p>150</p>
           </div>
-          <div class="output-wrapper">
-            <textarea rows="7" placeholder="Output" readonly class="editor-output"></textarea>
+        </div>
+        <div class="chart-bar chart-bar-nom">
+          <div class="chart-bar-hidden">
+            <p>366</p>
           </div>
+        </div>
+        <div class="chart-bar chart-bar-serde">
+          <div class="chart-bar-hidden">
+            <p>472</p>
+          </div>
+        </div>
+        <div class="chart-value chart-value-0">
+          <p>0MB/s</p>
+        </div>
+        <div class="chart-value chart-value-250">
+          <p>250MB/s</p>
+        </div>
+        <div class="chart-value chart-value-500">
+          <p>500MB/s</p>
         </div>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.11/split.min.js"></script>
-    <script type="module">
-      import init, { lint } from './pest_site.js';
-      window.lint = lint;
-      async function run() {
-        await init();
+    <div class="content editor">
+      <a name="editor">
+        <h2>Editor</h2>
+      </a>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <button onclick="wideMode()" id="modeBtn">Wide Mode</button>
+          <button onclick="doFormat()">Format</button>
+        </div>
+        <div>
+          <button onclick="share()">Share</button><a class="direct-link"></a>
+        </div>
+      </div>
+      <div class="editor-grid">
+        <textarea rows="15" class="editor-grammar grammar-area"></textarea>
+        <div class="editor-input">
+          <textarea rows="3" placeholder="Input" class="editor-input-text"></textarea>
+          <select disabled class="editor-input-select">
+            <option>...</option>
+          </select>
+        </div>
+        <div class="output-wrapper">
+          <textarea rows="7" placeholder="Output" readonly class="editor-output"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.11/split.min.js"></script>
+  <script type="module">
+    import init, { lint, format } from './pest_site.js';
+    window.lint = lint;
+    window.format = format;
+
+    async function run() {
+      await init();
+    }
+    run();
+  </script>
+  <script src="codemirror/lib/codemirror.js"></script>
+  <script src="codemirror/addon/display/placeholder.js"></script>
+  <script src="codemirror/addon/lint/lint.js"></script>
+  <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
+  <script src="codemirror/addon/mode/simple.js"></script>
+  <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+
+  <script type="text/javascript">
+    const editorDom = document.querySelector(".editor");
+    const gridDom = document.querySelector(".editor-grid");
+    const inputDom = document.querySelector(".editor-input");
+    const outputDom = document.querySelector(".editor-output");
+    const modeBtn = document.querySelector("#modeBtn");
+    let windowHeight = window.innerHeight;
+    var current_data = null;
+
+    CodeMirror.defineSimpleMode("pest", {
+      start: [
+        { regex: /"/, token: "string", next: "string" },
+        { regex: /'(?:[^'\\]|\\(?:[nrt0'"]|x[\da-fA-F]{2}|u\{[\da-fA-F]{6}\}))'/, token: "string" },
+        { regex: /\/\/.*/, token: "comment" },
+        { regex: /\d+/, token: "number" },
+        { regex: /[~|*+?&!]|(\.\.)/, token: "operator" },
+        { regex: /[a-zA-Z_]\w*/, token: "variable" },
+        { regex: /=/, next: "mod" }
+      ],
+      mod: [
+        { regex: /\{/, next: "start" },
+        { regex: /[_@!$]/, token: "operator-2" },
+      ],
+      string: [
+        { regex: /"/, token: "string", next: "start" },
+        { regex: /(?:[^\\"]|\\(?:.|$))*/, token: "string" }
+      ],
+      meta: {
+        dontIndentStates: ["comment"],
+        lineComment: "//"
       }
-      run();
-    </script>
-    <script src="codemirror/lib/codemirror.js"></script>
-    <script src="codemirror/addon/display/placeholder.js"></script>
-    <script src="codemirror/addon/lint/lint.js"></script>
-    <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
-    <script src="codemirror/addon/mode/simple.js"></script>
-    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    });
 
-    <script type="text/javascript">
-      const editorDom = document.querySelector(".editor");
-      const gridDom = document.querySelector(".editor-grid");
-      const inputDom = document.querySelector(".editor-input");
-      const outputDom = document.querySelector(".editor-output");
-      const modeBtn = document.querySelector("#modeBtn");
-      let windowHeight = window.innerHeight;
-      var current_data = null;
+    CodeMirror.registerHelper("lint", "pest", function (text) {
+      if (window.lint) {
+        var doc = CodeMirror.Doc(text);
+        var errors = window.lint(text);
+        var mapped = [];
 
-      CodeMirror.defineSimpleMode("pest", {
-        start: [
-          {regex: /"/, token: "string", next: "string"},
-          {regex: /'(?:[^'\\]|\\(?:[nrt0'"]|x[\da-fA-F]{2}|u\{[\da-fA-F]{6}\}))'/, token: "string"},
-          {regex: /\/\/.*/, token: "comment"},
-          {regex: /\d+/, token: "number"},
-          {regex: /[~|*+?&!]|(\.\.)/, token: "operator"},
-          {regex: /[a-zA-Z_]\w*/, token: "variable"},
-          {regex: /=/, next: "mod"}
-        ],
-        mod: [
-          {regex: /\{/, next: "start"},
-          {regex: /[_@!$]/, token: "operator-2"},
-        ],
-        string: [
-            {regex: /"/, token: "string", next: "start"},
-            {regex: /(?:[^\\"]|\\(?:.|$))*/, token: "string"}
-        ],
-        meta: {
-          dontIndentStates: ["comment"],
-          lineComment: "//"
-        }
-      });
+        for (var i = 0; i < errors.length; i++) {
+          var from = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("from")));
+          var to = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("to")));
 
-      CodeMirror.registerHelper("lint", "pest", function(text) {
-        if (window.lint) {
-          var doc = CodeMirror.Doc(text);
-          var errors = window.lint(text);
-          var mapped = [];
-
-          for (var i = 0; i < errors.length; i++) {
-            var from = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("from")));
-            var to = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("to")));
-
-            if (from.line === to.line && from.ch === to.ch) {
-              to.ch += 1;
-              to = doc.clipPos(to);
-            }
-
-            if (from.line === to.line && from.ch === to.ch) {
-              from.ch -= 1;
-              from = doc.clipPos(from);
-            }
-
-            mapped.push({
-              message: errors[i].get("message"),
-              from: from,
-              to: to
-            });
+          if (from.line === to.line && from.ch === to.ch) {
+            to.ch += 1;
+            to = doc.clipPos(to);
           }
 
-          return mapped;
-        } else {
-          return [];
-        }
-      });
-
-      var grammar = document.getElementsByClassName("editor-grammar")[0];
-      var myCodeMirror = CodeMirror.fromTextArea(grammar, {
-        mode: "pest",
-        lint: "pest",
-        theme: "pest",
-        placeholder: "Grammar",
-      });
-
-      var url = new URL(window.location.href);
-      var bin = url.searchParams.get("bin");
-      if (bin) {
-        var http = new XMLHttpRequest();
-        var url = "https://api.myjson.com/bins/" + bin;
-        http.open("GET", url, true);
-
-        http.onreadystatechange = function() {
-          if (http.readyState === 4 && http.status === 200) {
-            var data = JSON.parse(http.responseText);
-            current_data = data;
-
-            myCodeMirror.setValue(data["grammar"]);
-          }
-        }
-        http.send(null);
-      }
-
-      function set_current_data() {
-        if (current_data) {
-          var select = document.getElementsByClassName("editor-input-select")[0];
-
-          for (var i = 0; i < select.options.length; i++) {
-            if (select.options[i].value === current_data["rule"]) {
-              select.selectedIndex = i;
-              var event = new Event('change');
-              select.dispatchEvent(event);
-              break;
-            }
+          if (from.line === to.line && from.ch === to.ch) {
+            from.ch -= 1;
+            from = doc.clipPos(from);
           }
 
-          var input = document.getElementsByClassName("editor-input-text")[0];
-          input.value = current_data["input"];
+          mapped.push({
+            message: errors[i].get("message"),
+            from: from,
+            to: to
+          });
+        }
 
-          current_data = null;
+        return mapped;
+      } else {
+        return [];
+      }
+    });
+
+    var grammar = document.getElementsByClassName("editor-grammar")[0];
+    var myCodeMirror = CodeMirror.fromTextArea(grammar, {
+      mode: "pest",
+      lint: "pest",
+      theme: "pest",
+      placeholder: "Grammar",
+    });
+
+    var url = new URL(window.location.href);
+    var bin = url.searchParams.get("bin");
+    if (bin) {
+      var http = new XMLHttpRequest();
+      var url = "https://api.myjson.com/bins/" + bin;
+      http.open("GET", url, true);
+
+      http.onreadystatechange = function () {
+        if (http.readyState === 4 && http.status === 200) {
+          var data = JSON.parse(http.responseText);
+          current_data = data;
+
+          myCodeMirror.setValue(data["grammar"]);
         }
       }
+      http.send(null);
+    }
 
-      function share() {
-        var data = {};
+    function set_current_data() {
+      if (current_data) {
         var select = document.getElementsByClassName("editor-input-select")[0];
 
-        data["grammar"] = myCodeMirror.getValue();
-        data["input"] = document.getElementsByClassName("editor-input-text")[0].value;
-        data["rule"] = select.options[select.selectedIndex].value;
-
-        var http = new XMLHttpRequest();
-        var url = "https://api.myjson.com/bins";
-        http.open("POST", url, true);
-        http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-        http.onreadystatechange = function() {
-          if (http.readyState === 4 && http.status === 201) {
-            var url = JSON.parse(http.responseText)["uri"];
-            var tokens = url.split("/");
-            var bin = tokens[tokens.length - 1];
-
-            var link = document.getElementsByClassName("direct-link")[0];
-
-            link.href = "https://pest-parser.github.io/?bin=" + bin + "#editor";
-            link.text = "direct link";
-          }
-        };
-        http.send(JSON.stringify(data));
-      }
-      let split = null;
-      let sizes = localStorage.getItem('split-sizes');
-      if (sizes) {
-        sizes = JSON.parse(sizes)
-      } else {
-        sizes = [33, 33, 33] // default sizes
-      }
-      function makeResizable(wideMode) {
-        if (wideMode) {
-          split = Split(['.CodeMirror', '.editor-input', '.output-wrapper'], {
-            sizes,
-            onDragEnd: function(_sizes) {
-              sizes = _sizes;
-              localStorage.setItem('split-sizes', JSON.stringify(sizes))
-            },
-          })
-        } else {
-          if (split) {
-            split.destroy();
+        for (var i = 0; i < select.options.length; i++) {
+          if (select.options[i].value === current_data["rule"]) {
+            select.selectedIndex = i;
+            var event = new Event('change');
+            select.dispatchEvent(event);
+            break;
           }
         }
+
+        var input = document.getElementsByClassName("editor-input-text")[0];
+        input.value = current_data["input"];
+
+        current_data = null;
       }
-      function wideMode() {
-        modeBtn.onclick = restore;
-        modeBtn.innerText = "Normal Mode";
-        inputDom.classList.add("wide-input");
-        editorDom.classList.add("wide-editor");
-        gridDom.classList.add("flex-editor");
-        const upperHeight = document.querySelector('#modeBtn').scrollHeight + 30;
-        gridDom.setAttribute('style', `height: ${windowHeight - upperHeight}px`);
-        myCodeMirror.setSize(null, outputDom.clientHeight - 20);
-        makeResizable(true);
-        window.scrollTo(0,document.body.scrollHeight);
+    }
+
+    function share() {
+      var data = {};
+      var select = document.getElementsByClassName("editor-input-select")[0];
+
+      data["grammar"] = myCodeMirror.getValue();
+      data["input"] = document.getElementsByClassName("editor-input-text")[0].value;
+      data["rule"] = select.options[select.selectedIndex].value;
+
+      var http = new XMLHttpRequest();
+      var url = "https://api.myjson.com/bins";
+      http.open("POST", url, true);
+      http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+      http.onreadystatechange = function () {
+        if (http.readyState === 4 && http.status === 201) {
+          var url = JSON.parse(http.responseText)["uri"];
+          var tokens = url.split("/");
+          var bin = tokens[tokens.length - 1];
+
+          var link = document.getElementsByClassName("direct-link")[0];
+
+          link.href = "https://pest-parser.github.io/?bin=" + bin + "#editor";
+          link.text = "direct link";
+        }
+      };
+      http.send(JSON.stringify(data));
+    }
+
+    function doFormat() {
+      if (!window.format || !myCodeMirror) {
+        return
       }
 
-      function restore() {
-        modeBtn.onclick = wideMode;
-        modeBtn.innerText = "Wide Mode";
-        inputDom.classList.remove("wide-input");
-        editorDom.classList.remove("wide-editor");
-        gridDom.classList.remove("flex-editor");
-        outputDom.setAttribute("rows", 7);
-        myCodeMirror.setSize(null, outputDom.clientHeight);
-        makeResizable(false);
+      let grammar = myCodeMirror.getValue();
+      let formatted = window.format(grammar);
+      myCodeMirror.setValue(formatted);
+    }
+
+    let split = null;
+    let sizes = localStorage.getItem('split-sizes');
+    if (sizes) {
+      sizes = JSON.parse(sizes)
+    } else {
+      sizes = [33, 33, 33] // default sizes
+    }
+    function makeResizable(wideMode) {
+      if (wideMode) {
+        split = Split(['.CodeMirror', '.editor-input', '.output-wrapper'], {
+          sizes,
+          onDragEnd: function (_sizes) {
+            sizes = _sizes;
+            localStorage.setItem('split-sizes', JSON.stringify(sizes))
+          },
+        })
+      } else {
+        if (split) {
+          split.destroy();
+        }
       }
-    </script>
-  </body>
+    }
+    function wideMode() {
+      modeBtn.onclick = restore;
+      modeBtn.innerText = "Normal Mode";
+      inputDom.classList.add("wide-input");
+      editorDom.classList.add("wide-editor");
+      gridDom.classList.add("flex-editor");
+      const upperHeight = document.querySelector('#modeBtn').scrollHeight + 30;
+      gridDom.setAttribute('style', `height: ${windowHeight - upperHeight}px`);
+      myCodeMirror.setSize(null, outputDom.clientHeight - 20);
+      makeResizable(true);
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function restore() {
+      modeBtn.onclick = wideMode;
+      modeBtn.innerText = "Wide Mode";
+      inputDom.classList.remove("wide-input");
+      editorDom.classList.remove("wide-editor");
+      gridDom.classList.remove("flex-editor");
+      outputDom.setAttribute("rows", 7);
+      myCodeMirror.setSize(null, outputDom.clientHeight);
+      makeResizable(false);
+    }
+  </script>
+</body>
+
 </html>
