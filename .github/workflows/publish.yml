@@ -14,7 +14,7 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
@@ -28,15 +28,17 @@ jobs:
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
-          mdbook-version: 'latest'
+          mdbook-version: "latest"
       - name: Setup wasm-pack
         uses: jetli/wasm-pack-action@v0.4.0
         with:
-          version: 'latest'
+          version: "latest"
       - name: Install Task
         uses: arduino/setup-task@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Yarn install
+        run: yarn
       - name: Run Build
         run: task
   gh-release:
@@ -52,13 +54,15 @@ jobs:
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
-          mdbook-version: 'latest'
+          mdbook-version: "latest"
       - name: Setup wasm-pack
         uses: jetli/wasm-pack-action@v0.4.0
         with:
-          version: 'latest'
+          version: "latest"
       - name: Install Task
         uses: arduino/setup-task@v1
+      - name: Yarn install
+        run: yarn
       - name: Run Build
         run: task
       - name: Setup Pages
@@ -66,7 +70,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: 'www'
+          path: "www"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
