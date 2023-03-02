@@ -1,17 +1,26 @@
-# Source code for `https://pest.rs`
+# pest.rs
 
 This repo contains the source code for https://pest.rs
 
-To build it, you need [task](https://taskfile.dev/), [wasm-pack](https://rustwasm.github.io/wasm-pack/), and [mdbook](https://rust-lang.github.io/mdBook/):
+## Development Guide
 
-```sh
-# run the taskfile (this may be go-task)
-task
+This project uses the following tools:
+
+- [Task](https://taskfile.dev/)
+- [wasm-pack](https://rustwasm.github.io/wasm-pack/)
+- [mdBook](https://rust-lang.github.io/mdBook/)
+- [pnpm](https://pnpm.io)
+
+Start Parcel development server:
+
+```bash
+task dev
 ```
 
-You can then test the site by serving the built `www` directory with your dev server
-of choice. For example:
+Then visit http://localhost:1234
 
-```sh
-python3 -m http.server 3030 --directory www
+If you want to see the static site, run the main build task:
+
+```bash
+task
 ```
