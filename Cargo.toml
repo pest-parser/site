@@ -9,7 +9,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 pest = "2.5"
-pest_fmt = "0"
+pest_fmt = "0.2"
 pest_meta = "2.5"
 pest_vm = "2.5"
 serde-wasm-bindgen = "0.4"
