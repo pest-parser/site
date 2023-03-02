@@ -3,6 +3,7 @@ authors = ["Dragoș Tiselice <dragostiselice@gmail.com>"]
 edition = "2021"
 name = "pest-site"
 version = "0.1.0"
+license = "MIT/Apache-2.0"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
