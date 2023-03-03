@@ -31,7 +31,6 @@ tasks:
   default:
     deps: [clean, book, pack]
     cmds:
-      - wasm-pack build --target web
       - cp -R book/book/* {{.WEBROOT}}/book
       - cp -R static/* {{.WEBROOT}}/
       - cp pkg/*.js {{.WEBROOT}}

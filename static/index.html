@@ -351,7 +351,7 @@
           <button onclick="doFormat()">Format</button>
         </div>
         <div>
-          <button onclick="share()">Share</button><a class="direct-link"></a>
+          <button onclick="copyShareLink()" id="shareLinkBtn">Copy Share Link</button>
         </div>
       </div>
       <div class="editor-grid">
@@ -460,22 +460,45 @@
       placeholder: "Grammar",
     });
 
+    function encodeShareData(data) {
+      return btoa(JSON.stringify(data));
+    }
+
+    function decodeShareData(encoded) {
+      return JSON.parse(atob(encoded));
+    }
+
+    function shareURL() {
+      const gdata = encodeShareData(shareData());
+      const url = new URL(window.location);
+      url.searchParams.set("gdata", gdata);
+      url.hash = "editor";
+      return url.toString();
+    }
+
+
+    const copyButton = document.getElementById("shareLinkBtn");
+    const copyButtonOriginalText = copyButton.innerText;
+    let copyButtonTimerHandle = undefined;
+
+    function copyShareLink() {
+      clearTimeout(copyButtonTimerHandle);
+      navigator.clipboard.writeText(shareURL())
+      copyButton.classList.add("copied");
+      copyButton.innerText = "Copied";
+      copyButtonTimerHandle = setTimeout(
+        () => { copyButton.classList.remove("copied"); copyButton.innerText = copyButtonOriginalText; },
+        1400
+      );
+    }
+
+
     var url = new URL(window.location.href);
-    var bin = url.searchParams.get("bin");
-    if (bin) {
-      var http = new XMLHttpRequest();
-      var url = "https://api.myjson.com/bins/" + bin;
-      http.open("GET", url, true);
-
-      http.onreadystatechange = function () {
-        if (http.readyState === 4 && http.status === 200) {
-          var data = JSON.parse(http.responseText);
-          current_data = data;
-
-          myCodeMirror.setValue(data["grammar"]);
-        }
-      }
-      http.send(null);
+    var gdata = url.searchParams.get("gdata");
+    if (gdata) {
+      const decoded = decodeShareData(gdata);
+      myCodeMirror.setValue(decoded["grammar"]);
+      document.getElementById("editor-input").value = decoded["input"];
     }
 
     function set_current_data() {
@@ -496,34 +519,6 @@
 
         current_data = null;
       }
-    }
-
-    function share() {
-      var data = {};
-      var select = document.getElementsByClassName("editor-input-select")[0];
-
-      data["grammar"] = myCodeMirror.getValue();
-      data["input"] = document.getElementsByClassName("editor-input-text")[0].value;
-      data["rule"] = select.options[select.selectedIndex].value;
-
-      var http = new XMLHttpRequest();
-      var url = "https://api.myjson.com/bins";
-      http.open("POST", url, true);
-      http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-      http.onreadystatechange = function () {
-        if (http.readyState === 4 && http.status === 201) {
-          var url = JSON.parse(http.responseText)["uri"];
-          var tokens = url.split("/");
-          var bin = tokens[tokens.length - 1];
-
-          var link = document.getElementsByClassName("direct-link")[0];
-
-          link.href = "https://pest-parser.github.io/?bin=" + bin + "#editor";
-          link.text = "direct link";
-        }
-      };
-      http.send(JSON.stringify(data));
     }
 
     function doFormat() {
