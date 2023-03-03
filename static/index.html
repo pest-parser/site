@@ -375,8 +375,7 @@
 
     <script type="module">
       import Split from 'split.js'
-      import init, { lint } from '../pkg/pest_site.js';
-      init().then(() => window.lint = lint)
+      import init, { lint, format } from '../pkg/pest_site.js';
 
       const editorDom = document.querySelector(".editor");
       const gridDom = document.querySelector(".editor-grid");
@@ -517,7 +516,7 @@
         http.send(JSON.stringify(data));
       }
 
-      function doFormat() {
+      window.doFormat = function() {
         if (!window.format || !myCodeMirror) {
           return
         }
@@ -572,6 +571,11 @@
         myCodeMirror.setSize(null, outputDom.clientHeight);
         makeResizable(false);
       }
+
+      init().then(() => {
+        window.lint = lint
+        window.format = format
+      })
     </script>
   </body>
 </html>
