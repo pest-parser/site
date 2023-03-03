@@ -10,7 +10,7 @@ use pest_vm::Vm;
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use web_sys::{Node, Document, Event, InputEvent};
+use web_sys::{Document, Event, InputEvent, Node};
 use web_sys::{HtmlOptionElement, HtmlSelectElement, HtmlTextAreaElement};
 
 static mut NEEDS_RUN: bool = false;
@@ -50,7 +50,9 @@ fn listen_for_input() {
     let input = element::<Node>(".editor-input-text");
 
     let func = Closure::<dyn Fn(InputEvent)>::new(move |_| {
-        unsafe { NEEDS_RUN = true; }
+        unsafe {
+            NEEDS_RUN = true;
+        }
         wait_and_run();
     });
 
@@ -62,7 +64,9 @@ fn listen_for_input() {
     let select = element::<HtmlSelectElement>(".editor-input-select");
 
     let func = Closure::<dyn Fn(Event)>::new(move |_: Event| {
-        unsafe { LAST_SELECTION = selected_option(); }
+        unsafe {
+            LAST_SELECTION = selected_option();
+        }
 
         parse_input();
     });
@@ -78,7 +82,9 @@ fn wait_and_run() {
     let func = Closure::<dyn FnOnce()>::once_into_js(|| {
         if unsafe { NEEDS_RUN } {
             parse_input();
-            unsafe { NEEDS_RUN = false; }
+            unsafe {
+                NEEDS_RUN = false;
+            }
         }
     });
 
@@ -95,14 +101,12 @@ fn parse_input() {
 
         match vm.parse(&rule, &input.value()) {
             Ok(pairs) => {
-                let lines: Vec<_> = pairs.map(|pair| {
-                    format_pair(pair, 0, true)
-                }).collect();
+                let lines: Vec<_> = pairs.map(|pair| format_pair(pair, 0, true)).collect();
                 let lines = lines.join("\n");
 
                 output.set_value(&format!("{}", lines));
             }
-            Err(error) => output.set_value(&format!("{}", error.renamed_rules(|r| r.to_string())))
+            Err(error) => output.set_value(&format!("{}", error.renamed_rules(|r| r.to_string()))),
         };
     }
 }
@@ -116,20 +120,39 @@ fn format_pair(pair: Pair<&str>, indent_level: usize, is_newline: bool) -> Strin
 
     let children: Vec<_> = pair.clone().into_inner().collect();
     let len = children.len();
-    let children: Vec<_> = children.into_iter().map(|pair| {
-        format_pair(pair, if len > 1 { indent_level + 1 } else { indent_level }, len > 1)
-    }).collect();
+    let children: Vec<_> = children
+        .into_iter()
+        .map(|pair| {
+            format_pair(
+                pair,
+                if len > 1 {
+                    indent_level + 1
+                } else {
+                    indent_level
+                },
+                len > 1,
+            )
+        })
+        .collect();
 
-    let dash = if is_newline {
-        "- "
-    } else {
-        ""
-    };
+    let dash = if is_newline { "- " } else { "" };
 
     match len {
-        0 => format!("{}{}{}: {:?}", indent, dash, pair.as_rule(), pair.as_span().as_str()),
+        0 => format!(
+            "{}{}{}: {:?}",
+            indent,
+            dash,
+            pair.as_rule(),
+            pair.as_span().as_str()
+        ),
         1 => format!("{}{}{} > {}", indent, dash, pair.as_rule(), children[0]),
-        _ => format!("{}{}{}\n{}", indent, dash, pair.as_rule(), children.join("\n"))
+        _ => format!(
+            "{}{}{}\n{}",
+            indent,
+            dash,
+            pair.as_rule(),
+            children.join("\n")
+        ),
     }
 }
 
@@ -142,9 +165,8 @@ fn selected_option() -> Option<String> {
 }
 
 fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
-    let result = parser::parse(Rule::grammar_rules, &grammar).map_err(|error| {
-        error.renamed_rules(pest_meta::parser::rename_meta_rule)
-    });
+    let result = parser::parse(Rule::grammar_rules, &grammar)
+        .map_err(|error| error.renamed_rules(pest_meta::parser::rename_meta_rule));
 
     let pairs = match result {
         Ok(pairs) => pairs,
@@ -156,18 +178,26 @@ fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
 
     if let Err(errors) = validator::validate_pairs(pairs.clone()) {
         add_rules_to_select(vec![]);
-        return errors.into_iter().map(|e| convert_error(e, &grammar)).collect();
+        return errors
+            .into_iter()
+            .map(|e| convert_error(e, &grammar))
+            .collect();
     }
 
     let ast = match parser::consume_rules(pairs) {
         Ok(ast) => ast,
         Err(errors) => {
             add_rules_to_select(vec![]);
-            return errors.into_iter().map(|e| convert_error(e, &grammar)).collect();
+            return errors
+                .into_iter()
+                .map(|e| convert_error(e, &grammar))
+                .collect();
         }
     };
 
-    unsafe { VM = Some(Vm::new(optimizer::optimize(ast.clone()))); }
+    unsafe {
+        VM = Some(Vm::new(optimizer::optimize(ast.clone())));
+    }
 
     add_rules_to_select(ast.iter().map(|rule| rule.name.as_str()).collect());
 
@@ -181,7 +211,7 @@ fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
 fn convert_error(error: Error<Rule>, grammar: &str) -> HashMap<String, String> {
     let message = match error.variant {
         ErrorVariant::CustomError { message } => message,
-        _ => unreachable!()
+        _ => unreachable!(),
     };
 
     match error.location {
@@ -241,7 +271,7 @@ fn line_col(pos: usize, input: &str) -> String {
                     pos -= c.len_utf8();
                     line_col = (line_col.0, line_col.1 + 1);
                 }
-                None => unreachable!()
+                None => unreachable!(),
             }
         }
 
@@ -265,7 +295,9 @@ fn add_rules_to_select(mut rules: Vec<&str>) {
 
     for rule in rules {
         let option: HtmlOptionElement = create_element("option");
-        option.append_child(&document().create_text_node(rule)).unwrap_throw();
+        option
+            .append_child(&document().create_text_node(rule))
+            .unwrap_throw();
         select.append_child(&option).unwrap_throw();
 
         if let Some(ref text) = unsafe { &LAST_SELECTION } {
@@ -285,4 +317,12 @@ pub fn lint(grammar: JsValue) -> JsValue {
 #[wasm_bindgen(start)]
 pub fn start() {
     listen_for_input();
+}
+
+#[wasm_bindgen]
+pub fn format(grammar: JsValue) -> JsValue {
+    let input = grammar.as_string().unwrap();
+    let fmt = pest_fmt::Formatter::new(&input);
+    serde_wasm_bindgen::to_value(&fmt.format().unwrap())
+        .expect_throw("could not serialize grammar results")
 }

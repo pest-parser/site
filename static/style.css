@@ -18,6 +18,18 @@ body {
   }
 }
 
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
 .container-main {
   display: grid;
   grid-template-columns: 1fr minmax(auto, 800px) 1fr;
@@ -562,7 +574,6 @@ button {
   background-color: #616e86;
   font-family: 'Quicksand', sans-serif;
   font-size: 1em;
-  margin-right: 20px;
   margin-bottom: 20px;
   padding: 0.8em 1em;
   color: white;
@@ -571,6 +582,10 @@ button {
   text-align: center;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   transition: width 400ms ease-in-out;
+}
+
+button + button {
+  margin-left: 20px;
 }
 
 button:hover {
