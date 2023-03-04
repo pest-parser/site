@@ -350,7 +350,8 @@
           <button onclick="doFormat()">Format</button>
         </div>
         <div>
-          <button onclick="share()">Share</button><a class="direct-link"></a>
+          <p id="shareLinkWarning" style="display:none"></p>
+          <button id="shareLinkBtn">Copy share link</button>
         </div>
       </div>
       <div class="editor-grid">
@@ -376,6 +377,7 @@
     <script type="module">
       import Split from 'split.js'
       import init, { lint, format } from '../pkg/pest_site.js';
+      import {initShareButton} from "./scripts/shareButton.js";
 
       const editorDom = document.querySelector(".editor");
       const gridDom = document.querySelector(".editor-grid");
@@ -450,23 +452,8 @@
         placeholder: "Grammar",
       });
 
-      var url = new URL(window.location.href);
-      var bin = url.searchParams.get("bin");
-      if (bin) {
-        var http = new XMLHttpRequest();
-        var url = "https://api.myjson.com/bins/" + bin;
-        http.open("GET", url, true);
+      initShareButton({myCodeMirror});
 
-        http.onreadystatechange = function () {
-          if (http.readyState === 4 && http.status === 200) {
-            var data = JSON.parse(http.responseText);
-            current_data = data;
-
-            myCodeMirror.setValue(data["grammar"]);
-          }
-        }
-        http.send(null);
-      }
 
       global.set_current_data = function() {
         if (current_data) {
@@ -486,34 +473,6 @@
 
           current_data = null;
         }
-      }
-
-      function share() {
-        var data = {};
-        var select = document.getElementsByClassName("editor-input-select")[0];
-
-        data["grammar"] = myCodeMirror.getValue();
-        data["input"] = document.getElementsByClassName("editor-input-text")[0].value;
-        data["rule"] = select.options[select.selectedIndex].value;
-
-        var http = new XMLHttpRequest();
-        var url = "https://api.myjson.com/bins";
-        http.open("POST", url, true);
-        http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-        http.onreadystatechange = function () {
-          if (http.readyState === 4 && http.status === 201) {
-            var url = JSON.parse(http.responseText)["uri"];
-            var tokens = url.split("/");
-            var bin = tokens[tokens.length - 1];
-
-            var link = document.getElementsByClassName("direct-link")[0];
-
-            link.href = "https://pest-parser.github.io/?bin=" + bin + "#editor";
-            link.text = "direct link";
-          }
-        };
-        http.send(JSON.stringify(data));
       }
 
       window.doFormat = function() {
