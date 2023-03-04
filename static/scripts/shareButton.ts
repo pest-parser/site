@@ -10,7 +10,7 @@ export function initShareButton({ myCodeMirror }) {
     copyButton.onclick = () => copyShareLink(myCodeMirror);
 }
 
-let copyButtonTimerHandle = undefined;
+let copyButtonTimerHandle: number | undefined = undefined;
 
 function copyShareLink(codeMirror) {
     clearTimeout(copyButtonTimerHandle);
@@ -23,7 +23,7 @@ function copyShareLink(codeMirror) {
     navigator.clipboard.writeText(url);
     copyButton.classList.add("copied");
     copyButton.innerText = "Copied";
-    copyButtonTimerHandle = setTimeout(
+    copyButtonTimerHandle = window.setTimeout(
         () => { copyButton.classList.remove("copied"); copyButton.innerText = copyButtonOriginalText; },
         1400
     );
@@ -35,7 +35,7 @@ function tryLoadFromShareLink(codeMirror) {
     if (gdata) {
         const decoded = decodeShareData(gdata);
         codeMirror.setValue(decoded["grammar"]);
-        const inputEditor = document.getElementsByClassName("editor-input-text")[0];
+        const inputEditor = document.querySelector<HTMLInputElement>(".editor-input-text")!;
         inputEditor.value = decoded["input"];
     }
 }
@@ -43,13 +43,13 @@ function tryLoadFromShareLink(codeMirror) {
 function shareData(codeMirror) {
     let data = {};
     data["grammar"] = codeMirror.getValue();
-    data["input"] = document.getElementsByClassName("editor-input-text")[0].value;
+    data["input"] = document.querySelector<HTMLInputElement>(".editor-input-text")!.value;
     return data;
 }
 
 function shareURL(codeMirror) {
     const gdata = encodeShareData(shareData(codeMirror));
-    const url = new URL(window.location);
+    const url = new URL(window.location.href);
     url.searchParams.set("g", gdata);
     url.hash = "editor";
     return url.toString();
@@ -65,10 +65,10 @@ function clearShareLinkWarning() {
     shareLinkWarning.style.display = "none";
 }
 
-function encodeShareData(data) {
+function encodeShareData(data: any) {
     return encode(btoa(JSON.stringify(data)));
 }
 
-function decodeShareData(encoded) {
+function decodeShareData(encoded: string) {
     return JSON.parse(atob(decode(encoded)));
 }
