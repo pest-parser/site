@@ -1,196 +1,195 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>pest. The Elegant Parser</title>
+    
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/favicons/favicon.png?width=57&height=57" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/favicons/favicon.png?width=114&height=114" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/favicons/favicon.png?width=72&height=72" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/favicons/favicon.png?width=144&height=144" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="assets/favicons/favicon.png?width=60&height=60" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/favicons/favicon.png?width=120&height=120" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/favicons/favicon.png?width=76&height=76" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/favicons/favicon.png?width=152&height=152" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon.png?width=196&height=196" sizes="196x196" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon.png?width=96&height=96" sizes="96x96" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon.png?width=32&height=32" sizes="32x32" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon.png?width=16&height=16" sizes="16x16" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon.png?width=128&height=128" sizes="128x128" />
 
-<head>
-  <title>pest. The Elegant Parser</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/favicons/apple-touch-icon-57x57.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/favicons/apple-touch-icon-114x114.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/favicons/apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/favicons/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="assets/favicons/apple-touch-icon-60x60.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/favicons/apple-touch-icon-120x120.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/favicons/apple-touch-icon-76x76.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/favicons/apple-touch-icon-152x152.png" />
-  <link rel="icon" type="image/png" href="assets/favicons/favicon-196x196.png" sizes="196x196" />
-  <link rel="icon" type="image/png" href="assets/favicons/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/png" href="assets/favicons/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="assets/favicons/favicon-16x16.png" sizes="16x16" />
-  <link rel="icon" type="image/png" href="assets/favicons/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="assets/favicons/mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="assets/favicons/mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="assets/favicons/mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="assets/favicons/mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="assets/favicons/mstile-310x310.png" />
 
-  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-  <meta content="utf-8" http-equiv="encoding">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The Elegant Parser">
+    <meta name="og:title" content="pest">
+    <meta name="og:description" content="The Elegant Parser">
+    <meta name="og:url" content="https://pest.rs">
+    <meta name="og:image" content="https://pest.rs/assets/pest-logo.png">
+    <meta name="og:image:alt" content="The pest Logo.">
+    <meta name="og:site_name" content="pest.rs">
+    <meta name="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#192233">
 
-  <meta name="application-name" content="&nbsp;" />
-  <meta name="msapplication-TileColor" content="#FFFFFF" />
-  <meta name="msapplication-TileImage" content="assets/favicons/mstile-144x144.png" />
-  <meta name="msapplication-square70x70logo" content="assets/favicons/mstile-70x70.png" />
-  <meta name="msapplication-square150x150logo" content="assets/favicons/mstile-150x150.png" />
-  <meta name="msapplication-wide310x150logo" content="assets/favicons/mstile-310x150.png" />
-  <meta name="msapplication-square310x310logo" content="assets/favicons/mstile-310x310.png" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
+    <script type="text/javascript">
+      var START_SEED = 5;
+      var seed = START_SEED;
+      var spans;
 
-  <meta name="description" content="The Elegant Parser">
-  <meta name="og:title" content="pest">
-  <meta name="og:description" content="The Elegant Parser">
-  <meta name="og:url" content="https://pest.rs">
-  <meta name="og:image" content="https://pest.rs/assets/pest-logo.png">
-  <meta name="og:image:alt" content="The pest Logo.">
-  <meta name="og:site_name" content="pest.rs">
-  <meta name="og:locale" content="en_US">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#192233">
-
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
-  <script type="text/javascript">
-    var START_SEED = 5;
-    var seed = START_SEED;
-    var spans;
-
-    function random() {
-      var x = Math.sin(seed++) * 10000;
-      return x - Math.floor(x);
-    }
-
-    function randomN(n) {
-      return Math.floor(random() * n);
-    }
-
-    function randomChoice(alphabet) {
-      return alphabet.charAt(randomN(alphabet.length));
-    }
-
-    function fillElement(elem, alphabet, density) {
-      var rect = elem.getBoundingClientRect();
-      var GLYPHS = rect.width * density;
-
-      while (elem.firstChild) {
-        elem.removeChild(elem.firstChild);
+      function random() {
+        var x = Math.sin(seed++) * 10000;
+        return x - Math.floor(x);
       }
 
-      for (var i = 0; i < GLYPHS; i++) {
-        var p = document.createElement("P");
-        var t = document.createTextNode(randomChoice(alphabet));
-
-        p.appendChild(t);
-        p.className = "glyph-background";
-        p.style.color = "rgba(255, 255, 255, " + random() * 0.2 + ")";
-        p.style.top = (random() * rect.height * 1.3 - rect.height * 0.15) + "px";
-        p.style.left = (random() * rect.width - rect.width * 0.05) + "px";
-        p.style.fontSize = randomN(20) + "pt";
-        p.style.transform = "rotate(" + randomN(360) + "deg)";
-
-        elem.appendChild(p);
-      }
-    }
-
-    function findTokens() {
-      var token = document.getElementsByClassName("token")[0];
-      var tokens = [
-        "{statement -> value -> ident}",
-        "{statement -> calls -> dot}",
-        "{statement -> calls -> ident}",
-        "{statement -> calls -> parent}",
-        "{statement -> calls -> args -> int}",
-        "{statement -> calls -> parent}",
-        "{statement -> semicolon}"
-      ];
-
-      function addListeners(i) {
-        spans[i].addEventListener("mouseover", function () {
-          var j = i;
-          token.innerHTML = tokens[j];
-        });
-        spans[i].addEventListener("mouseout", function () {
-          token.innerHTML = "{statement}";
-        });
+      function randomN(n) {
+        return Math.floor(random() * n);
       }
 
-      for (var i = 0; i < spans.length; i++) {
-        addListeners(i);
+      function randomChoice(alphabet) {
+        return alphabet.charAt(randomN(alphabet.length));
       }
-    }
 
-    function jump() {
-      var i = Math.floor(Math.random() * spans.length);
+      function fillElement(elem, alphabet, density) {
+        var rect = elem.getBoundingClientRect();
+        var GLYPHS = rect.width * density;
 
-      var span = spans[i];
-      var newSpan = span.cloneNode(true);
-      span.parentNode.replaceChild(newSpan, span);
-      newSpan.classList.add("jump");
-    }
+        while (elem.firstChild) {
+          elem.removeChild(elem.firstChild);
+        }
 
-    window.addEventListener("DOMContentLoaded", function () {
-      seed = START_SEED;
+        for (var i = 0; i < GLYPHS; i++) {
+          var p = document.createElement("P");
+          var t = document.createTextNode(randomChoice(alphabet));
 
-      fillElement(
-        document.getElementsByClassName("banner-features")[0],
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-        0.2
-      );
-      fillElement(
-        document.getElementsByClassName("banner-benchmark")[0],
-        "0123456789",
-        0.1
-      );
+          p.appendChild(t);
+          p.className = "glyph-background";
+          p.style.color = "rgba(255, 255, 255, " + random() * 0.2 + ")";
+          p.style.top = (random() * rect.height * 1.3 - rect.height * 0.15) + "px";
+          p.style.left = (random() * rect.width - rect.width * 0.05) + "px";
+          p.style.fontSize = randomN(20) + "pt";
+          p.style.transform = "rotate(" + randomN(360) + "deg)";
 
-      var sample = document.getElementsByClassName("sample")[0];
-      spans = sample.children;
-
-      jump();
-      var jumpInterval = setInterval(jump, 2000);
-
-      sample.addEventListener("mouseover", function () {
-        clearInterval(jumpInterval);
-        findTokens();
-      });
-
-      elems = document.getElementsByClassName("chart-bar-hidden");
-      elems = Array.prototype.slice.call(elems);
-      startAnimations();
-    }, false);
-
-    var features = document.getElementsByClassName("banner-features")[0];
-    var benchmark = document.getElementsByClassName("banner-benchmark")[0];
-    var elems = [];
-
-    function startAnimations() {
-      var windowHeight = window.innerHeight;
-      for (var i = 0; i < elems.length; i++) {
-        var posFromTop = elems[i].getBoundingClientRect().top;
-        if (posFromTop - windowHeight <= 0) {
-          elems[i].className = elems[i].className.replace(
-            "chart-bar-hidden",
-            "chart-bar-bounce"
-          );
+          elem.appendChild(p);
         }
       }
-    }
 
-    window.addEventListener("scroll", startAnimations);
+      function findTokens() {
+        var token = document.getElementsByClassName("token")[0];
+        var tokens = [
+          "{statement -> value -> ident}",
+          "{statement -> calls -> dot}",
+          "{statement -> calls -> ident}",
+          "{statement -> calls -> parent}",
+          "{statement -> calls -> args -> int}",
+          "{statement -> calls -> parent}",
+          "{statement -> semicolon}"
+        ];
 
-    window.addEventListener("resize", function () {
-      seed = START_SEED;
+        function addListeners(i) {
+          spans[i].addEventListener("mouseover", function () {
+            var j = i;
+            token.innerHTML = tokens[j];
+          });
+          spans[i].addEventListener("mouseout", function () {
+            token.innerHTML = "{statement}";
+          });
+        }
 
-      fillElement(
-        document.getElementsByClassName("banner-features")[0],
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-        0.2
-      );
-      fillElement(
-        document.getElementsByClassName("banner-benchmark")[0],
-        "0123456789",
-        0.1
-      );
-    }, true);
-  </script>
-</head>
+        for (var i = 0; i < spans.length; i++) {
+          addListeners(i);
+        }
+      }
 
-<body>
-  <div class="container-main">
+      function jump() {
+        var i = Math.floor(Math.random() * spans.length);
+
+        var span = spans[i];
+        var newSpan = span.cloneNode(true);
+        span.parentNode.replaceChild(newSpan, span);
+        newSpan.classList.add("jump");
+      }
+
+      window.addEventListener("DOMContentLoaded", function () {
+        seed = START_SEED;
+
+        fillElement(
+          document.getElementsByClassName("banner-features")[0],
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+          0.2
+        );
+        fillElement(
+          document.getElementsByClassName("banner-benchmark")[0],
+          "0123456789",
+          0.1
+        );
+
+        var sample = document.getElementsByClassName("sample")[0];
+        spans = sample.children;
+
+        jump();
+        var jumpInterval = setInterval(jump, 2000);
+
+        sample.addEventListener("mouseover", function () {
+          clearInterval(jumpInterval);
+          findTokens();
+        });
+
+        elems = document.getElementsByClassName("chart-bar-hidden");
+        elems = Array.prototype.slice.call(elems);
+        startAnimations();
+      }, false);
+
+      var features = document.getElementsByClassName("banner-features")[0];
+      var benchmark = document.getElementsByClassName("banner-benchmark")[0];
+      var elems = [];
+
+      function startAnimations() {
+        var windowHeight = window.innerHeight;
+        for (var i = 0; i < elems.length; i++) {
+          var posFromTop = elems[i].getBoundingClientRect().top;
+          if (posFromTop - windowHeight <= 0) {
+            elems[i].className = elems[i].className.replace(
+              "chart-bar-hidden",
+              "chart-bar-bounce"
+            );
+          }
+        }
+      }
+
+      window.addEventListener("scroll", startAnimations);
+
+      window.addEventListener("resize", function () {
+        seed = START_SEED;
+
+        fillElement(
+          document.getElementsByClassName("banner-features")[0],
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+          0.2
+        );
+        fillElement(
+          document.getElementsByClassName("banner-benchmark")[0],
+          "0123456789",
+          0.1
+        );
+      }, true);
+    </script>
+  </head>
+
+  <body>
+    <div class="container-main">
     <div class="bar-links bar-links-left">
       <div><a href="https://github.com/pest-parser/pest">GitHub</a></div>
       <div><a href="https://plugins.jetbrains.com/plugin/12046-pest">IDEA Plugin</a></div>
@@ -367,221 +366,216 @@
         </div>
       </div>
     </div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.11/split.min.js"></script>
-  <script type="module">
-    import init, { lint, format } from './pest_site.js';
-    window.lint = lint;
-    window.format = format;
+    <script src="raw:codemirror/lib/codemirror.js"></script>
+    <script src="raw:codemirror/addon/display/placeholder.js"></script>
+    <script src="raw:codemirror/addon/lint/lint.js"></script>
+    <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
+    <script src="raw:codemirror/addon/mode/simple.js"></script>
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
 
-    async function run() {
-      await init();
-    }
-    run();
-  </script>
-  <script src="codemirror/lib/codemirror.js"></script>
-  <script src="codemirror/addon/display/placeholder.js"></script>
-  <script src="codemirror/addon/lint/lint.js"></script>
-  <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
-  <script src="codemirror/addon/mode/simple.js"></script>
-  <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <script type="module">
+      import Split from 'split.js'
+      import init, { lint, format } from '../pkg/pest_site.js';
 
-  <script type="text/javascript">
-    const editorDom = document.querySelector(".editor");
-    const gridDom = document.querySelector(".editor-grid");
-    const inputDom = document.querySelector(".editor-input");
-    const outputDom = document.querySelector(".editor-output");
-    const modeBtn = document.querySelector("#modeBtn");
-    let windowHeight = window.innerHeight;
-    var current_data = null;
+      const editorDom = document.querySelector(".editor");
+      const gridDom = document.querySelector(".editor-grid");
+      const inputDom = document.querySelector(".editor-input");
+      const outputDom = document.querySelector(".editor-output");
+      const modeBtn = document.querySelector("#modeBtn");
+      let windowHeight = window.innerHeight;
+      var current_data = null;
 
-    CodeMirror.defineSimpleMode("pest", {
-      start: [
-        { regex: /"/, token: "string", next: "string" },
-        { regex: /'(?:[^'\\]|\\(?:[nrt0'"]|x[\da-fA-F]{2}|u\{[\da-fA-F]{6}\}))'/, token: "string" },
-        { regex: /\/\/.*/, token: "comment" },
-        { regex: /\d+/, token: "number" },
-        { regex: /[~|*+?&!]|(\.\.)/, token: "operator" },
-        { regex: /[a-zA-Z_]\w*/, token: "variable" },
-        { regex: /=/, next: "mod" }
-      ],
-      mod: [
-        { regex: /\{/, next: "start" },
-        { regex: /[_@!$]/, token: "operator-2" },
-      ],
-      string: [
-        { regex: /"/, token: "string", next: "start" },
-        { regex: /(?:[^\\"]|\\(?:.|$))*/, token: "string" }
-      ],
-      meta: {
-        dontIndentStates: ["comment"],
-        lineComment: "//"
-      }
-    });
+      CodeMirror.defineSimpleMode("pest", {
+        start: [
+          { regex: /"/, token: "string", next: "string" },
+          { regex: /'(?:[^'\\]|\\(?:[nrt0'"]|x[\da-fA-F]{2}|u\{[\da-fA-F]{6}\}))'/, token: "string" },
+          { regex: /\/\/.*/, token: "comment" },
+          { regex: /\d+/, token: "number" },
+          { regex: /[~|*+?&!]|(\.\.)/, token: "operator" },
+          { regex: /[a-zA-Z_]\w*/, token: "variable" },
+          { regex: /=/, next: "mod" }
+        ],
+        mod: [
+          { regex: /\{/, next: "start" },
+          { regex: /[_@!$]/, token: "operator-2" },
+        ],
+        string: [
+          { regex: /"/, token: "string", next: "start" },
+          { regex: /(?:[^\\"]|\\(?:.|$))*/, token: "string" }
+        ],
+        meta: {
+          dontIndentStates: ["comment"],
+          lineComment: "//"
+        }
+      });
 
-    CodeMirror.registerHelper("lint", "pest", function (text) {
-      if (window.lint) {
-        var doc = CodeMirror.Doc(text);
-        var errors = window.lint(text);
-        var mapped = [];
+      CodeMirror.registerHelper("lint", "pest", function (text) {
+        if (window.lint) {
+          var doc = CodeMirror.Doc(text);
+          var errors = window.lint(text);
+          var mapped = [];
 
-        for (var i = 0; i < errors.length; i++) {
-          var from = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("from")));
-          var to = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("to")));
+          for (var i = 0; i < errors.length; i++) {
+            var from = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("from")));
+            var to = doc.clipPos(eval("CodeMirror.Pos" + errors[i].get("to")));
 
-          if (from.line === to.line && from.ch === to.ch) {
-            to.ch += 1;
-            to = doc.clipPos(to);
+            if (from.line === to.line && from.ch === to.ch) {
+              to.ch += 1;
+              to = doc.clipPos(to);
+            }
+
+            if (from.line === to.line && from.ch === to.ch) {
+              from.ch -= 1;
+              from = doc.clipPos(from);
+            }
+
+            mapped.push({
+              message: errors[i].get("message"),
+              from: from,
+              to: to
+            });
           }
 
-          if (from.line === to.line && from.ch === to.ch) {
-            from.ch -= 1;
-            from = doc.clipPos(from);
+          return mapped;
+        } else {
+          return [];
+        }
+      });
+
+      var grammar = document.getElementsByClassName("editor-grammar")[0];
+      var myCodeMirror = CodeMirror.fromTextArea(grammar, {
+        mode: "pest",
+        lint: "pest",
+        theme: "pest",
+        placeholder: "Grammar",
+      });
+
+      var url = new URL(window.location.href);
+      var bin = url.searchParams.get("bin");
+      if (bin) {
+        var http = new XMLHttpRequest();
+        var url = "https://api.myjson.com/bins/" + bin;
+        http.open("GET", url, true);
+
+        http.onreadystatechange = function () {
+          if (http.readyState === 4 && http.status === 200) {
+            var data = JSON.parse(http.responseText);
+            current_data = data;
+
+            myCodeMirror.setValue(data["grammar"]);
+          }
+        }
+        http.send(null);
+      }
+
+      global.set_current_data = function() {
+        if (current_data) {
+          var select = document.getElementsByClassName("editor-input-select")[0];
+
+          for (var i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === current_data["rule"]) {
+              select.selectedIndex = i;
+              var event = new Event('change');
+              select.dispatchEvent(event);
+              break;
+            }
           }
 
-          mapped.push({
-            message: errors[i].get("message"),
-            from: from,
-            to: to
-          });
-        }
+          var input = document.getElementsByClassName("editor-input-text")[0];
+          input.value = current_data["input"];
 
-        return mapped;
-      } else {
-        return [];
-      }
-    });
-
-    var grammar = document.getElementsByClassName("editor-grammar")[0];
-    var myCodeMirror = CodeMirror.fromTextArea(grammar, {
-      mode: "pest",
-      lint: "pest",
-      theme: "pest",
-      placeholder: "Grammar",
-    });
-
-    var url = new URL(window.location.href);
-    var bin = url.searchParams.get("bin");
-    if (bin) {
-      var http = new XMLHttpRequest();
-      var url = "https://api.myjson.com/bins/" + bin;
-      http.open("GET", url, true);
-
-      http.onreadystatechange = function () {
-        if (http.readyState === 4 && http.status === 200) {
-          var data = JSON.parse(http.responseText);
-          current_data = data;
-
-          myCodeMirror.setValue(data["grammar"]);
+          current_data = null;
         }
       }
-      http.send(null);
-    }
 
-    function set_current_data() {
-      if (current_data) {
+      function share() {
+        var data = {};
         var select = document.getElementsByClassName("editor-input-select")[0];
 
-        for (var i = 0; i < select.options.length; i++) {
-          if (select.options[i].value === current_data["rule"]) {
-            select.selectedIndex = i;
-            var event = new Event('change');
-            select.dispatchEvent(event);
-            break;
+        data["grammar"] = myCodeMirror.getValue();
+        data["input"] = document.getElementsByClassName("editor-input-text")[0].value;
+        data["rule"] = select.options[select.selectedIndex].value;
+
+        var http = new XMLHttpRequest();
+        var url = "https://api.myjson.com/bins";
+        http.open("POST", url, true);
+        http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+        http.onreadystatechange = function () {
+          if (http.readyState === 4 && http.status === 201) {
+            var url = JSON.parse(http.responseText)["uri"];
+            var tokens = url.split("/");
+            var bin = tokens[tokens.length - 1];
+
+            var link = document.getElementsByClassName("direct-link")[0];
+
+            link.href = "https://pest-parser.github.io/?bin=" + bin + "#editor";
+            link.text = "direct link";
+          }
+        };
+        http.send(JSON.stringify(data));
+      }
+
+      window.doFormat = function() {
+        if (!window.format || !myCodeMirror) {
+          return
+        }
+
+        let grammar = myCodeMirror.getValue();
+        let formatted = window.format(grammar);
+        myCodeMirror.setValue(formatted);
+      }
+
+      let split = null;
+      let sizes = localStorage.getItem('split-sizes');
+      if (sizes) {
+        sizes = JSON.parse(sizes)
+      } else {
+        sizes = [33, 33, 33] // default sizes
+      }
+      function makeResizable(wideMode) {
+        if (wideMode) {
+          split = Split(['.CodeMirror', '.editor-input', '.output-wrapper'], {
+            sizes,
+            onDragEnd: function (_sizes) {
+              sizes = _sizes;
+              localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+          })
+        } else {
+          if (split) {
+            split.destroy();
           }
         }
-
-        var input = document.getElementsByClassName("editor-input-text")[0];
-        input.value = current_data["input"];
-
-        current_data = null;
       }
-    }
-
-    function share() {
-      var data = {};
-      var select = document.getElementsByClassName("editor-input-select")[0];
-
-      data["grammar"] = myCodeMirror.getValue();
-      data["input"] = document.getElementsByClassName("editor-input-text")[0].value;
-      data["rule"] = select.options[select.selectedIndex].value;
-
-      var http = new XMLHttpRequest();
-      var url = "https://api.myjson.com/bins";
-      http.open("POST", url, true);
-      http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-      http.onreadystatechange = function () {
-        if (http.readyState === 4 && http.status === 201) {
-          var url = JSON.parse(http.responseText)["uri"];
-          var tokens = url.split("/");
-          var bin = tokens[tokens.length - 1];
-
-          var link = document.getElementsByClassName("direct-link")[0];
-
-          link.href = "https://pest-parser.github.io/?bin=" + bin + "#editor";
-          link.text = "direct link";
-        }
-      };
-      http.send(JSON.stringify(data));
-    }
-
-    function doFormat() {
-      if (!window.format || !myCodeMirror) {
-        return
+      function wideMode() {
+        modeBtn.onclick = restore;
+        modeBtn.innerText = "Normal Mode";
+        inputDom.classList.add("wide-input");
+        editorDom.classList.add("wide-editor");
+        gridDom.classList.add("flex-editor");
+        const upperHeight = document.querySelector('#modeBtn').scrollHeight + 30;
+        gridDom.setAttribute('style', `height: ${windowHeight - upperHeight}px`);
+        myCodeMirror.setSize(null, outputDom.clientHeight - 20);
+        makeResizable(true);
+        window.scrollTo(0, document.body.scrollHeight);
       }
 
-      let grammar = myCodeMirror.getValue();
-      let formatted = window.format(grammar);
-      myCodeMirror.setValue(formatted);
-    }
-
-    let split = null;
-    let sizes = localStorage.getItem('split-sizes');
-    if (sizes) {
-      sizes = JSON.parse(sizes)
-    } else {
-      sizes = [33, 33, 33] // default sizes
-    }
-    function makeResizable(wideMode) {
-      if (wideMode) {
-        split = Split(['.CodeMirror', '.editor-input', '.output-wrapper'], {
-          sizes,
-          onDragEnd: function (_sizes) {
-            sizes = _sizes;
-            localStorage.setItem('split-sizes', JSON.stringify(sizes))
-          },
-        })
-      } else {
-        if (split) {
-          split.destroy();
-        }
+      function restore() {
+        modeBtn.onclick = wideMode;
+        modeBtn.innerText = "Wide Mode";
+        inputDom.classList.remove("wide-input");
+        editorDom.classList.remove("wide-editor");
+        gridDom.classList.remove("flex-editor");
+        outputDom.setAttribute("rows", 7);
+        myCodeMirror.setSize(null, outputDom.clientHeight);
+        makeResizable(false);
       }
-    }
-    function wideMode() {
-      modeBtn.onclick = restore;
-      modeBtn.innerText = "Normal Mode";
-      inputDom.classList.add("wide-input");
-      editorDom.classList.add("wide-editor");
-      gridDom.classList.add("flex-editor");
-      const upperHeight = document.querySelector('#modeBtn').scrollHeight + 30;
-      gridDom.setAttribute('style', `height: ${windowHeight - upperHeight}px`);
-      myCodeMirror.setSize(null, outputDom.clientHeight - 20);
-      makeResizable(true);
-      window.scrollTo(0, document.body.scrollHeight);
-    }
 
-    function restore() {
-      modeBtn.onclick = wideMode;
-      modeBtn.innerText = "Wide Mode";
-      inputDom.classList.remove("wide-input");
-      editorDom.classList.remove("wide-editor");
-      gridDom.classList.remove("flex-editor");
-      outputDom.setAttribute("rows", 7);
-      myCodeMirror.setSize(null, outputDom.clientHeight);
-      makeResizable(false);
-    }
-  </script>
-</body>
-
+      init().then(() => {
+        window.lint = lint
+        window.format = format
+      })
+    </script>
+  </body>
 </html>

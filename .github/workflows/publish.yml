@@ -1,10 +1,13 @@
 name: publish
 
 on:
-  pull_request:
-    branches: [master]
   push:
-    branches: [master]
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -19,12 +22,15 @@ concurrency:
 
 jobs:
   checks:
-    if: github.event_name != 'push'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6.0.2
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
@@ -40,13 +46,13 @@ jobs:
       - name: Run Build
         run: task
   gh-release:
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - name: Setup mdBook
@@ -59,6 +65,10 @@ jobs:
           version: 'latest'
       - name: Install Task
         uses: arduino/setup-task@v1
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6.0.2
       - name: Run Build
         run: task
       - name: Setup Pages
@@ -66,7 +76,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: 'www'
+          path: 'dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1

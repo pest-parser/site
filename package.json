@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "parcel static/index.html",
+    "build": "parcel build static/index.html"
+  },
+  "staticFiles": {
+    "staticPath": "book/book",
+    "distDir": "dist/book"
+  },
+  "devDependencies": {
+    "@parcel/config-default": "^2.8.3",
+    "@parcel/transformer-raw": "^2.8.3",
+    "parcel": "^2.8.3",
+    "parcel-reporter-static-files-copy": "^1.5.0",
+    "sharp": "^0.31.3",
+    "split.js": "^1.6.5"
+  }
+}
