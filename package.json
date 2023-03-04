@@ -15,5 +15,8 @@
     "parcel-reporter-static-files-copy": "^1.5.0",
     "sharp": "^0.31.3",
     "split.js": "^1.6.5"
+  },
+  "dependencies": {
+    "url-safe-base64": "^1.3.0"
   }
 }
