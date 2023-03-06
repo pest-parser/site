@@ -26,3 +26,5 @@ If you want to build the static site, run the main build task:
 ```bash
 task
 ```
+
+Then go visit the `/dist` folder.
