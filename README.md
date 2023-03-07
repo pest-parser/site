@@ -21,8 +21,10 @@ task dev
 
 Then visit http://localhost:1234
 
-If you want to see the static site, run the main build task:
+If you want to build the static site, run the main build task:
 
 ```bash
 task
 ```
+
+Then go visit the `/dist` folder.
