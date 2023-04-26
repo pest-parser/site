@@ -12,10 +12,10 @@ crate-type = ["cdylib", "rlib"]
 lto = true
 
 [dependencies]
-pest = "2.5"
+pest = "2.6"
 pest_fmt = "0.2"
-pest_meta = "2.5"
-pest_vm = "2.5"
+pest_meta = "2.6"
+pest_vm = "2.6"
 serde-wasm-bindgen = "0.4"
 wasm-bindgen = "0.2"
 
