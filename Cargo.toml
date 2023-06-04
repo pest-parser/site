@@ -16,7 +16,7 @@ pest = "2.6"
 pest_fmt = "0.2"
 pest_meta = "2.6"
 pest_vm = "2.6"
-serde-wasm-bindgen = "0.4"
+serde-wasm-bindgen = "0.5"
 wasm-bindgen = "0.2"
 
 [dependencies.web-sys]

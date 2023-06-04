@@ -1,11 +1,13 @@
-import { encode, decode } from "url-safe-base64";
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string";
 
-let copyButton, copyButtonOriginalText, shareLinkWarning;
+let copyButton;
+let copyButtonOriginalText;
+let shareLinkWarning;
 
 export function initShareButton({ myCodeMirror }) {
-    shareLinkWarning = document.getElementById("shareLinkWarning");
+    shareLinkWarning = document.querySelector<HTMLParagraphElement>("p#shareLinkWarning");
     tryLoadFromShareLink(myCodeMirror);
-    copyButton = document.getElementById("shareLinkBtn");
+    copyButton = document.querySelector<HTMLButtonElement>("button#shareLinkBtn");
     copyButtonOriginalText = copyButton.innerText;
     copyButton.onclick = () => copyShareLink(myCodeMirror);
 }
@@ -35,7 +37,7 @@ function tryLoadFromShareLink(codeMirror) {
     if (gdata) {
         const decoded = decodeShareData(gdata);
         codeMirror.setValue(decoded["grammar"]);
-        const inputEditor = document.querySelector<HTMLInputElement>(".editor-input-text")!;
+        const inputEditor = document.querySelector<HTMLTextAreaElement>("textarea.editor-input-text")!;
         inputEditor.value = decoded["input"];
     }
 }
@@ -43,7 +45,7 @@ function tryLoadFromShareLink(codeMirror) {
 function shareData(codeMirror) {
     let data = {};
     data["grammar"] = codeMirror.getValue();
-    data["input"] = document.querySelector<HTMLInputElement>(".editor-input-text")!.value;
+    data["input"] = document.querySelector<HTMLTextAreaElement>("textarea.editor-input-text")!.value;
     return data;
 }
 
@@ -66,9 +68,9 @@ function clearShareLinkWarning() {
 }
 
 function encodeShareData(data: any) {
-    return encode(btoa(JSON.stringify(data)));
+    return compressToEncodedURIComponent(JSON.stringify(data));
 }
 
 function decodeShareData(encoded: string) {
-    return JSON.parse(atob(decode(encoded)));
+    return JSON.parse(decompressFromEncodedURIComponent(encoded));
 }
