@@ -509,11 +509,6 @@ body {
   color: #999;
 }
 
-.cm-s-pest .CodeMirror-lint-mark-error {
-  background-image: none;
-  border-bottom: 1px dotted #ff3d3d;
-}
-
 .CodeMirror-lint-tooltip {
   background-color: white !important;
   font-family: 'Space Mono', monospace !important;
