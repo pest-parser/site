@@ -511,7 +511,7 @@ body {
 
 .cm-s-pest .CodeMirror-lint-mark-error {
   background-image: none;
-  border-bottom: 1px dotted #ff3d3d;
+  border-bottom: 1px dotted #f9ff3d;
 }
 
 .CodeMirror-lint-tooltip {
