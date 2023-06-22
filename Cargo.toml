@@ -12,7 +12,7 @@ crate-type = ["cdylib", "rlib"]
 lto = true
 
 [dependencies]
-pest = "2.6"
+pest = "2.7"
 pest_fmt = "0.2"
 pest_meta = "2.6"
 pest_vm = "2.6"
