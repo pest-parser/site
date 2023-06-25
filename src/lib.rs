@@ -310,7 +310,7 @@ fn add_rules_to_select(mut rules: Vec<&str>) {
 
 #[wasm_bindgen]
 pub fn lint(grammar: JsValue) -> JsValue {
-    serde_wasm_bindgen::to_value(&compile_grammar(grammar.as_string().unwrap()))
+    serde_wasm_bindgen::to_value(&compile_grammar(&grammar.as_string().unwrap()))
         .expect_throw("could not serialize grammar results")
 }
 
