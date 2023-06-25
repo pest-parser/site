@@ -165,14 +165,14 @@ fn selected_option() -> Option<String> {
 }
 
 fn compile_grammar(grammar: &str) -> Vec<HashMap<String, String>> {
-    let result = parser::parse(Rule::grammar_rules, &grammar)
+    let result = parser::parse(Rule::grammar_rules, grammar)
         .map_err(|error| error.renamed_rules(pest_meta::parser::rename_meta_rule));
 
     let pairs = match result {
         Ok(pairs) => pairs,
         Err(error) => {
             add_rules_to_select(vec![]);
-            return vec![convert_error(error, &grammar)];
+            return vec![convert_error(error, grammar)];
         }
     };
 
@@ -180,7 +180,7 @@ fn compile_grammar(grammar: &str) -> Vec<HashMap<String, String>> {
         add_rules_to_select(vec![]);
         return errors
             .into_iter()
-            .map(|e| convert_error(e, &grammar))
+            .map(|e| convert_error(e, grammar))
             .collect();
     }
 
@@ -190,7 +190,7 @@ fn compile_grammar(grammar: &str) -> Vec<HashMap<String, String>> {
             add_rules_to_select(vec![]);
             return errors
                 .into_iter()
-                .map(|e| convert_error(e, &grammar))
+                .map(|e| convert_error(e, grammar))
                 .collect();
         }
     };
