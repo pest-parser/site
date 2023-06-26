@@ -104,7 +104,7 @@ fn parse_input() {
                 let lines: Vec<_> = pairs.map(|pair| format_pair(pair, 0, true)).collect();
                 let lines = lines.join("\n");
 
-                output.set_value(&format!("{}", lines));
+                output.set_value(lines.as_str());
             }
             Err(error) => output.set_value(&format!("{}", error.renamed_rules(|r| r.to_string()))),
         };
@@ -115,7 +115,7 @@ fn format_pair(pair: Pair<&str>, indent_level: usize, is_newline: bool) -> Strin
     let indent = if is_newline {
         "  ".repeat(indent_level)
     } else {
-        "".to_string()
+        String::new()
     };
 
     let children: Vec<_> = pair.clone().into_inner().collect();
@@ -164,15 +164,15 @@ fn selected_option() -> Option<String> {
         .filter(|text| text != "...")
 }
 
-fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
-    let result = parser::parse(Rule::grammar_rules, &grammar)
+fn compile_grammar(grammar: &str) -> Vec<HashMap<String, String>> {
+    let result = parser::parse(Rule::grammar_rules, grammar)
         .map_err(|error| error.renamed_rules(pest_meta::parser::rename_meta_rule));
 
     let pairs = match result {
         Ok(pairs) => pairs,
         Err(error) => {
             add_rules_to_select(vec![]);
-            return vec![convert_error(error, &grammar)];
+            return vec![convert_error(error, grammar)];
         }
     };
 
@@ -180,7 +180,7 @@ fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
         add_rules_to_select(vec![]);
         return errors
             .into_iter()
-            .map(|e| convert_error(e, &grammar))
+            .map(|e| convert_error(e, grammar))
             .collect();
     }
 
@@ -190,7 +190,7 @@ fn compile_grammar(grammar: String) -> Vec<HashMap<String, String>> {
             add_rules_to_select(vec![]);
             return errors
                 .into_iter()
-                .map(|e| convert_error(e, &grammar))
+                .map(|e| convert_error(e, grammar))
                 .collect();
         }
     };
@@ -220,7 +220,7 @@ fn convert_error(error: Error<Rule>, grammar: &str) -> HashMap<String, String> {
 
             map.insert("from".to_owned(), line_col(pos, grammar));
             map.insert("to".to_owned(), line_col(pos, grammar));
-            map.insert("message".to_owned(), format!("{}", message));
+            map.insert("message".to_owned(), message);
 
             map
         }
@@ -229,7 +229,7 @@ fn convert_error(error: Error<Rule>, grammar: &str) -> HashMap<String, String> {
 
             map.insert("from".to_owned(), line_col(start, grammar));
             map.insert("to".to_owned(), line_col(end, grammar));
-            map.insert("message".to_owned(), format!("{}", message));
+            map.insert("message".to_owned(), message);
 
             map
         }
@@ -310,7 +310,7 @@ fn add_rules_to_select(mut rules: Vec<&str>) {
 
 #[wasm_bindgen]
 pub fn lint(grammar: JsValue) -> JsValue {
-    serde_wasm_bindgen::to_value(&compile_grammar(grammar.as_string().unwrap()))
+    serde_wasm_bindgen::to_value(&compile_grammar(&grammar.as_string().unwrap()))
         .expect_throw("could not serialize grammar results")
 }
 
