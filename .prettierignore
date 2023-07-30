@@ -1,0 +1,11 @@
+target
+pkg
+dist
+.task
+.parcel-cache
+book
+pnpm-lock.yaml
+static/codemirror
+
+# We rely on HTML to be formatted exactly as-is
+*.html

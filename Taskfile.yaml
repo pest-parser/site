@@ -29,7 +29,7 @@ tasks:
     cmds:
       - pnpm install
       - pnpm run build
-  
+
   dev:
     deps: [clean, book, pack]
     cmds:
