@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 # Allow one concurrent deployment
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: true
 
 jobs:
@@ -27,14 +27,18 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 6.0.2
+      - name: Lint
+        run: pnpm run lint
+      - name: Check format
+        run: pnpm run format:check
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
-          mdbook-version: "latest"
+          mdbook-version: latest
       - name: Setup wasm-pack
         uses: jetli/wasm-pack-action@v0.4.0
         with:
-          version: "latest"
+          version: latest
       - name: Install Task
         uses: arduino/setup-task@v1
         with:
@@ -62,11 +66,15 @@ jobs:
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
-          mdbook-version: "latest"
+          mdbook-version: latest
+      - name: Lint
+        run: pnpm run lint
+      - name: Check format
+        run: pnpm run format:check
       - name: Setup wasm-pack
         uses: jetli/wasm-pack-action@v0.4.0
         with:
-          version: "latest"
+          version: latest
       - name: Install Task
         uses: arduino/setup-task@v1
         with:
@@ -82,7 +90,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "dist"
+          path: dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1

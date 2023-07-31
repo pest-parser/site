@@ -4,7 +4,8 @@
     "start": "parcel static/index.html",
     "build": "parcel build static/index.html",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "staticFiles": {
     "staticPath": "book/book",
