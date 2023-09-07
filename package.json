@@ -2,19 +2,27 @@
   "private": true,
   "scripts": {
     "start": "parcel static/index.html",
-    "build": "parcel build static/index.html"
+    "build": "parcel build static/index.html",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "staticFiles": {
     "staticPath": "book/book",
     "distDir": "dist/book"
   },
   "devDependencies": {
-    "@parcel/config-default": "^2.8.3",
-    "@parcel/transformer-raw": "^2.8.3",
+    "@parcel/config-default": "^2.9.3",
+    "@parcel/transformer-raw": "^2.9.3",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "eslint": "^8.46.0",
     "lz-string": "^1.5.0",
-    "parcel": "^2.8.3",
-    "parcel-reporter-static-files-copy": "^1.5.0",
-    "sharp": "^0.31.3",
-    "split.js": "^1.6.5"
+    "parcel": "^2.9.3",
+    "parcel-reporter-static-files-copy": "^1.5.2",
+    "prettier": "3.0.0",
+    "sharp": "^0.31.1",
+    "split.js": "^1.6.5",
+    "typescript": "^5.1.6"
   }
 }

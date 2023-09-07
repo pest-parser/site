@@ -17,11 +17,6 @@ static mut NEEDS_RUN: bool = false;
 static mut VM: Option<Vm> = None;
 static mut LAST_SELECTION: Option<String> = None;
 
-#[wasm_bindgen]
-extern "C" {
-    fn set_current_data();
-}
-
 fn document() -> Document {
     web_sys::window()
         .expect_throw("no window")
@@ -200,8 +195,6 @@ fn compile_grammar(grammar: &str) -> Vec<HashMap<String, String>> {
     }
 
     add_rules_to_select(ast.iter().map(|rule| rule.name.as_str()).collect());
-
-    set_current_data();
 
     parse_input();
 
