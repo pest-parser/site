@@ -644,7 +644,7 @@ body {
 .cm-s-pest span.cm-string {
   color: #7ef69d;
 }
-.cm-s-pest span.cm-variable {
+.cm-s-pest span.cm-constiable {
   color: #51d3f6;
 }
 .cm-s-pest span.cm-error {
@@ -653,7 +653,7 @@ body {
 }
 
 .cm-s-pest .CodeMirror-placeholder {
-  color: #999;
+  color: #999 !important;
 }
 
 .cm-s-pest .CodeMirror-lint-mark-error {
