@@ -1,3 +1,5 @@
+// we can't safely type codemirror@v5 because of the addon system
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const CodeMirror: any;
 
 import Split from "split.js";
@@ -14,7 +16,7 @@ const outputDom =
 const modeBtn = document.querySelector<HTMLButtonElement>("#modeBtn")!;
 const formatBtn = document.querySelector<HTMLButtonElement>("#formatBtn")!;
 
-let windowHeight = window.innerHeight;
+const windowHeight = window.innerHeight;
 
 CodeMirror.defineSimpleMode("pest", {
   start: [
@@ -76,7 +78,7 @@ CodeMirror.registerHelper("lint", "pest", function (text) {
   }
 });
 
-const grammar = document.getElementsByClassName("editor-grammar")[0];
+const grammar = document.querySelector<HTMLTextAreaElement>(".editor-grammar")!;
 const myCodeMirror = CodeMirror.fromTextArea(grammar, {
   mode: "pest",
   lint: "pest",
