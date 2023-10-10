@@ -75,7 +75,7 @@ function clearShareLinkWarning() {
   shareLinkWarning.style.display = "none";
 }
 
-function encodeShareData(data: any) {
+function encodeShareData(data: unknown) {
   return compressToEncodedURIComponent(JSON.stringify(data));
 }
 
