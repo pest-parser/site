@@ -30,6 +30,7 @@ CodeMirror.defineSimpleMode("pest", {
     { regex: /[_@!$]/, token: "operator-2" },
   ],
   inside_rule: [
+    { regex: /\/\/.*/, token: "comment" },
     { regex: /"/, token: "string", next: "string" },
     {
       regex: /'(?:[^'\\]|\\(?:[nrt0'"]|x[\da-fA-F]{2}|u\{[\da-fA-F]{6}\}))'/,
