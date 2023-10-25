@@ -180,9 +180,13 @@ formatBtn.onclick = doFormat;
 
 init().then(() => {
   loaded = true
-  const { grammar, input } = getSavedCode();
-  myCodeMirror.setValue(grammar);
-  inputTextDom.value = input;
+  const url = new URL(window.location.href);
+  const hasUrlGrammar = url.searchParams.get("g");
+  if(!hasUrlGrammar){
+    const { grammar, input } = getSavedCode();
+    myCodeMirror.setValue(grammar);
+    inputTextDom.value = input;
+  }
 });
 
 inputTextDom.addEventListener("input", saveCode);
