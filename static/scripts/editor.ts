@@ -11,7 +11,8 @@ let loaded = false;
 const editorDom = document.querySelector<HTMLLinkElement>(".editor")!;
 const gridDom = document.querySelector<HTMLDivElement>(".editor-grid")!;
 const inputDom = document.querySelector<HTMLDivElement>(".editor-input")!;
-const inputTextDom = document.querySelector<HTMLTextAreaElement>('.editor-input-text')!;
+const inputTextDom =
+  document.querySelector<HTMLTextAreaElement>(".editor-input-text")!;
 const outputDom =
   document.querySelector<HTMLTextAreaElement>(".editor-output")!;
 const modeBtn = document.querySelector<HTMLButtonElement>("#modeBtn")!;
@@ -52,12 +53,6 @@ CodeMirror.defineSimpleMode("pest", {
     lineComment: "//",
   },
 });
-
-
-
-
-
-
 
 CodeMirror.registerHelper("lint", "pest", function (text) {
   if (loaded) {
@@ -146,11 +141,10 @@ function saveCode() {
   localStorage.setItem("last-editor-state", json);
 }
 function getSavedCode() {
-  const json = localStorage.getItem("last-editor-state")
-  const parsed = JSON.parse(json || "null")
-  return parsed || { grammar: "", input: "" }
+  const json = localStorage.getItem("last-editor-state");
+  const parsed = JSON.parse(json || "null");
+  return parsed || { grammar: "", input: "" };
 }
-
 
 function wideMode() {
   modeBtn.onclick = restore;
@@ -180,10 +174,10 @@ modeBtn.onclick = wideMode;
 formatBtn.onclick = doFormat;
 
 init().then(() => {
-  loaded = true
+  loaded = true;
   const url = new URL(window.location.href);
   const hasUrlGrammar = url.searchParams.get("g");
-  if(!hasUrlGrammar){
+  if (!hasUrlGrammar) {
     const { grammar, input } = getSavedCode();
     myCodeMirror.setValue(grammar);
     inputTextDom.value = input;
