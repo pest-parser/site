@@ -131,20 +131,32 @@ fn format_pair(pair: Pair<&str>, indent_level: usize, is_newline: bool) -> Strin
         .collect();
 
     let dash = if is_newline { "- " } else { "" };
-
+    let pair_tag = match pair.as_node_tag() {
+        Some(tag) => format!("(#{}) ", tag),
+        None => String::new(),
+    };
     match len {
         0 => format!(
-            "{}{}{}: {:?}",
+            "{}{}{}{}: {:?}",
             indent,
             dash,
+            pair_tag,
             pair.as_rule(),
             pair.as_span().as_str()
         ),
-        1 => format!("{}{}{} > {}", indent, dash, pair.as_rule(), children[0]),
-        _ => format!(
-            "{}{}{}\n{}",
+        1 => format!(
+            "{}{}{}{} > {}",
             indent,
             dash,
+            pair_tag,
+            pair.as_rule(),
+            children[0]
+        ),
+        _ => format!(
+            "{}{}{}{}\n{}",
+            indent,
+            dash,
+            pair_tag,
             pair.as_rule(),
             children.join("\n")
         ),

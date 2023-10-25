@@ -645,7 +645,14 @@ body {
   color: #7ef69d;
 }
 .cm-s-pest span.cm-constiable {
-  color: #51d3f6;
+  color: #4ea8d8;
+}
+.cm-s-pest span.cm-constiable-2 {
+  color: white;
+}
+
+.cm-s-pest span.cm-tag {
+  color: #f6dc51;
 }
 .cm-s-pest span.cm-error {
   background: #ac4142;
