@@ -11,6 +11,8 @@ let loaded = false;
 const editorDom = document.querySelector<HTMLLinkElement>(".editor")!;
 const gridDom = document.querySelector<HTMLDivElement>(".editor-grid")!;
 const inputDom = document.querySelector<HTMLDivElement>(".editor-input")!;
+const inputTextDom =
+  document.querySelector<HTMLTextAreaElement>(".editor-input-text")!;
 const outputDom =
   document.querySelector<HTMLTextAreaElement>(".editor-output")!;
 const modeBtn = document.querySelector<HTMLButtonElement>("#modeBtn")!;
@@ -20,23 +22,30 @@ const windowHeight = window.innerHeight;
 
 CodeMirror.defineSimpleMode("pest", {
   start: [
+    { regex: /\/\/.*/, token: "comment" },
+    { regex: /[a-zA-Z_]\w*/, token: "constiable" },
+    { regex: /=/, token: "operator", next: "mod" },
+  ],
+  mod: [
+    { regex: /\{/, token: "bracket", next: "inside_rule" },
+    { regex: /[_@!$]/, token: "operator-2" },
+  ],
+  inside_rule: [
+    { regex: /\/\/.*/, token: "comment" },
     { regex: /"/, token: "string", next: "string" },
     {
       regex: /'(?:[^'\\]|\\(?:[nrt0'"]|x[\da-fA-F]{2}|u\{[\da-fA-F]{6}\}))'/,
       token: "string",
     },
-    { regex: /\/\/.*/, token: "comment" },
+    { regex: /\}/, token: "bracket", next: "start" },
+    { regex: /#\w+/, token: "tag" },
+    { regex: /[a-zA-Z_]\w*/, token: "constiable-2" },
+    { regex: /=/, token: "operator-2" },
     { regex: /\d+/, token: "number" },
     { regex: /[~|*+?&!]|(\.\.)/, token: "operator" },
-    { regex: /[a-zA-Z_]\w*/, token: "constiable" },
-    { regex: /=/, next: "mod" },
-  ],
-  mod: [
-    { regex: /\{/, next: "start" },
-    { regex: /[_@!$]/, token: "operator-2" },
   ],
   string: [
-    { regex: /"/, token: "string", next: "start" },
+    { regex: /"/, token: "string", next: "inside_rule" },
     { regex: /(?:[^\\"]|\\(?:.|$))*/, token: "string" },
   ],
   meta: {
@@ -121,6 +130,22 @@ function makeResizable(wideMode: boolean) {
   }
 }
 
+type SavedGrammar = {
+  grammar: string;
+  input: string;
+};
+function saveCode() {
+  const grammar = myCodeMirror.getValue();
+  const input = inputTextDom.value;
+  const json = JSON.stringify({ grammar, input } satisfies SavedGrammar);
+  localStorage.setItem("last-editor-state", json);
+}
+function getSavedCode() {
+  const json = localStorage.getItem("last-editor-state");
+  const parsed = JSON.parse(json || "null");
+  return parsed || { grammar: "", input: "" };
+}
+
 function wideMode() {
   modeBtn.onclick = restore;
   modeBtn.innerText = "Normal Mode";
@@ -148,4 +173,16 @@ function restore() {
 modeBtn.onclick = wideMode;
 formatBtn.onclick = doFormat;
 
-init().then(() => (loaded = true));
+init().then(() => {
+  loaded = true;
+  const url = new URL(window.location.href);
+  const hasUrlGrammar = url.searchParams.get("g");
+  if (!hasUrlGrammar) {
+    const { grammar, input } = getSavedCode();
+    myCodeMirror.setValue(grammar);
+    inputTextDom.value = input;
+  }
+});
+
+inputTextDom.addEventListener("input", saveCode);
+myCodeMirror.on("change", saveCode);
