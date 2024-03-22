@@ -12,10 +12,10 @@ crate-type = ["cdylib", "rlib"]
 lto = true
 
 [dependencies]
-pest = "2.7"
-pest_fmt = "0.2"
-pest_meta = { version = "2.7", features = ["grammar-extras"] }
-pest_vm = { version = "2.7", features = ["grammar-extras"] }
+pest = "2.7.8"
+pest_fmt = "0.2.5"
+pest_meta = { version = "2.7.8", features = ["grammar-extras"] }
+pest_vm = { version = "2.7.8", features = ["grammar-extras"] }
 serde-wasm-bindgen = "0.5"
 wasm-bindgen = "0.2"
 
