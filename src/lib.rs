@@ -305,7 +305,7 @@ fn add_rules_to_select(mut rules: Vec<&str>) {
             .unwrap_throw();
         select.append_child(&option).unwrap_throw();
 
-        if let Some(ref text) = unsafe { &LAST_SELECTION } {
+        if let Some(text) = unsafe { LAST_SELECTION.as_ref() } {
             if text == rule {
                 option.set_selected(true);
             }
