@@ -49,7 +49,7 @@ body {
 }
 
 .bar-links-left {
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(4, auto);
   grid-area: 1 / 1 / 2 / 3;
   justify-self: self-start;
 }
