@@ -17,7 +17,9 @@ const outputDom =
   document.querySelector<HTMLTextAreaElement>(".editor-output")!;
 const modeBtn = document.querySelector<HTMLButtonElement>("#modeBtn")!;
 const formatBtn = document.querySelector<HTMLButtonElement>("#formatBtn")!;
-const editorInputSelect = document.querySelector<HTMLSelectElement>(".editor-input-select");
+const editorInputSelect = document.querySelector<HTMLSelectElement>(
+  ".editor-input-select",
+);
 
 const windowHeight = window.innerHeight;
 
