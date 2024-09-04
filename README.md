@@ -11,7 +11,7 @@ This project uses the following tools:
 - [mdBook](https://rust-lang.github.io/mdBook/)
 - [pnpm](https://pnpm.io)
 
-The task file automatically installs dependenices, builds the book, and builds the internal pest-vm web-binding crate.
+The task file automatically installs dependencies, builds the book, and builds the internal pest-vm web-binding crate.
 
 Start Parcel development server:
 
