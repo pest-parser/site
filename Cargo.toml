@@ -30,5 +30,6 @@ features = [
   "HtmlTextAreaElement",
   "HtmlCollection",
   "InputEvent",
+  "Storage",
 ]
 version = "0.3"
