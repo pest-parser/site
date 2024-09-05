@@ -329,10 +329,12 @@ pub fn lint(grammar: JsValue) -> JsValue {
 
 #[wasm_bindgen(start)]
 pub fn start() {
-    let last_selected = storage().get_item("last-selected-rule").unwrap_throw();
-    unsafe {
-        LAST_SELECTION = last_selected;
+    if let Ok(last_selected) = storage().get_item("last-selected-rule") {
+        unsafe {
+            LAST_SELECTION = last_selected;
+        }
     }
+
     listen_for_input();
 }
 
