@@ -45,6 +45,9 @@ function tryLoadFromShareLink(codeMirror) {
       "textarea.editor-input-text",
     )!;
     inputEditor.value = decoded["input"];
+    if (decoded["selectedRule"]) {
+      localStorage.setItem("last-selected-rule", decoded["selectedRule"]);
+    }
   }
 }
 
@@ -54,6 +57,7 @@ function shareData(codeMirror) {
     input: document.querySelector<HTMLTextAreaElement>(
       "textarea.editor-input-text",
     )!.value,
+    selectedRule: localStorage.getItem("last-selected-rule") || "",
   };
 }
 
