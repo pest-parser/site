@@ -1,3 +1,4 @@
+#![allow(static_mut_refs)]
 use std::collections::HashMap;
 
 use pest::error::{Error, ErrorVariant, InputLocation};
