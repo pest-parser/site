@@ -24,6 +24,7 @@
     "parcel-reporter-static-files-copy": "^1.5.3",
     "prettier": "3.0.0",
     "sharp": "^0.33.5",
+    "svgo": "^2.8.0",
     "split.js": "^1.6.5",
     "typescript": "^5.2.2"
   }
