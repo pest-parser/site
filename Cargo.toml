@@ -16,8 +16,8 @@ pest = "2.8.2"
 pest_fmt = "0.2.5"
 pest_meta = { version = "2.8.2", features = ["grammar-extras"] }
 pest_vm = { version = "2.8.2", features = ["grammar-extras"] }
-serde-wasm-bindgen = "0.5"
-wasm-bindgen = "0.2"
+serde-wasm-bindgen = "0.6.5"
+wasm-bindgen = "= 0.2.100"
 
 [dependencies.web-sys]
 features = [
