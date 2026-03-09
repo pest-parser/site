@@ -335,3 +335,16 @@ pub fn format(grammar: JsValue) -> JsValue {
     serde_wasm_bindgen::to_value(&fmt.format().unwrap())
         .expect_throw("could not serialize grammar results")
 }
+
+#[wasm_bindgen]
+pub fn parse(rule: String, input: String) -> String {
+    let vm = unsafe { VM.as_ref().expect_throw("no VM") };
+
+    match vm.parse(&rule, &input) {
+        Ok(pairs) => {
+            let lines: Vec<_> = pairs.map(|pair| format_pair(pair, 0, true)).collect();
+            lines.join("\n")
+        }
+        Err(error) => format!("{}", error.renamed_rules(|r| r.to_string())),
+    }
+}
