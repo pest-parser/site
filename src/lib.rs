@@ -12,7 +12,7 @@ use pest_vm::Vm;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Document, Event, InputEvent, Node};
-use web_sys::{HtmlOptionElement, HtmlSelectElement, HtmlTextAreaElement};
+use web_sys::{HtmlOptionElement, HtmlSelectElement};
 
 static mut NEEDS_RUN: bool = false;
 static mut VM: Option<Vm> = None;
