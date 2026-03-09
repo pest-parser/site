@@ -8,6 +8,37 @@ import { initShareButton } from "./shareButton";
 
 let loaded = false;
 
+let parserWorker: Worker | null = null;
+let parseTimeout: number | null = null;
+let parseId = 0;
+
+function spawnWorker() {
+  if (parserWorker) {
+    parserWorker.terminate();
+  }
+  parserWorker = new Worker(new URL("./parser_worker.ts", import.meta.url), {
+    type: "module",
+  });
+
+  parserWorker.onmessage = (e) => {
+    if (parseTimeout !== null) {
+      clearTimeout(parseTimeout);
+      parseTimeout = null;
+    }
+
+    const { id, type, result, error } = e.data;
+    if (id === parseId) {
+      if (type === "success") {
+        outputDom.value = result;
+      } else {
+        outputDom.value = error;
+      }
+    }
+  };
+}
+
+spawnWorker();
+
 const editorDom = document.querySelector<HTMLLinkElement>(".editor")!;
 const gridDom = document.querySelector<HTMLDivElement>(".editor-grid")!;
 const inputDom = document.querySelector<HTMLDivElement>(".editor-input")!;
@@ -195,3 +226,33 @@ init().then(() => {
 inputTextDom.addEventListener("input", saveCode);
 myCodeMirror.on("change", saveCode);
 editorInputSelect?.addEventListener("change", saveRule);
+
+window.addEventListener("trigger_worker", () => {
+  if (!loaded || !parserWorker) return;
+  const rule = editorInputSelect?.value;
+  if (!rule || rule === "...") return;
+
+  parseId++;
+  const currentId = parseId;
+
+  if (parseTimeout !== null) {
+    window.clearTimeout(parseTimeout);
+  }
+
+  parseTimeout = window.setTimeout(() => {
+    if (parseId === currentId) {
+      outputDom.value = "Parser timeout";
+      spawnWorker();
+    }
+  }, 1000);
+
+  const grammar = myCodeMirror.getValue();
+  const input = inputTextDom.value;
+
+  parserWorker.postMessage({
+    id: parseId,
+    grammar,
+    rule,
+    input,
+  });
+});
