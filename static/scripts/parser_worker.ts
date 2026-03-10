@@ -3,13 +3,18 @@ import init, { lint, parse } from "../../pkg/pest_site.js";
 let loaded = false;
 let lastGrammar: string | null = null;
 
+let pendingMessage: MessageEvent | null = null;
+
 init().then(() => {
   loaded = true;
+  if (pendingMessage) {
+    const e = pendingMessage;
+    pendingMessage = null;
+    processMessage(e);
+  }
 });
 
-onmessage = (e) => {
-  if (!loaded) return;
-
+function processMessage(e: MessageEvent) {
   const { id, grammar, rule, input } = e.data;
 
   try {
@@ -24,4 +29,13 @@ onmessage = (e) => {
   } catch (err) {
     postMessage({ id, type: "error", error: err.toString() });
   }
+}
+
+onmessage = (e) => {
+  if (!loaded) {
+    pendingMessage = e;
+    return;
+  }
+  processMessage(e);
 };
+
