@@ -285,6 +285,11 @@ fn line_col(pos: usize, input: &str) -> String {
 }
 
 fn add_rules_to_select(mut rules: Vec<&str>) {
+    // safe guard to run in web worker
+    if web_sys::window().is_none() {
+        return;
+    }
+
     let select = element::<HtmlSelectElement>(".editor-input-select");
 
     while let Some(node) = select.first_child() {
@@ -319,6 +324,11 @@ pub fn lint(grammar: JsValue) -> JsValue {
 
 #[wasm_bindgen(start)]
 pub fn start() {
+    // safe guard to run in web worker
+    if web_sys::window().is_none() {
+        return;
+    }
+
     if let Ok(last_selected) = storage().get_item("last-selected-rule") {
         unsafe {
             LAST_SELECTION = last_selected;
