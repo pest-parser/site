@@ -20,7 +20,8 @@ function processMessage(e: MessageEvent) {
   try {
     // This has the side effect of compiling the grammar for the wasm worker.
     if (grammar !== lastGrammar) {
-      lint(grammar);
+      const errors = lint(grammar);
+      if (errors.length > 0) return;
       lastGrammar = grammar;
     }
 
