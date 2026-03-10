@@ -27,15 +27,18 @@ function processMessage(e: MessageEvent) {
     const result = parse(rule, input);
     postMessage({ id, type: "success", result });
   } catch (err) {
-    postMessage({ id, type: "error", error: err.toString() });
+    postMessage({
+      id,
+      type: "error",
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 }
 
-onmessage = (e) => {
+self.addEventListener("message", (e) => {
   if (!loaded) {
     pendingMessage = e;
     return;
   }
   processMessage(e);
-};
-
+});

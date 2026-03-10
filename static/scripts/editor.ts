@@ -21,7 +21,6 @@ function spawnWorker() {
   });
 
   parserWorker.onmessage = (e) => {
-
     const { id, type, result, error } = e.data;
     if (id !== parseId) {
       return;
