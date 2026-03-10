@@ -21,18 +21,21 @@ function spawnWorker() {
   });
 
   parserWorker.onmessage = (e) => {
+
+    const { id, type, result, error } = e.data;
+    if (id !== parseId) {
+      return;
+    }
+
     if (parseTimeout !== null) {
       clearTimeout(parseTimeout);
       parseTimeout = null;
     }
 
-    const { id, type, result, error } = e.data;
-    if (id === parseId) {
-      if (type === "success") {
-        outputDom.value = result;
-      } else {
-        outputDom.value = error;
-      }
+    if (type === "success") {
+      outputDom.value = result;
+    } else {
+      outputDom.value = error;
     }
   };
 }
