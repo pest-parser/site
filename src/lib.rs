@@ -12,7 +12,7 @@ use pest_vm::Vm;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Document, Event, InputEvent, Node};
-use web_sys::{HtmlOptionElement, HtmlSelectElement, HtmlTextAreaElement};
+use web_sys::{HtmlOptionElement, HtmlSelectElement};
 
 static mut NEEDS_RUN: bool = false;
 static mut VM: Option<Vm> = None;
@@ -72,7 +72,7 @@ fn listen_for_input() {
             LAST_SELECTION = selected_option();
         }
 
-        parse_input();
+        trigger_worker();
     });
 
     select
@@ -85,7 +85,7 @@ fn wait_and_run() {
     let win = web_sys::window().expect_throw("no window");
     let func = Closure::<dyn FnOnce()>::once_into_js(|| {
         if unsafe { NEEDS_RUN } {
-            parse_input();
+            trigger_worker();
             unsafe {
                 NEEDS_RUN = false;
             }
@@ -96,22 +96,11 @@ fn wait_and_run() {
         .unwrap_throw();
 }
 
-fn parse_input() {
-    let input = element::<HtmlTextAreaElement>(".editor-input-text");
-    let output = element::<HtmlTextAreaElement>(".editor-output");
-
-    if let Some(rule) = selected_option() {
-        let vm = unsafe { VM.as_ref().expect_throw("no VM") };
-
-        match vm.parse(&rule, &input.value()) {
-            Ok(pairs) => {
-                let lines: Vec<_> = pairs.map(|pair| format_pair(pair, 0, true)).collect();
-                let lines = lines.join("\n");
-
-                output.set_value(lines.as_str());
-            }
-            Err(error) => output.set_value(&format!("{}", error.renamed_rules(|r| r.to_string()))),
-        };
+fn trigger_worker() {
+    if let Some(window) = web_sys::window() {
+        if let Ok(event) = web_sys::CustomEvent::new("trigger_worker") {
+            let _ = window.dispatch_event(&event);
+        }
     }
 }
 
@@ -217,7 +206,7 @@ fn compile_grammar(grammar: &str) -> Vec<HashMap<String, String>> {
 
     add_rules_to_select(ast.iter().map(|rule| rule.name.as_str()).collect());
 
-    parse_input();
+    trigger_worker();
 
     vec![]
 }
@@ -296,6 +285,11 @@ fn line_col(pos: usize, input: &str) -> String {
 }
 
 fn add_rules_to_select(mut rules: Vec<&str>) {
+    // safe guard to run in web worker
+    if web_sys::window().is_none() {
+        return;
+    }
+
     let select = element::<HtmlSelectElement>(".editor-input-select");
 
     while let Some(node) = select.first_child() {
@@ -330,6 +324,11 @@ pub fn lint(grammar: JsValue) -> JsValue {
 
 #[wasm_bindgen(start)]
 pub fn start() {
+    // safe guard to run in web worker
+    if web_sys::window().is_none() {
+        return;
+    }
+
     if let Ok(last_selected) = storage().get_item("last-selected-rule") {
         unsafe {
             LAST_SELECTION = last_selected;
@@ -345,4 +344,17 @@ pub fn format(grammar: JsValue) -> JsValue {
     let fmt = pest_fmt::Formatter::new(&input);
     serde_wasm_bindgen::to_value(&fmt.format().unwrap())
         .expect_throw("could not serialize grammar results")
+}
+
+#[wasm_bindgen]
+pub fn parse(rule: String, input: String) -> String {
+    let vm = unsafe { VM.as_ref().expect_throw("no VM") };
+
+    match vm.parse(&rule, &input) {
+        Ok(pairs) => {
+            let lines: Vec<_> = pairs.map(|pair| format_pair(pair, 0, true)).collect();
+            lines.join("\n")
+        }
+        Err(error) => format!("{}", error.renamed_rules(|r| r.to_string())),
+    }
 }

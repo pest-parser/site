@@ -31,5 +31,6 @@ features = [
   "HtmlCollection",
   "InputEvent",
   "Storage",
+  "CustomEvent",
 ]
 version = "0.3"
