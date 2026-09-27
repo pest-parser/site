@@ -27,7 +27,7 @@ jobs:
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
         with:
-          version: 6.0.2
+          version: 10
       - name: Install packages
         run: pnpm install
       - name: Lint
@@ -73,7 +73,7 @@ jobs:
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
         with:
-          version: 6.0.2
+          version: 10
       - name: Install packages
         run: pnpm install
       - name: Lint
