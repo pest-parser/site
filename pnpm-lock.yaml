@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  base-x: 3.0.11
+
 patchedDependencies:
   '@parcel/transformer-image@2.14.2':
     hash: 0c0a0fe53c8767a0c57d2780ef2281b48d96bff807a7e2df7210b379c6c5adec
@@ -911,8 +914,8 @@ packages:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
 
-  base-x@3.0.9:
-    resolution: {integrity: sha512-H7JU6iBHTal1gp56aKoaa//YUxEaAOUiydvrV/pILqIHXTtqxSkATOnDA2u+jZ/61sD+L/412+7kzXRtWukhpQ==}
+  base-x@3.0.11:
+    resolution: {integrity: sha512-xz7wQ8xDhdyP7tQxwdteLYeFfS68tSMNCZ/Y37WJ4bhGfKPpqEIlmIyueQHqOyoPhE6xNUqjzRr8ra0eF9VRvA==}
 
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
@@ -2052,7 +2055,7 @@ snapshots:
       '@parcel/types': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/utils': 2.14.2
       '@parcel/workers': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
-      base-x: 3.0.9
+      base-x: 3.0.11
       browserslist: 4.21.5
       clone: 2.1.2
       dotenv: 16.4.7
@@ -2840,7 +2843,7 @@ snapshots:
 
   balanced-match@4.0.4: {}
 
-  base-x@3.0.9:
+  base-x@3.0.11:
     dependencies:
       safe-buffer: 5.2.1
 
