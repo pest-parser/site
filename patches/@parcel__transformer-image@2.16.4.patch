@@ -22,7 +22,7 @@ index c2eacfc7d3a02a76dcc2597c0aca9809e17ed49f..5b33159a0ef9992063d8eba9423afd6c
 +    "sharp": "^0.35.4"
    },
    "peerDependencies": {
-     "@parcel/core": "^2.14.2"
+     "@parcel/core": "^2.16.4"
 diff --git a/src/loadSharp.js b/src/loadSharp.js
 index 220bd7a4b8357a8dae164b4f3866859461667d30..792ef83e883a40657e4caf6bc14910f92ed0629d 100644
 --- a/src/loadSharp.js

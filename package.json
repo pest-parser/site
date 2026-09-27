@@ -12,15 +12,15 @@
     "distDir": "dist/book"
   },
   "devDependencies": {
-    "@parcel/config-default": "^2.14.2",
-    "@parcel/transformer-raw": "^2.14.2",
+    "@parcel/config-default": "^2.16.4",
+    "@parcel/transformer-raw": "^2.16.4",
     "@types/codemirror": "v5.60.9",
     "@typescript-eslint/eslint-plugin": "^8.70.1",
     "@typescript-eslint/parser": "^8.70.1",
     "codemirror": "^5.65.15",
     "eslint": "^10.0.0",
     "lz-string": "^1.5.0",
-    "parcel": "^2.14.2",
+    "parcel": "^2.16.4",
     "parcel-reporter-static-files-copy": "^1.5.3",
     "prettier": "3.0.0",
     "sharp": "^0.35.4",
@@ -39,7 +39,7 @@
       "@parcel/transformer-js>browserslist": "4.28.7"
     },
     "patchedDependencies": {
-      "@parcel/transformer-image@2.14.2": "patches/@parcel__transformer-image@2.14.2.patch"
+      "@parcel/transformer-image@2.16.4": "patches/@parcel__transformer-image@2.16.4.patch"
     }
   }
 }
