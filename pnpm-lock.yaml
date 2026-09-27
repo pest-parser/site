@@ -13,6 +13,11 @@ overrides:
   '@parcel/transformer-css>browserslist': 4.28.7
   '@parcel/transformer-js>browserslist': 4.28.7
 
+patchedDependencies:
+  '@parcel/transformer-image@2.16.4':
+    hash: 1be8a6fb62f50f415510869d86fcefad65a79e3a99bca448e0b937a05e28d914
+    path: patches/@parcel__transformer-image@2.16.4.patch
+
 importers:
 
   .:
@@ -1907,7 +1912,7 @@ snapshots:
       '@parcel/transformer-babel': 2.16.4(@parcel/core@2.16.4)
       '@parcel/transformer-css': 2.16.4(@parcel/core@2.16.4)
       '@parcel/transformer-html': 2.16.4(@parcel/core@2.16.4)
-      '@parcel/transformer-image': 2.16.4(@parcel/core@2.16.4)
+      '@parcel/transformer-image': 2.16.4(patch_hash=1be8a6fb62f50f415510869d86fcefad65a79e3a99bca448e0b937a05e28d914)(@parcel/core@2.16.4)
       '@parcel/transformer-js': 2.16.4(@parcel/core@2.16.4)
       '@parcel/transformer-json': 2.16.4(@parcel/core@2.16.4)
       '@parcel/transformer-node': 2.16.4(@parcel/core@2.16.4)
@@ -2372,7 +2377,7 @@ snapshots:
       - '@parcel/core'
       - napi-wasm
 
-  '@parcel/transformer-image@2.16.4(@parcel/core@2.16.4)':
+  '@parcel/transformer-image@2.16.4(patch_hash=1be8a6fb62f50f415510869d86fcefad65a79e3a99bca448e0b937a05e28d914)(@parcel/core@2.16.4)':
     dependencies:
       '@parcel/core': 2.16.4
       '@parcel/plugin': 2.16.4(@parcel/core@2.16.4)

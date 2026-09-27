@@ -37,6 +37,9 @@
       "@parcel/transformer-babel>browserslist": "4.28.7",
       "@parcel/transformer-css>browserslist": "4.28.7",
       "@parcel/transformer-js>browserslist": "4.28.7"
+    },
+    "patchedDependencies": {
+      "@parcel/transformer-image@2.16.4": "patches/@parcel__transformer-image@2.16.4.patch"
     }
   }
 }
