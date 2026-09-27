@@ -2,6 +2,9 @@ name: publish
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 # Allow one concurrent deployment
 concurrency:
   group: pages
