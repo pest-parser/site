@@ -8,9 +8,6 @@ patchedDependencies:
   '@parcel/transformer-image@2.14.2':
     hash: 0c0a0fe53c8767a0c57d2780ef2281b48d96bff807a7e2df7210b379c6c5adec
     path: patches/@parcel__transformer-image@2.14.2.patch
-  lightningcss@1.29.3:
-    hash: b0de9d18d7b8500b6770927e7919b23c7dbd0e5c1f1b01e39fec12c1feec2e6d
-    path: patches/lightningcss@1.29.3.patch
 
 importers:
 
@@ -2193,7 +2190,7 @@ snapshots:
       '@parcel/source-map': 2.1.1
       '@parcel/utils': 2.14.2
       browserslist: 4.21.5
-      lightningcss: 1.29.3(patch_hash=b0de9d18d7b8500b6770927e7919b23c7dbd0e5c1f1b01e39fec12c1feec2e6d)
+      lightningcss: 1.29.3
       nullthrows: 1.1.1
     transitivePeerDependencies:
       - '@parcel/core'
@@ -2286,7 +2283,7 @@ snapshots:
       '@parcel/plugin': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/source-map': 2.1.1
       '@parcel/utils': 2.14.2
-      lightningcss: 1.29.3(patch_hash=b0de9d18d7b8500b6770927e7919b23c7dbd0e5c1f1b01e39fec12c1feec2e6d)
+      lightningcss: 1.29.3
       nullthrows: 1.1.1
     transitivePeerDependencies:
       - '@parcel/core'
@@ -2470,7 +2467,7 @@ snapshots:
       '@parcel/source-map': 2.1.1
       '@parcel/utils': 2.14.2
       browserslist: 4.21.5
-      lightningcss: 1.29.3(patch_hash=b0de9d18d7b8500b6770927e7919b23c7dbd0e5c1f1b01e39fec12c1feec2e6d)
+      lightningcss: 1.29.3
       nullthrows: 1.1.1
     transitivePeerDependencies:
       - '@parcel/core'
@@ -3278,7 +3275,7 @@ snapshots:
   lightningcss-win32-x64-msvc@1.29.3:
     optional: true
 
-  lightningcss@1.29.3(patch_hash=b0de9d18d7b8500b6770927e7919b23c7dbd0e5c1f1b01e39fec12c1feec2e6d):
+  lightningcss@1.29.3:
     dependencies:
       detect-libc: 2.1.2
     optionalDependencies:

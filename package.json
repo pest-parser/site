@@ -30,8 +30,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@parcel/transformer-image@2.14.2": "patches/@parcel__transformer-image@2.14.2.patch",
-      "lightningcss@1.29.3": "patches/lightningcss@1.29.3.patch"
+      "@parcel/transformer-image@2.14.2": "patches/@parcel__transformer-image@2.14.2.patch"
     }
   }
 }
