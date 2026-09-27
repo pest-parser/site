@@ -1,5 +1,4 @@
 const tsEslintPlugin = require("@typescript-eslint/eslint-plugin");
-const tsEslintParser = require("@typescript-eslint/parser");
 
 const browserGlobals = {
   CodeMirror: "readonly",
@@ -30,23 +29,18 @@ module.exports = [
       ".task",
       ".parcel-cache",
       "book",
+      "eslint.config.cjs",
       "pnpm-lock.yaml",
       "static/codemirror",
     ],
   },
+  ...tsEslintPlugin.configs["flat/recommended"],
   {
     files: ["static/scripts/**/*.ts"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
-      parser: tsEslintParser,
       globals: browserGlobals,
-    },
-    plugins: {
-      "@typescript-eslint": tsEslintPlugin,
-    },
-    rules: {
-      ...tsEslintPlugin.configs.recommended.rules,
     },
   },
 ];
