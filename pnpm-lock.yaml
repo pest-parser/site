@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@parcel/transformer-image@2.14.2':
+    hash: 0c0a0fe53c8767a0c57d2780ef2281b48d96bff807a7e2df7210b379c6c5adec
+    path: patches/@parcel__transformer-image@2.14.2.patch
+
 importers:
 
   .:
@@ -2090,7 +2095,7 @@ snapshots:
       '@parcel/transformer-babel': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/transformer-css': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/transformer-html': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
-      '@parcel/transformer-image': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
+      '@parcel/transformer-image': 2.14.2(patch_hash=0c0a0fe53c8767a0c57d2780ef2281b48d96bff807a7e2df7210b379c6c5adec)(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/transformer-js': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/transformer-json': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/transformer-node': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
@@ -2547,7 +2552,7 @@ snapshots:
       - '@parcel/core'
       - napi-wasm
 
-  '@parcel/transformer-image@2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))':
+  '@parcel/transformer-image@2.14.2(patch_hash=0c0a0fe53c8767a0c57d2780ef2281b48d96bff807a7e2df7210b379c6c5adec)(@parcel/core@2.14.2(@swc/helpers@0.5.1))':
     dependencies:
       '@parcel/core': 2.14.2(@swc/helpers@0.5.1)
       '@parcel/plugin': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
