@@ -31,6 +31,7 @@
   "pnpm": {
     "overrides": {
       "base-x": "3.0.11",
+      "micromatch>picomatch": "2.3.2",
       "browserslist": "4.28.7",
       "@parcel/core>browserslist": "4.28.7",
       "@parcel/optimizer-css>browserslist": "4.28.7",
