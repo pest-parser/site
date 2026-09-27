@@ -1,8 +1,0 @@
-target
-pkg
-dist
-.task
-.parcel-cache
-book
-pnpm-lock.yaml
-static/codemirror
