@@ -15,7 +15,7 @@ importers:
     devDependencies:
       '@parcel/config-default':
         specifier: ^2.14.2
-        version: 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(@swc/helpers@0.5.1)(srcset@4.0.0)(svgo@2.8.2)
+        version: 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(@swc/helpers@0.5.1)(srcset@4.0.0)(svgo@2.8.4)
       '@parcel/transformer-raw':
         specifier: ^2.14.2
         version: 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
@@ -39,7 +39,7 @@ importers:
         version: 1.5.0
       parcel:
         specifier: ^2.14.2
-        version: 2.14.2(@swc/helpers@0.5.1)(srcset@4.0.0)(svgo@2.8.2)
+        version: 2.14.2(@swc/helpers@0.5.1)(srcset@4.0.0)(svgo@2.8.4)
       parcel-reporter-static-files-copy:
         specifier: ^1.5.3
         version: 1.5.3(@parcel/core@2.14.2(@swc/helpers@0.5.1))
@@ -53,8 +53,8 @@ importers:
         specifier: ^1.6.5
         version: 1.6.5
       svgo:
-        specifier: ^2.8.2
-        version: 2.8.2
+        specifier: ^2.8.4
+        version: 2.8.4
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -1640,8 +1640,8 @@ packages:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
 
-  svgo@2.8.2:
-    resolution: {integrity: sha512-TyzE4NVGLUFy+H/Uy4N6c3G0HEeprsVfge6Lmq+0FdQQ/zqoVYB62IsBZORsiL+o96s6ff/V6/3UQo/C0cgCAA==}
+  svgo@2.8.4:
+    resolution: {integrity: sha512-2GJ4h3rl13qYTdwllaK6QlL8tG+UrM8626V2Ylcd/yBUv2Y/EwLsYisVV6UDCRmlk+C74G8nMpxJCk0RWPdDCw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
 
@@ -2004,14 +2004,14 @@ snapshots:
       - '@parcel/core'
       - napi-wasm
 
-  '@parcel/config-default@2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(@swc/helpers@0.5.1)(srcset@4.0.0)(svgo@2.8.2)':
+  '@parcel/config-default@2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(@swc/helpers@0.5.1)(srcset@4.0.0)(svgo@2.8.4)':
     dependencies:
       '@parcel/bundler-default': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/compressor-raw': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/core': 2.14.2(@swc/helpers@0.5.1)
       '@parcel/namer-default': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/optimizer-css': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
-      '@parcel/optimizer-htmlnano': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(srcset@4.0.0)(svgo@2.8.2)
+      '@parcel/optimizer-htmlnano': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(srcset@4.0.0)(svgo@2.8.4)
       '@parcel/optimizer-image': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/optimizer-svgo': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/optimizer-swc': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(@swc/helpers@0.5.1)
@@ -2196,12 +2196,12 @@ snapshots:
       - '@parcel/core'
       - napi-wasm
 
-  '@parcel/optimizer-htmlnano@2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(srcset@4.0.0)(svgo@2.8.2)':
+  '@parcel/optimizer-htmlnano@2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(srcset@4.0.0)(svgo@2.8.4)':
     dependencies:
       '@parcel/diagnostic': 2.14.2
       '@parcel/plugin': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))
       '@parcel/utils': 2.14.2
-      htmlnano: 2.0.3(srcset@4.0.0)(svgo@2.8.2)
+      htmlnano: 2.0.3(srcset@4.0.0)(svgo@2.8.4)
       nullthrows: 1.1.1
       posthtml: 0.16.6
     transitivePeerDependencies:
@@ -3171,14 +3171,14 @@ snapshots:
 
   has-flag@4.0.0: {}
 
-  htmlnano@2.0.3(srcset@4.0.0)(svgo@2.8.2):
+  htmlnano@2.0.3(srcset@4.0.0)(svgo@2.8.4):
     dependencies:
       cosmiconfig: 7.1.0
       posthtml: 0.16.6
       timsort: 0.3.0
     optionalDependencies:
       srcset: 4.0.0
-      svgo: 2.8.2
+      svgo: 2.8.4
 
   htmlparser2@7.2.0:
     dependencies:
@@ -3429,9 +3429,9 @@ snapshots:
     transitivePeerDependencies:
       - '@parcel/core'
 
-  parcel@2.14.2(@swc/helpers@0.5.1)(srcset@4.0.0)(svgo@2.8.2):
+  parcel@2.14.2(@swc/helpers@0.5.1)(srcset@4.0.0)(svgo@2.8.4):
     dependencies:
-      '@parcel/config-default': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(@swc/helpers@0.5.1)(srcset@4.0.0)(svgo@2.8.2)
+      '@parcel/config-default': 2.14.2(@parcel/core@2.14.2(@swc/helpers@0.5.1))(@swc/helpers@0.5.1)(srcset@4.0.0)(svgo@2.8.4)
       '@parcel/core': 2.14.2(@swc/helpers@0.5.1)
       '@parcel/diagnostic': 2.14.2
       '@parcel/events': 2.14.2
@@ -3598,7 +3598,7 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  svgo@2.8.2:
+  svgo@2.8.4:
     dependencies:
       commander: 7.2.0
       css-select: 4.3.0
