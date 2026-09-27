@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  base-x: 3.0.11
-
 patchedDependencies:
   '@parcel/transformer-image@2.14.2':
     hash: 0c0a0fe53c8767a0c57d2780ef2281b48d96bff807a7e2df7210b379c6c5adec
