@@ -64,7 +64,7 @@ jobs:
         run: |
           curl -fsSL -o /tmp/task.tar.gz "https://github.com/go-task/task/releases/download/${TASK_VERSION}/task_linux_amd64.tar.gz"
           echo "${TASK_SHA256}  /tmp/task.tar.gz" | sha256sum -c -
-          tar -xzf /tmp/task.tar.gz -C "$HOME/.local/bin"
+          tar -xzf /tmp/task.tar.gz -C "$HOME/.local/bin" task
       - name: Run Build
         run: task
   gh-release:
@@ -117,7 +117,7 @@ jobs:
         run: |
           curl -fsSL -o /tmp/task.tar.gz "https://github.com/go-task/task/releases/download/${TASK_VERSION}/task_linux_amd64.tar.gz"
           echo "${TASK_SHA256}  /tmp/task.tar.gz" | sha256sum -c -
-          tar -xzf /tmp/task.tar.gz -C "$HOME/.local/bin"
+          tar -xzf /tmp/task.tar.gz -C "$HOME/.local/bin" task
       - name: Run Build
         run: task
       - name: Setup Pages
