@@ -30,7 +30,13 @@
   },
   "pnpm": {
     "overrides": {
-      "base-x": "3.0.11"
+      "base-x": "3.0.11",
+      "browserslist": "4.28.7",
+      "@parcel/core>browserslist": "4.28.7",
+      "@parcel/optimizer-css>browserslist": "4.28.7",
+      "@parcel/transformer-babel>browserslist": "4.28.7",
+      "@parcel/transformer-css>browserslist": "4.28.7",
+      "@parcel/transformer-js>browserslist": "4.28.7"
     },
     "patchedDependencies": {
       "@parcel/transformer-image@2.14.2": "patches/@parcel__transformer-image@2.14.2.patch"

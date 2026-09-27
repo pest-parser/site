@@ -7,11 +7,19 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  MDBOOK_VERSION: v0.5.4
+  MDBOOK_SHA256: 3f28de05dafca9d0f2eab99c662116b0e37b89b1d96a08f8f430b9eeae958cd7
+  WASM_PACK_VERSION: v0.15.0
+  WASM_PACK_SHA256: c09f971ecaed9a2efc80fdcea7a00ef6b53c7fadc8c57d1f61b53a6aa66b668a
+  TASK_VERSION: v3.53.1
+  TASK_SHA256: a54a408f6861ff921f6e87774180db31bacd8c1e7c944ca696db9fea49a82fc7
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
@@ -21,15 +29,15 @@ jobs:
     if: github.event_name != 'push' || github.ref != 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           submodules: recursive
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22.13.0
       - name: Setup PNPM
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 10
       - name: Install packages
@@ -38,18 +46,25 @@ jobs:
         run: pnpm run lint
       - name: Check format
         run: pnpm run format:check
+      - name: Prepare local tool directory
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Setup mdBook
-        uses: peaceiris/actions-mdbook@v1
-        with:
-          mdbook-version: latest
+        run: |
+          curl -fsSL -o /tmp/mdbook.tar.gz "https://github.com/rust-lang/mdBook/releases/download/${MDBOOK_VERSION}/mdbook-${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+          echo "${MDBOOK_SHA256}  /tmp/mdbook.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/mdbook.tar.gz -C "$HOME/.local/bin" mdbook
       - name: Setup wasm-pack
-        uses: jetli/wasm-pack-action@v0.4.0
-        with:
-          version: latest
+        run: |
+          curl -fsSL -o /tmp/wasm-pack.tar.gz "https://github.com/wasm-bindgen/wasm-pack/releases/download/${WASM_PACK_VERSION}/wasm-pack-${WASM_PACK_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+          echo "${WASM_PACK_SHA256}  /tmp/wasm-pack.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/wasm-pack.tar.gz -C "$HOME/.local/bin" --strip-components=1 "wasm-pack-${WASM_PACK_VERSION}-x86_64-unknown-linux-musl/wasm-pack"
       - name: Install Task
-        uses: arduino/setup-task@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -fsSL -o /tmp/task.tar.gz "https://github.com/go-task/task/releases/download/${TASK_VERSION}/task_linux_amd64.tar.gz"
+          echo "${TASK_SHA256}  /tmp/task.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/task.tar.gz -C "$HOME/.local/bin" task
       - name: Run Build
         run: task
   gh-release:
@@ -67,19 +82,24 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           submodules: recursive
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22.13.0
+      - name: Prepare local tool directory
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Setup mdBook
-        uses: peaceiris/actions-mdbook@v1
-        with:
-          mdbook-version: latest
+        run: |
+          curl -fsSL -o /tmp/mdbook.tar.gz "https://github.com/rust-lang/mdBook/releases/download/${MDBOOK_VERSION}/mdbook-${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+          echo "${MDBOOK_SHA256}  /tmp/mdbook.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/mdbook.tar.gz -C "$HOME/.local/bin" mdbook
       - name: Setup PNPM
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 10
       - name: Install packages
@@ -89,13 +109,15 @@ jobs:
       - name: Check format
         run: pnpm run format:check
       - name: Setup wasm-pack
-        uses: jetli/wasm-pack-action@v0.4.0
-        with:
-          version: latest
+        run: |
+          curl -fsSL -o /tmp/wasm-pack.tar.gz "https://github.com/wasm-bindgen/wasm-pack/releases/download/${WASM_PACK_VERSION}/wasm-pack-${WASM_PACK_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+          echo "${WASM_PACK_SHA256}  /tmp/wasm-pack.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/wasm-pack.tar.gz -C "$HOME/.local/bin" --strip-components=1 "wasm-pack-${WASM_PACK_VERSION}-x86_64-unknown-linux-musl/wasm-pack"
       - name: Install Task
-        uses: arduino/setup-task@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -fsSL -o /tmp/task.tar.gz "https://github.com/go-task/task/releases/download/${TASK_VERSION}/task_linux_amd64.tar.gz"
+          echo "${TASK_SHA256}  /tmp/task.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/task.tar.gz -C "$HOME/.local/bin" task
       - name: Run Build
         run: task
       - name: Setup Pages
