@@ -24,8 +24,13 @@
     "parcel-reporter-static-files-copy": "^1.5.3",
     "prettier": "3.0.0",
     "sharp": "^0.35.4",
-    "svgo": "^2.8.2",
     "split.js": "^1.6.5",
+    "svgo": "^2.8.2",
     "typescript": "^5.2.2"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@parcel/transformer-image@2.14.2": "patches/@parcel__transformer-image@2.14.2.patch"
+    }
   }
 }
