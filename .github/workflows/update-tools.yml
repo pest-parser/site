@@ -1,0 +1,57 @@
+name: Update CI tools
+
+on:
+  schedule:
+    - cron: "23 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-ci-tools
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22.13.0
+      - name: Test updater
+        run: node --test .github/scripts/update-tools.test.mjs
+      - name: Check latest releases
+        id: updates
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node .github/scripts/update-tools.mjs
+      - name: Create repository-scoped token
+        if: steps.updates.outputs.changed == 'true'
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.TOOL_UPDATES_APP_CLIENT_ID }}
+          private-key: ${{ secrets.TOOL_UPDATES_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-workflows: write
+      - name: Open or refresh update PR
+        if: steps.updates.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          base: ${{ github.event.repository.default_branch }}
+          branch: automation/update-ci-tools
+          add-paths: .github/workflows/publish.yml
+          commit-message: "chore: update CI tool versions and checksums"
+          title: "chore: update CI tools"
+          body-path: ${{ runner.temp }}/ci-tool-updates.txt
