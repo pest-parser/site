@@ -43,6 +43,8 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
+      - name: Test CI tool updater
+        run: node --test .github/scripts/update-tools.test.mjs
       - name: Install packages
         run: pnpm install
       - name: Lint
